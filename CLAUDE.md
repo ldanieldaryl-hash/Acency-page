@@ -32,7 +32,7 @@ Los tres archivos son largos (≈1000, 1340 y 1150 líneas). Busca la sección c
 
 ## 3. Lo importante del proyecto
 
-- **Enlace de Google Play:** constante `PLAY_URL` al inicio de `js/main.js` (hoy es una búsqueda, `store/search?q=Acency`). Cuando exista la ficha oficial, cámbiala ahí **y** en los `href` con `data-play` del HTML (respaldo sin JS). El QR de la sección Descargar se genera solo desde `PLAY_URL`.
+- **Enlace de Google Play:** ficha oficial `https://play.google.com/store/apps/details?id=com.servicios.acency`. Vive en la constante `PLAY_URL` al inicio de `js/main.js`, en los `href` con `data-play` del HTML (respaldo sin JS) y en `url`/`installUrl` del JSON-LD `MobileApplication`. Si cambia, actualiza los tres. El QR de la sección Descargar se genera solo desde `PLAY_URL`.
 - **Identidad visual (no la cambies):** `--ink #0a0a0a`, `--mint #1aecd1`, `--mint-deep #0b7a6d`, `--paper #efefee`, `--white`. Tipos: *Plus Jakarta Sans* (texto/títulos) y *DM Mono* (etiquetas). Capítulos alternos tinta / papel / menta. Un solo tema claro (es intencional).
 - **Preferencia del dueño:** "no cambies lo que ya está, mejóralo". Agrega, no reemplaces. Los estilos nuevos van debajo de `AGREGADOS`.
 - **Datos de ejemplo:** la demo y el bento usan nombres y precios de ejemplo, marcados como "Simulación · datos de ejemplo". No inventes cifras reales (usuarios, servicios hechos, calificación promedio) ni testimonios presentados como reales.

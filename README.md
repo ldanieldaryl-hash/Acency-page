@@ -1,6 +1,6 @@
 # Acency · página web
 
-Landing de [Acency](https://play.google.com/store/search?q=Acency&c=apps), la app mexicana que conecta hogares con especialistas verificados: plomería, electricidad, impermeabilización, pintura, jardinería, gas, mudanzas y más.
+Landing de [Acency](https://play.google.com/store/apps/details?id=com.servicios.acency), la app mexicana que conecta hogares con especialistas verificados: plomería, electricidad, impermeabilización, pintura, jardinería, gas, mudanzas y más.
 
 Sitio estático, sin build ni dependencias.
 

@@ -5,7 +5,7 @@
 (function () {
   'use strict';
   /* Cambia este enlace por el de la ficha oficial de Acency en Google Play */
-  var PLAY_URL = 'https://play.google.com/store/search?q=Acency&c=apps';
+  var PLAY_URL = 'https://play.google.com/store/apps/details?id=com.servicios.acency';
   document.querySelectorAll('[data-play]').forEach(function (a) { a.href = PLAY_URL; });
 
   var root = document.documentElement;
