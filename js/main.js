@@ -4,9 +4,37 @@
    QR, documentos legales, compartir y detalles de movimiento. */
 (function () {
   'use strict';
-  /* Cambia este enlace por el de la ficha oficial de Acency en Google Play */
-  var PLAY_URL = 'https://play.google.com/store/apps/details?id=com.servicios.acency';
+
+  /* =====================================================================
+     CONFIG CENTRAL · edita solo esto para cambiar enlaces y fechas.
+     - PLAY_URL: ficha oficial en Google Play (va en botones, QR y JSON-LD).
+     - Redes: canal de WhatsApp y perfiles. Se aplican a los [data-link].
+     - LAUNCH_DATE: '' = sin cuenta regresiva. O una fecha real tipo
+       '2026-12-01T09:00:00' (hora de México) para mostrar el contador.
+     - FORM_ENDPOINT: '' = la lista de acceso anticipado guarda en el
+       navegador y sugiere el canal de WhatsApp. Pon aquí la URL de tu
+       Google Apps Script (ver README) para recibir los registros por correo.
+     ===================================================================== */
+  var ACENCY = {
+    PLAY_URL: 'https://play.google.com/store/apps/details?id=com.servicios.acency',
+    WHATSAPP_CHANNEL: 'https://whatsapp.com/channel/0029VbE9G6J9MF91uqs7NX2t',
+    INSTAGRAM: 'https://www.instagram.com/acency_mx',
+    TIKTOK: 'https://www.tiktok.com/@acency0',
+    FACEBOOK: 'https://www.facebook.com/share/1DomhKjQq3/',
+    LAUNCH_DATE: '',
+    FORM_ENDPOINT: ''
+  };
+  window.ACENCY = ACENCY;
+
+  var PLAY_URL = ACENCY.PLAY_URL;
   document.querySelectorAll('[data-play]').forEach(function (a) { a.href = PLAY_URL; });
+
+  /* Enlaces de redes y comunidad desde la config */
+  var LINKS = { whatsapp: ACENCY.WHATSAPP_CHANNEL, instagram: ACENCY.INSTAGRAM, tiktok: ACENCY.TIKTOK, facebook: ACENCY.FACEBOOK };
+  document.querySelectorAll('[data-link]').forEach(function (a) {
+    var url = LINKS[a.getAttribute('data-link')];
+    if (url) a.href = url;
+  });
 
   var root = document.documentElement;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -198,14 +226,8 @@
     try { navigator.clipboard.writeText(text).then(ok, fail); } catch (e) { fail(); }
   }
 
-  /* ---------- Copiar código de ejemplo ---------- */
-  var copyBtn = document.getElementById('copyBtn'), code = document.getElementById('refCode');
-  copyBtn.addEventListener('click', function () {
-    var label = copyBtn.querySelector('span');
-    function ok() { copyBtn.classList.add('done'); label.textContent = 'Copiado'; toast('Código copiado. El tuyo lo recibes al registrarte en la app.'); setTimeout(function () { copyBtn.classList.remove('done'); label.textContent = 'Copiar'; }, 1800); }
-    function fallback() { var sel = window.getSelection(), rg = document.createRange(); rg.selectNodeContents(code); sel.removeAllRanges(); sel.addRange(rg); label.textContent = 'Seleccionado'; }
-    copyText(code.textContent, ok, fallback);
-  });
+  /* ---------- Código de ejemplo (ya no se copia: lleva a Google Play) ---------- */
+  var code = document.getElementById('refCode');
 
   /* =====================================================================
      AGREGADOS
@@ -574,7 +596,8 @@
         '<span class="o-stars"><span class="gold">' + stars(o.p.rating) + '</span> ' + o.p.rating.toFixed(1) + ' · ' + o.p.reviews + ' reseñas</span>' +
         '<span class="o-tags"><em>Garantía ' + o.p.days + ' días</em><em>' + o.when + '</em></span></span>' +
         '<span class="o-price">$' + money(o.price) + '<small>MXN</small></span>' +
-        '<span class="o-more">' + o.p.review + '</span></button>';
+        '<span class="o-more">' + o.p.review + '</span>' +
+        '<span class="o-open">Ver perfil y reseñas <svg class="ico"><use href="#i-arrow"/></svg></span></button>';
       li.addEventListener('animationend', function () { li.classList.add('settled'); }, { once: true });
       return li;
     }
@@ -816,6 +839,10 @@
     $('#offers').addEventListener('click', function (e) {
       var li = e.target.closest('.offer'); if (!li) return;
       st.picked = li.getAttribute('data-id'); renderOffers();
+      if (e.target.closest('.o-open') && e.isTrusted) {
+        var o = picked();
+        if (o && typeof openProfile === 'function') openProfile(o.p.id, o.price);
+      }
     });
     $('#acceptBtn').addEventListener('click', function () {
       if (!st.picked) return;
@@ -1142,6 +1169,213 @@
   /* ---------- Título de la pestaña cuando te vas ---------- */
   var baseTitle = document.title;
   document.addEventListener('visibilitychange', function () { document.title = document.hidden ? 'Te esperamos · Acency' : baseTitle; });
+
+  /* ---------- Comparador: por tu cuenta vs Acency ---------- */
+  (function () {
+    var stage = $('#compareStage'); if (!stage) return;
+    var sw = $('.compare-switch'), oldB = $('#cmpOld'), newB = $('#cmpNew');
+    function set(mode) {
+      var isOld = mode === 'old';
+      stage.setAttribute('data-mode', mode);
+      sw.classList.toggle('is-old', isOld);
+      oldB.setAttribute('aria-selected', String(isOld));
+      newB.setAttribute('aria-selected', String(!isOld));
+    }
+    oldB.addEventListener('click', function () { set('old'); });
+    newB.addEventListener('click', function () { set('new'); });
+  })();
+
+  /* ---------- Calculadora de esfuerzo (con los números del visitante) ---------- */
+  (function () {
+    var pros = $('#efPros'); if (!pros) return;
+    var min = $('#efMin'), days = $('#efDays');
+    var pv = $('#efProsVal'), mv = $('#efMinVal'), dv = $('#efDaysVal');
+    var total = $('#efTotal'), wait = $('#efWait'), bar = $('#efBar');
+    function fmtDur(mins) {
+      if (mins < 60) return mins + ' min';
+      var h = Math.floor(mins / 60), m = mins % 60;
+      return h + ' h' + (m ? ' ' + m : '');
+    }
+    function setFill(input) {
+      var pct = (input.value - input.min) / (input.max - input.min) * 100;
+      input.style.setProperty('--v', pct.toFixed(1) + '%');
+    }
+    function upd() {
+      var p = +pros.value, m = +min.value, d = +days.value, mins = p * m;
+      pv.textContent = p;
+      mv.textContent = m + ' min';
+      dv.textContent = d === 0 ? 'el mismo día' : d + (d === 1 ? ' día' : ' días');
+      total.textContent = fmtDur(mins);
+      wait.textContent = 'solo en contactar y preguntar' + (d > 0 ? ', y hasta ' + d + (d === 1 ? ' día' : ' días') + ' esperando respuestas.' : '.');
+      bar.style.setProperty('--w', clamp(mins / 360 * 100, 8, 100).toFixed(0) + '%');
+      [pros, min, days].forEach(setFill);
+    }
+    [pros, min, days].forEach(function (i) { i.addEventListener('input', upd); });
+    upd();
+  })();
+
+  /* ---------- Cuenta regresiva (solo si hay fecha en la config) ---------- */
+  (function () {
+    var box = $('#countdown'); if (!box || !ACENCY.LAUNCH_DATE) return;
+    var target = new Date(ACENCY.LAUNCH_DATE);
+    if (isNaN(target.getTime())) return;
+    var d = $('#cdD'), h = $('#cdH'), m = $('#cdM'), s = $('#cdS');
+    function pad(n) { return (n < 10 ? '0' : '') + n; }
+    function tick() {
+      var diff = target.getTime() - Date.now();
+      if (diff <= 0) { box.hidden = true; return; }
+      var sec = Math.floor(diff / 1000);
+      d.textContent = pad(Math.floor(sec / 86400));
+      h.textContent = pad(Math.floor(sec / 3600) % 24);
+      m.textContent = pad(Math.floor(sec / 60) % 60);
+      s.textContent = pad(sec % 60);
+    }
+    box.hidden = false; tick(); setInterval(tick, 1000);
+  })();
+
+  /* ---------- Lista de acceso anticipado ---------- */
+  (function () {
+    var form = $('#signupForm'); if (!form) return;
+    var seg = $('#signupSeg'), role = 'cliente', msg = $('#signupMsg');
+    var name = $('#suName'), email = $('#suEmail'), consent = $('#suConsent');
+    seg.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      role = b.getAttribute('data-role');
+      $$('#signupSeg button').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+    });
+    function show(kind, text) { msg.hidden = false; msg.className = 'signup-msg ' + kind; msg.textContent = text; }
+    function valid() {
+      var ok = true;
+      [name, email].forEach(function (i) {
+        var bad = !i.value.trim() || (i.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(i.value));
+        i.setAttribute('aria-invalid', String(bad)); if (bad) ok = false;
+      });
+      if (!consent.checked) ok = false;
+      return ok;
+    }
+    [name, email].forEach(function (i) { i.addEventListener('input', function () { i.setAttribute('aria-invalid', 'false'); }); });
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!valid()) { show('err', 'Revisa tu nombre, un correo válido y la casilla de consentimiento.'); return; }
+      var data = { name: name.value.trim(), email: email.value.trim(), role: role, source: 'landing', ts: new Date().toISOString() };
+      function done() {
+        show('ok', '¡Listo! Te avisaremos a ' + data.email + '. Para novedades al instante, únete a nuestro canal de WhatsApp.');
+        try { burstFrom(form.querySelector('.signup-send'), 70); } catch (err) {}
+        form.reset();
+        $$('#signupSeg button').forEach(function (x, i) { x.setAttribute('aria-pressed', String(i === 0)); });
+        role = 'cliente';
+      }
+      try { var k = 'acency-signups', arr = JSON.parse(localStorage.getItem(k) || '[]'); arr.push(data); localStorage.setItem(k, JSON.stringify(arr)); } catch (err) {}
+      if (ACENCY.FORM_ENDPOINT) {
+        fetch(ACENCY.FORM_ENDPOINT, { method: 'POST', mode: 'no-cors', body: new URLSearchParams(data) }).then(done, done);
+      } else done();
+    });
+  })();
+
+  /* ---------- Perfil del especialista (simulación, con reseñas) ---------- */
+  var PROFILES = {
+    dg: { name: 'Daniel García', ini: 'DG', v: '', rating: 4.6, reviews: 128, years: 6, bio: 'Plomero y multioficios con base en tu zona. Puntual, ordenado y claro con lo que incluye cada trabajo.', oficios: ['Plomería', 'Drenaje', 'Gas'] },
+    mt: { name: 'Miguel Torres', ini: 'MT', v: 'v2', rating: 4.8, reviews: 86, years: 9, bio: 'Electricista con años de oficio. Diagnostica antes de cobrar y deja todo etiquetado y seguro.', oficios: ['Electricidad', 'Instalaciones'] },
+    cm: { name: 'Carlos Mendoza', ini: 'CM', v: 'v3', rating: 4.5, reviews: 203, years: 12, bio: 'Albañilería y acabados. Obra chica, resanes y remodelaciones, siempre con garantía por escrito.', oficios: ['Albañilería', 'Pintura', 'Impermeabilización'] },
+    ls: { name: 'Laura Sánchez', ini: 'LS', v: 'v4', rating: 4.9, reviews: 54, years: 4, bio: 'Jardinería y mantenimiento. Cuidadosa con las plantas y deja el área impecable al terminar.', oficios: ['Jardinería', 'Limpieza'] }
+  };
+  var REVIEWS = [
+    { author: 'Carlos R.', ini: 'CR', stars: 5, ago: 'hace 2 meses', text: 'Llegó puntual y dejó todo impecable. Lo recomiendo.' },
+    { author: 'Laura M.', ini: 'LM', stars: 5, ago: 'hace 3 meses', text: 'Resolvió el problema en media hora, muy profesional.' },
+    { author: 'Diana P.', ini: 'DP', stars: 4, ago: 'hace 5 meses', text: 'Buen trabajo, aunque llegó 15 min tarde.' },
+    { author: 'José L.', ini: 'JL', stars: 5, ago: 'hace 6 meses', text: '' },
+    { author: 'Marcela T.', ini: 'MA', stars: 5, ago: 'hace 7 meses', text: 'Explicó cada paso y respetó el precio que acordamos.' },
+    { author: 'Rubén A.', ini: 'RU', stars: 3, ago: 'hace 8 meses', text: 'Cumplió con el trabajo, aunque tuve que recordarle un detalle.' }
+  ];
+  var PROMOS = [
+    { title: '10% en tu primer servicio', sub: 'Para clientes nuevos, al contratar desde la app.' },
+    { title: 'Revisión sin costo', sub: 'Diagnóstico gratis si contratas el arreglo.' }
+  ];
+  var proModal = $('#proModal');
+  function pStars(r) { var f = Math.round(r); return '★★★★★'.slice(0, f) + '☆☆☆☆☆'.slice(0, 5 - f); }
+  function starDist(total) {
+    var d = { 5: Math.round(total * 0.80), 4: Math.round(total * 0.13), 3: Math.round(total * 0.05), 2: Math.round(total * 0.015), 1: Math.round(total * 0.005) };
+    var sum = d[4] + d[3] + d[2] + d[1]; d[5] = Math.max(0, total - sum);
+    return d;
+  }
+  var proFilter = 'all';
+  function renderProReviews() {
+    var ul = $('#proReviewList'); ul.innerHTML = '';
+    var shown = 0;
+    REVIEWS.forEach(function (r) {
+      if (proFilter !== 'all' && r.stars !== +proFilter) return;
+      shown++;
+      var li = document.createElement('li'); li.className = 'pro-review';
+      li.innerHTML = '<span class="pro-rv-av">' + r.ini + '</span><div>' +
+        '<span class="pro-rv-top"><b>' + r.author + '</b><time>' + r.ago + '</time></span>' +
+        '<span class="pro-rv-stars">' + '★★★★★'.slice(0, r.stars) + '</span>' +
+        (r.text ? '<p>' + r.text + '</p>' : '<p style="color:var(--fg-3)">Sin comentario · solo estrellas</p>') +
+        '</div>';
+      ul.appendChild(li);
+    });
+    if (!shown) { var li = document.createElement('li'); li.className = 'pro-empty-note'; li.textContent = 'No hay reseñas de ejemplo con esa calificación.'; ul.appendChild(li); }
+  }
+  function buildProFilters(dist, total) {
+    var box = $('#proFilters'); box.innerHTML = '';
+    var defs = [['all', 'Todas', total], ['5', '5★', dist[5]], ['4', '4★', dist[4]], ['3', '3★', dist[3]]];
+    defs.forEach(function (d) {
+      var b = document.createElement('button'); b.type = 'button';
+      b.setAttribute('data-star', d[0]);
+      b.setAttribute('aria-pressed', String(d[0] === proFilter));
+      b.textContent = d[1] + ' ' + d[2];
+      box.appendChild(b);
+    });
+  }
+  function setProTab(name) {
+    $$('#proModal .pro-tabs button').forEach(function (b) { b.setAttribute('aria-selected', String(b.getAttribute('data-tab') === name)); });
+    $$('#proModal .pro-panel').forEach(function (p) { p.hidden = p.getAttribute('data-panel') !== name; });
+  }
+  function openProModal() {
+    if (!proModal) return;
+    if (typeof proModal.showModal === 'function') { if (!proModal.open) proModal.showModal(); }
+    else proModal.setAttribute('open', '');
+  }
+  function closeProModal() { if (!proModal) return; if (typeof proModal.close === 'function' && proModal.open) proModal.close(); else proModal.removeAttribute('open'); }
+  function openProfile(id, price) {
+    if (!proModal) return;
+    var p = PROFILES[id] || PROFILES.dg;
+    $('#proAv').textContent = p.ini; $('#proAv').className = 'pro-av ' + p.v;
+    $('#proName').textContent = p.name;
+    $('#proStars').textContent = pStars(p.rating);
+    $('#proRating').textContent = p.rating.toFixed(1);
+    $('#proReviews').textContent = p.reviews;
+    $('#proBio').textContent = p.bio + ' ' + p.years + ' años de experiencia.';
+    var chips = $('#proChips'); chips.innerHTML = '';
+    p.oficios.forEach(function (o) { var s = document.createElement('span'); s.textContent = o; chips.appendChild(s); });
+    $('#proTotal').innerHTML = '$' + money(price || 0) + ' <span>MXN</span>';
+    var dist = starDist(p.reviews);
+    proFilter = 'all';
+    buildProFilters(dist, p.reviews);
+    renderProReviews();
+    var pl = $('#proPromoList'); pl.innerHTML = '';
+    PROMOS.forEach(function (pr) { var li = document.createElement('li'); li.className = 'pro-promo'; li.innerHTML = '<svg class="ico"><use href="#i-tag"/></svg><div><b>' + pr.title + '</b><small>' + pr.sub + '</small></div>'; pl.appendChild(li); });
+    var pj = $('#proProjects'); if (!pj.children.length) for (var i = 0; i < 6; i++) pj.appendChild(document.createElement('span'));
+    setProTab('resenas');
+    $('#proResenas').scrollTop = 0;
+    openProModal();
+  }
+  if (proModal) {
+    $$('#proModal [data-pro-close]').forEach(function (b) { b.addEventListener('click', closeProModal); });
+    proModal.addEventListener('click', function (e) { if (e.target === proModal) closeProModal(); });
+    $('#proModal .pro-tabs').addEventListener('click', function (e) { var b = e.target.closest('button'); if (b) setProTab(b.getAttribute('data-tab')); });
+    $('#proFilters').addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      proFilter = b.getAttribute('data-star');
+      $$('#proFilters button').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+      renderProReviews();
+    });
+    $('#proHire').addEventListener('click', function () {
+      closeProModal();
+      var ab = document.getElementById('acceptBtn');
+      if (ab && !ab.disabled) ab.click();
+      else toast('Elige esta oferta y pulsa "Aceptar" para continuar la demo.');
+    });
+  }
 
   var resizeT;
   window.addEventListener('resize', function () { clearTimeout(resizeT); resizeT = setTimeout(function () { if (!reduce) fillTicker(); onScroll(); }, 200); });
