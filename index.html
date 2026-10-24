@@ -1,0 +1,997 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Acency</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Acency: todos los servicios del hogar a un click. Plomero, electricista, impermeabilización, jardinería, gas, mudanzas y más a domicilio, cerca de ti. Recibe cotizaciones de especialistas verificados. Descarga la app en Google Play.">
+<meta name="theme-color" content="#0a0a0a">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_MX">
+<meta property="og:site_name" content="Acency">
+<meta property="og:title" content="Acency · Todos los servicios del hogar, a un click de ti">
+<meta property="og:description" content="Pide un plomero, electricista, pintor o jardinero desde tu celular. Compara ofertas de especialistas cercanos, sigue el servicio en tiempo real y paga con garantía.">
+<meta property="og:image" content="assets/shot-cotizaciones.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/styles.css">
+
+<script>
+  /* Decide si se muestra la intro antes de pintar, para evitar parpadeos */
+  (function () {
+    var d = document.documentElement, seen = false;
+    d.classList.add('js');
+    try { seen = sessionStorage.getItem('acency-intro') === '1'; } catch (e) {}
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    d.classList.add(seen || reduce ? 'ready' : 'intro-on');
+  })();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "LocalBusiness",
+      "@id": "#acency",
+      "name": "Acency",
+      "slogan": "El único lugar donde contratar y trabajar al fin se sienten justos",
+      "description": "App mexicana que conecta hogares con especialistas verificados: plomería 24 horas, electricista a domicilio, impermeabilización, albañilería, herrería, pintura, jardinería, instalación de gas, limpieza de cisternas, mudanzas, mandados y paseo de mascotas.",
+      "logo": "assets/logo-black.png",
+      "image": "assets/shot-cotizaciones.jpg",
+      "areaServed": { "@type": "Country", "name": "México" },
+      "address": { "@type": "PostalAddress", "addressCountry": "MX" },
+      "openingHours": "Mo-Su 00:00-23:59",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Servicios para el hogar a domicilio",
+        "itemListElement": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Plomería 24 horas y reparación de fugas de agua" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Electricista a domicilio e instalaciones eléctricas" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Impermeabilización de casas y techos" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Albañilería y reparación de muros" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Herrería y estructuras metálicas" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Pintura residencial" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Jardinería y mantenimiento de jardines" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Instalación y reparación de gas" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Limpieza de cisternas y tinacos" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mudanzas, carga y descarga, armado de muebles" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mandados, trámites y diligencias" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Paseo y cuidado de mascotas" } }
+        ]
+      }
+    },
+    {
+      "@type": "MobileApplication",
+      "name": "Acency",
+      "operatingSystem": "Android",
+      "applicationCategory": "LifestyleApplication",
+      "url": "https://play.google.com/store/apps/details?id=com.servicios.acency",
+      "installUrl": "https://play.google.com/store/apps/details?id=com.servicios.acency",
+      "publisher": { "@id": "#acency" }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "¿Hay plomería 24 horas cerca de mí?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. Desde la app publicas tu solicitud a cualquier hora y los plomeros disponibles en tu zona te envían su cotización para fugas de agua, desazolve de cañerías o destape de drenajes." } },
+        { "@type": "Question", "name": "¿Cuánto cuesta desazolvar una tubería?", "acceptedAnswer": { "@type": "Answer", "text": "Depende del tipo de drenaje, la longitud y tu zona. En Acency recibes varias cotizaciones y eliges la que más te convenga antes de confirmar." } },
+        { "@type": "Question", "name": "¿Realizan trabajos de electricidad a domicilio?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. Encuentra electricistas cerca de ti para instalaciones eléctricas, cortos, contactos, apagadores y reparaciones urgentes." } },
+        { "@type": "Question", "name": "¿Hacen impermeabilización de techos?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. Especialistas en impermeabilización de casas y techos te cotizan por metro cuadrado según el material y el estado de tu azotea." } },
+        { "@type": "Question", "name": "¿Limpian cisternas y tinacos?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. Puedes solicitar limpieza y desinfección de cisternas y tinacos a domicilio." } },
+        { "@type": "Question", "name": "¿Realizan instalación de gas?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. Técnicos de gas atienden instalación, reparación y revisión de fugas de gas." } },
+        { "@type": "Question", "name": "¿Arman y desarman muebles?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. Hay ayudantes para mudanzas, carga y descarga, y armado y desarmado de muebles." } },
+        { "@type": "Question", "name": "¿Puedo pedir un servicio urgente para hoy?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. Al crear tu solicitud eliges si es urgente y lo necesitas hoy o mañana, o si prefieres agendarlo para un día específico." } },
+        { "@type": "Question", "name": "¿Puedo mandar fotos o un video del problema?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. Puedes adjuntar fotos y hasta un video para que el especialista entienda mejor lo que pasa y te cotice con más precisión." } },
+        { "@type": "Question", "name": "¿Cómo sé que quien llega es la persona correcta?", "acceptedAnswer": { "@type": "Answer", "text": "Cuando el especialista llega a tu puerta, le pides el código de seguridad que solo tú tienes en pantalla. Si coincide, es la persona que aceptaste en la app." } },
+        { "@type": "Question", "name": "¿Qué garantía tiene el trabajo?", "acceptedAnswer": { "@type": "Answer", "text": "Cada oferta trae su propia garantía: el especialista decide cuántos días respalda su trabajo, hasta un máximo de 30. Si algo no quedó bien, lo reclamas desde la app y regresa a corregirlo sin costo extra." } },
+        { "@type": "Question", "name": "¿Cuándo recibe el pago el especialista?", "acceptedAnswer": { "@type": "Answer", "text": "Si pagas con tarjeta, Acency retiene el pago y lo libera hasta que confirmas que el servicio quedó como esperabas. Así hay margen para resolver cualquier detalle antes de que el dinero se libere." } },
+        { "@type": "Question", "name": "¿Tengo que dar mi teléfono o mi correo?", "acceptedAnswer": { "@type": "Answer", "text": "No. Toda la comunicación pasa por el chat de la app, así que no necesitas compartir tu teléfono ni tu correo con nadie." } },
+        { "@type": "Question", "name": "¿Cómo funcionan las calificaciones?", "acceptedAnswer": { "@type": "Answer", "text": "Al terminar, tú calificas al especialista y el especialista te califica a ti. Las reseñas se publican hasta que ambos calificaron, para que nadie sienta que tiene que poner una buena nota por miedo a represalias." } },
+        { "@type": "Question", "name": "¿Cómo me uno como especialista?", "acceptedAnswer": { "@type": "Answer", "text": "Descarga Acency en Google Play, crea tu perfil de especialista y completa la verificación. Al terminar recibes tu código de referido para invitar a otras personas y empezar a ganar." } }
+      ]
+    }
+  ]
+}
+</script>
+
+<script src="js/vendor/qrcode.min.js" defer></script>
+<script src="js/main.js" defer></script>
+</head>
+<body>
+
+<a class="skip" href="#main">Saltar al contenido</a>
+
+<!-- Iconos (un solo trazo, 1.7px) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M5.2 2.9c-.4.3-.7.8-.7 1.4v15.4c0 .6.3 1.1.7 1.4L14 12 5.2 2.9zM15.2 13.2l2.5 2.6-10.4 5.9c-.4.2-.8.3-1.2.2l9.1-8.7zm3.8-3.7 2.6 1.5c1 .6 1 1.4 0 2l-2.6 1.5-2.8-2.5 2.8-2.5zM6.1 2.1c.4-.1.8 0 1.2.2l10.4 5.9-2.5 2.6-9.1-8.7z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 8h16M4 16h10"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.5 3 8.3 7 10 4-1.7 7-5.5 7-10V6l-7-3z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-compare" viewBox="0 0 24 24"><path d="M4 7h10M4 12h16M4 17h7"/><circle cx="17.5" cy="7" r="2.2"/><circle cx="14.5" cy="17" r="2.2"/></symbol>
+    <symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="m9.5 9 1.7 1.7L14.5 7.4"/><path d="M8.5 14 7 21l5-2.5 5 2.5-1.5-7"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></symbol>
+    <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M5 12v9h14v-9M12 8v13M12 8S10.5 3.5 8 4.5 9 8 12 8zm0 0s1.5-4.5 4-3.5S15 8 12 8z"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9L12 3.5z"/></symbol>
+    <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3 12V4h8l10 10-8 8L3 12z"/><circle cx="7.5" cy="8.5" r="1.5"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12S6 5 12 5s9.5 7 9.5 7-3.5 7-9.5 7-9.5-7-9.5-7z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/><path d="M12 15v2"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M20 5H4v11h4v4l5-4h7V5z"/><path d="M8 10h8M8 13h5"/></symbol>
+    <symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="6" r="2.2"/><path d="M8.2 18H15a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h6.8"/></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></symbol>
+    <symbol id="i-video" viewBox="0 0 24 24"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="m16 10 5-3v10l-5-3"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></symbol>
+    <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="m8.2 10.8 7.6-4.4M8.2 13.2l7.6 4.4"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11 12 4l8 7v9H4z"/><path d="M10 20v-5h4v5"/></symbol>
+    <symbol id="i-door" viewBox="0 0 24 24"><path d="M6 21V4h12v17"/><path d="M3 21h18"/><path d="M14.5 12.5h.01"/></symbol>
+    <symbol id="i-card" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 4 2.8 19.5h18.4L12 4z"/><path d="M12 10v4.2M12 17h.01"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.3-4.9L4 8"/><path d="M4 4v4h4"/><path d="M4 13a8 8 0 0 0 14.3 4.9L20 16"/><path d="M20 20v-4h-4"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></symbol>
+    <symbol id="s-plomeria" viewBox="0 0 24 24"><path d="M4 11h8a5 5 0 0 1 5 5v1"/><path d="M8 11V7"/><path d="M5 7h6"/><path d="M17 20v.5"/><path d="M4 14.5h4"/></symbol>
+    <symbol id="s-electricidad" viewBox="0 0 24 24"><path d="M13 3 5 13.5h6L10 21l8-10.5h-6L13 3z"/></symbol>
+    <symbol id="s-imper" viewBox="0 0 24 24"><path d="M3 11 12 4l9 7"/><path d="M12 11.5c1.6 2 2.5 3.4 2.5 4.6a2.5 2.5 0 0 1-5 0c0-1.2.9-2.6 2.5-4.6z"/></symbol>
+    <symbol id="s-albanil" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3 9.7h18M3 14.3h18M9 5v4.7M15 9.7v4.6M9 14.3V19"/></symbol>
+    <symbol id="s-herreria" viewBox="0 0 24 24"><path d="M6 21V7l1.5-3L9 7v14M15 21V7l1.5-3L18 7v14M3 10h18M3 17h18"/></symbol>
+    <symbol id="s-pintura" viewBox="0 0 24 24"><rect x="4" y="3" width="13" height="5" rx="1.5"/><path d="M17 5.5h2.5V11H11v3"/><rect x="9.5" y="14" width="3" height="7" rx="1"/></symbol>
+    <symbol id="s-jardin" viewBox="0 0 24 24"><path d="M12 21v-8"/><path d="M12 13c0-4 3-6.5 7.5-6.5 0 4.2-3 6.5-7.5 6.5z"/><path d="M12 15.5c0-3-2.3-5-6-5 0 3.2 2.4 5 6 5z"/></symbol>
+    <symbol id="s-gas" viewBox="0 0 24 24"><path d="M12 21a6 6 0 0 0 6-6c0-4-3.5-6.5-4.5-10.5C10 7 6 10.5 6 15a6 6 0 0 0 6 6z"/><path d="M12 21a2.5 2.5 0 0 1-2.5-2.5c0-1.8 2.5-3.5 2.5-3.5s2.5 1.7 2.5 3.5A2.5 2.5 0 0 1 12 21z"/></symbol>
+    <symbol id="s-cisterna" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="2.5"/><path d="M5 6v11c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5V6"/><path d="M5 11.5c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5"/></symbol>
+    <symbol id="s-mudanza" viewBox="0 0 24 24"><path d="M21 8 12 3 3 8v8l9 5 9-5V8z"/><path d="m3 8 9 5 9-5M12 13v8"/></symbol>
+    <symbol id="s-mandados" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M9 10h6M9 14h6M9 18h3"/></symbol>
+    <symbol id="s-mascotas" viewBox="0 0 24 24"><circle cx="6.5" cy="10" r="1.8"/><circle cx="10" cy="6" r="1.8"/><circle cx="14" cy="6" r="1.8"/><circle cx="17.5" cy="10" r="1.8"/><path d="M12 12c-2.8 0-5 3.3-5 5.5 0 1.6 1.3 2.5 2.8 2.5 1 0 1.5-.5 2.2-.5s1.2.5 2.2.5c1.5 0 2.8-.9 2.8-2.5 0-2.2-2.2-5.5-5-5.5z"/></symbol>
+    <symbol id="s-drenaje" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M7.5 12h9M12 7.5v9M8.8 8.8l6.4 6.4M15.2 8.8l-6.4 6.4"/></symbol>
+  </defs>
+</svg>
+
+<div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
+<div class="cursor" aria-hidden="true"><span class="cursor-label"></span></div>
+<div class="cursor-dot" aria-hidden="true"></div>
+<div class="chapter" id="chapter" aria-hidden="true"><span id="chapterNum">01</span><i></i><span id="chapterName">Inicio</span></div>
+<a class="to-top" id="toTop" href="#inicio" aria-label="Volver arriba">
+  <svg class="to-top-ring" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21"/><circle class="p" id="toTopRing" cx="24" cy="24" r="21"/></svg>
+  <svg class="ico"><use href="#i-up"/></svg>
+</a>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<canvas class="confetti" id="confetti" aria-hidden="true"></canvas>
+
+<!-- ============ INTRO ============ -->
+<div class="intro" id="intro" aria-hidden="true">
+  <div class="intro-aura"></div>
+  <div class="intro-ring"></div>
+  <div class="intro-ring r2"></div>
+  <div class="intro-center">
+    <img class="intro-mark" src="assets/icon.png" alt="">
+    <img class="intro-logo" src="assets/logo-white.png" alt="">
+    <div class="intro-meta"><span>Conectando especialistas</span><span class="intro-count" id="introCount">0</span></div>
+    <div class="intro-bar"><i id="introBar"></i></div>
+  </div>
+  <button class="intro-skip" id="introSkip" type="button" tabindex="-1">Saltar intro</button>
+</div>
+
+<!-- ============ NAV ============ -->
+<header class="nav" id="nav">
+  <div class="nav-bar">
+    <a class="nav-logo" href="#inicio" aria-label="Acency, ir al inicio">
+      <img src="assets/logo-white.png" alt="Acency" width="65" height="30">
+    </a>
+    <nav class="nav-links" id="navLinks" aria-label="Secciones">
+      <span class="nav-pill" id="navPill" aria-hidden="true"></span>
+      <a href="#servicios">Servicios</a>
+      <a href="#como-funciona">Cómo funciona</a>
+      <a href="#demo">Pruébalo</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#especialistas">Especialistas</a>
+      <a href="#descargar">Descargar</a>
+      <a href="#preguntas">Preguntas</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="btn nav-cta" data-play data-magnetic href="https://play.google.com/store/apps/details?id=com.servicios.acency" target="_blank" rel="noopener" aria-label="Descargar Acency en Google Play">
+        <svg class="ico ico-fill"><use href="#i-play"/></svg><span>Descargar app</span>
+      </a>
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="sheet">
+        <svg class="ico"><use href="#i-menu"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="sheet" id="sheet" aria-hidden="true">
+  <nav aria-label="Menú principal">
+    <a href="#servicios">Servicios <small>12 categorías</small></a>
+    <a href="#como-funciona">Cómo funciona <small>4 pasos</small></a>
+    <a href="#demo">Pruébalo <small>Demo interactiva</small></a>
+    <a href="#seguridad">Seguridad <small>Pago · Garantía</small></a>
+    <a href="#nosotros">Nosotros <small>Misión · Visión</small></a>
+    <a href="#especialistas">Especialistas <small>Únete</small></a>
+    <a href="#descargar">Descargar <small>Google Play</small></a>
+    <a href="#preguntas">Preguntas <small>FAQ</small></a>
+  </nav>
+  <div class="sheet-foot">
+    <img src="assets/logo-mint.png" alt="Acency" width="130" height="60" style="width:130px">
+    <p>El único lugar donde contratar y trabajar al fin se sienten justos.</p>
+  </div>
+</div>
+
+<main id="main">
+<!-- ============ HERO ============ -->
+<section class="hero on-ink" id="inicio" aria-labelledby="hero-title">
+  <div class="hero-bg" aria-hidden="true">
+    <div class="aura a1" data-mouse="-30"></div>
+    <div class="aura a2" data-mouse="20"></div>
+    <div class="grid-lines"></div>
+    <div class="grid-glow" id="gridGlow"></div>
+  </div>
+
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <a class="eyebrow" href="#descargar">
+        <i><svg class="ico ico-fill"><use href="#i-play"/></svg></i>
+        Ya disponible en Google Play
+        <svg class="ico ico-arrow"><use href="#i-arrow"/></svg>
+      </a>
+
+      <h1 id="hero-title">
+        <span class="w">Todos</span> <span class="w">los</span> <span class="w">servicios</span> <span class="w">del</span> <span class="w">hogar,</span>
+        <span class="w accent">a</span> <span class="w accent">un</span> <span class="w accent">click</span> <span class="w">de</span> <span class="w">ti.</span>
+      </h1>
+
+      <p class="lead">Plomero, electricista, impermeabilización, jardinería y más, a domicilio y cerca de ti. Publica lo que necesitas, recibe cotizaciones de especialistas verificados y elige la que más te convenga.</p>
+
+      <div class="hero-ctas">
+        <a class="btn" data-play data-magnetic href="https://play.google.com/store/apps/details?id=com.servicios.acency" target="_blank" rel="noopener">
+          <svg class="ico ico-fill"><use href="#i-play"/></svg> Descargar en Google Play
+        </a>
+        <a class="btn btn-ghost" data-magnetic href="#servicios">
+          Ver servicios <svg class="ico ico-arrow"><use href="#i-arrow"/></svg>
+        </a>
+      </div>
+
+      <ul class="hero-proof">
+        <li><svg class="ico"><use href="#i-shield"/></svg> Especialistas verificados</li>
+        <li><svg class="ico"><use href="#i-compare"/></svg> Compara cotizaciones</li>
+        <li><svg class="ico"><use href="#i-clock"/></svg> Solicitudes 24 horas</li>
+      </ul>
+    </div>
+
+    <div class="stage" id="stage" aria-hidden="true">
+      <div class="layer" data-depth="10"><div class="ring"></div></div>
+      <div class="layer" data-depth="16"><figure class="shot shot-left"><img src="assets/shot-servicios.jpg" alt="" width="720" height="1558"></figure></div>
+      <div class="layer" data-depth="20"><figure class="shot shot-right"><img src="assets/shot-categorias.jpg" alt="" width="720" height="1558"></figure></div>
+      <div class="layer" data-depth="30"><div class="float"><figure class="shot shot-center"><img src="assets/shot-cotizaciones.jpg" alt="" width="720" height="1558"></figure></div></div>
+      <div class="layer" data-depth="46"><div class="chip chip-1"><span class="dot"></span><div><span id="chipOffers">3 ofertas recibidas</span><small id="chipOffersAgo">Plomería · hace 2 min</small></div></div></div>
+      <div class="layer" data-depth="38"><div class="chip chip-2"><i><svg class="ico"><use href="#i-check"/></svg></i><div>Incluye garantía<small>Especialista verificado</small></div></div></div>
+      <div class="layer" data-depth="52"><div class="chip chip-3"><i><svg class="ico"><use href="#i-clock"/></svg></i><div>Llega hoy<small>A domicilio, en tu zona</small></div></div></div>
+    </div>
+  </div>
+
+  <a class="scroll-cue" href="#servicios" aria-label="Bajar a servicios"><span aria-hidden="true"></span>Desliza</a>
+</section>
+
+<!-- ============ CINTA DE SERVICIOS (nueva) ============ -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-row" data-dir="-1">
+    <div class="ticker-track">
+      <span>Plomería</span><i><svg class="ico"><use href="#s-plomeria"/></svg></i>
+      <span>Electricidad</span><i><svg class="ico"><use href="#s-electricidad"/></svg></i>
+      <span>Impermeabilización</span><i><svg class="ico"><use href="#s-imper"/></svg></i>
+      <span>Gas</span><i><svg class="ico"><use href="#s-gas"/></svg></i>
+      <span>Albañilería</span><i><svg class="ico"><use href="#s-albanil"/></svg></i>
+      <span>Herrería</span><i><svg class="ico"><use href="#s-herreria"/></svg></i>
+      <span>Pintura</span><i><svg class="ico"><use href="#s-pintura"/></svg></i>
+      <span>Cisternas</span><i><svg class="ico"><use href="#s-cisterna"/></svg></i>
+      <span>Jardinería</span><i><svg class="ico"><use href="#s-jardin"/></svg></i>
+      <span>Mudanzas</span><i><svg class="ico"><use href="#s-mudanza"/></svg></i>
+      <span>Mandados</span><i><svg class="ico"><use href="#s-mandados"/></svg></i>
+      <span>Mascotas</span><i><svg class="ico"><use href="#s-mascotas"/></svg></i>
+    </div>
+  </div>
+  <div class="ticker-row alt" data-dir="1">
+    <div class="ticker-track">
+      <span>Urgente para hoy</span><b>✦</b>
+      <span>Agenda tu día</span><b>✦</b>
+      <span>Fotos y video</span><b>✦</b>
+      <span>Ofertas en tiempo real</span><b>✦</b>
+      <span>Código de seguridad</span><b>✦</b>
+      <span>Garantía hasta 30 días</span><b>✦</b>
+      <span>Pago protegido</span><b>✦</b>
+      <span>Chat privado</span><b>✦</b>
+      <span>Reseñas de ambos lados</span><b>✦</b>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PROPUESTA DE VALOR ============ -->
+<section class="value" aria-label="Por qué Acency">
+  <div class="wrap value-grid rv-group">
+    <div class="value-item spot">
+      <span class="badge"><svg class="ico"><use href="#i-compare"/></svg></span>
+      <h3>Cotiza y compara antes de decidir</h3>
+      <p>Publica tu solicitud y recibe varias ofertas con precio, calificación y tiempo de llegada. Tú eliges.</p>
+    </div>
+    <div class="value-item spot">
+      <span class="badge"><svg class="ico"><use href="#i-shield"/></svg></span>
+      <h3>Especialistas verificados</h3>
+      <p>Cada perfil pasa por verificación de identidad y oficio antes de poder atender solicitudes.</p>
+    </div>
+    <div class="value-item spot">
+      <span class="badge"><svg class="ico"><use href="#i-award"/></svg></span>
+      <h3>Trabajo con garantía</h3>
+      <p>Cada oferta indica su propia garantía, de hasta 30 días, para que contrates sabiendo qué esperar.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MANIFIESTO (nuevo) ============ -->
+<section class="manifesto" aria-label="Así se siente pedir un servicio en Acency">
+  <div class="wrap">
+    <span class="label">Sin vueltas</span>
+    <p class="manifesto-text" id="manifesto">¿Una fuga a medianoche, un apagón, una pared que pide pintura? Abres la app, cuentas qué te pasa con fotos o hasta un video, y en poco tiempo te llegan ofertas de especialistas cercanos con su precio, su calificación y sus reseñas. <em>Comparas cuantas veces quieras y eliges tú.</em></p>
+  </div>
+</section>
+
+<!-- ============ SERVICIOS ============ -->
+<section class="services" id="servicios" aria-labelledby="servicios-title">
+  <div class="wrap services-grid">
+    <div class="services-aside rv" data-rv="left">
+      <span class="label">Servicios a domicilio</span>
+      <h2 class="h2" id="servicios-title">Un especialista para <span class="accent">cada rincón</span> de tu casa.</h2>
+      <p class="lead">Desde una fuga de agua a medianoche hasta la impermeabilización antes de lluvias. Encuentra al profesional indicado cerca de tu ubicación y contrátalo desde la app.</p>
+      <div class="frame" data-speed="-0.04">
+        <img src="assets/shot-categorias.jpg" alt="Pantalla de Acency con las categorías de hogar: plomería, electricidad, carpintería, albañilería, herrería, pintura, impermeabilización y jardinería" width="720" height="1558" loading="lazy">
+      </div>
+    </div>
+
+    <div>
+      <div class="finder" role="search">
+        <label class="finder-label" for="finder">¿Qué te pasa en casa?</label>
+        <div class="finder-box">
+          <svg class="ico"><use href="#i-search"/></svg>
+          <input id="finder" type="search" autocomplete="off" spellcheck="false" placeholder="Ej. se tapó el drenaje" aria-describedby="finderHint">
+          <button class="finder-clear" id="finderClear" type="button" aria-label="Borrar búsqueda" hidden><svg class="ico"><use href="#i-close"/></svg></button>
+        </div>
+        <div class="finder-chips" aria-label="Ejemplos">
+          <button type="button" data-q="Se tapó el drenaje">Se tapó el drenaje</button>
+          <button type="button" data-q="Se fue la luz">Se fue la luz</button>
+          <button type="button" data-q="Huele a gas">Huele a gas</button>
+          <button type="button" data-q="Gotera en el techo">Gotera en el techo</button>
+          <button type="button" data-q="Armar muebles">Armar muebles</button>
+          <button type="button" data-q="Pasear a mi perro">Pasear a mi perro</button>
+        </div>
+        <p class="finder-hint" id="finderHint" aria-live="polite">Escribe tu problema con tus palabras y te decimos qué especialista buscar.</p>
+      </div>
+
+      <ul class="svc-list rv-group" id="svcList">
+        <li class="svc" data-k="plomero plomeria fuga fugas agua llave gotea goteo tuberia tubo tubos cañeria canería drenaje destape destapar tapado tapada tapo wc baño bano inodoro excusado regadera lavabo fregadero tarja calentador boiler bomba desazolve desazolvar coladera"><a data-play data-cursor="Pedir" href="https://play.google.com/store/apps/details?id=com.servicios.acency" target="_blank" rel="noopener">
+          <span class="svc-ico"><svg class="ico"><use href="#s-plomeria"/></svg></span>
+          <span><h3>Plomería y plomero 24 horas</h3><p>Reparación de fugas de agua, desazolve de cañerías, destape de drenajes y mantenimiento hidráulico.</p></span>
+          <span class="svc-tag">24 horas</span><svg class="ico svc-go"><use href="#i-arrow"/></svg></a></li>
+        <li class="svc" data-k="electricista electricidad electrico luz apagon corto cortocircuito contacto contactos apagador enchufe foco focos lampara cable cables breaker pastilla chispa chispas instalacion ventilador"><a data-play data-cursor="Pedir" href="https://play.google.com/store/apps/details?id=com.servicios.acency" target="_blank" rel="noopener">
+          <span class="svc-ico"><svg class="ico"><use href="#s-electricidad"/></svg></span>
+          <span><h3>Electricista a domicilio</h3><p>Instalaciones eléctricas, cortos, contactos y apagadores, reparación eléctrica urgente.</p></span>
+          <span class="svc-tag">Urgente</span><svg class="ico svc-go"><use href="#i-arrow"/></svg></a></li>
+        <li class="svc" data-k="impermeabilizar impermeabilizacion impermeabilizante techo techos azotea gotera goteras humedad filtracion filtra lluvia lluvias sellar sellado grieta grietas"><a data-play data-cursor="Pedir" href="https://play.google.com/store/apps/details?id=com.servicios.acency" target="_blank" rel="noopener">
+          <span class="svc-ico"><svg class="ico"><use href="#s-imper"/></svg></span>
+          <span><h3>Impermeabilización de techos y casas</h3><p>Cotización por metro cuadrado, aplicación de impermeabilizante y sellado de grietas.</p></span>
+          <span class="svc-tag">Cotización</span><svg class="ico svc-go"><use href="#i-arrow"/></svg></a></li>
+        <li class="svc" data-k="gas fuga huele olor estufa boiler calentador tanque estacionario regulador manguera tuberia conexion"><a data-play data-cursor="Pedir" href="https://play.google.com/store/apps/details?id=com.servicios.acency" target="_blank" rel="noopener">
+          <span class="svc-ico"><svg class="ico"><use href="#s-gas"/></svg></span>
+          <span><h3>Instalación de gas y fugas de gas</h3><p>Técnico de gas para instalación, reparación y revisión de líneas y conexiones.</p></span>
+          <span class="svc-tag">Urgente</span><svg class="ico svc-go"><use href="#i-arrow"/></svg></a></li>
+        <li class="svc" data-k="albañil albanil albañileria albanileria muro muros pared paredes barda piso pisos loseta azulejo resane resanar remodelacion remodelar construccion construir cemento grieta"><a data-play data-cursor="Pedir" href="https://play.google.com/store/apps/details?id=com.servicios.acency" target="_blank" rel="noopener">
+          <span class="svc-ico"><svg class="ico"><use href="#s-albanil"/></svg></span>
+          <span><h3>Albañilería y reparación de muros</h3><p>Albañil para trabajos de construcción, resanes, pisos y remodelaciones pequeñas.</p></span>
+          <span class="svc-tag">Residencial</span><svg class="ico svc-go"><use href="#i-arrow"/></svg></a></li>
+        <li class="svc" data-k="herrero herreria protecciones proteccion reja rejas puerta porton barandal soldar soldadura metal metalica estructura ventana"><a data-play data-cursor="Pedir" href="https://play.google.com/store/apps/details?id=com.servicios.acency" target="_blank" rel="noopener">
+          <span class="svc-ico"><svg class="ico"><use href="#s-herreria"/></svg></span>
+          <span><h3>Herrería y estructuras metálicas</h3><p>Herrero para protecciones, puertas, barandales, fabricación e instalación a medida.</p></span>
+          <span class="svc-tag">A medida</span><svg class="ico svc-go"><use href="#i-arrow"/></svg></a></li>
+        <li class="svc" data-k="pintor pintura pintar pared paredes fachada casa cuarto recamara interiores acabados"><a data-play data-cursor="Pedir" href="https://play.google.com/store/apps/details?id=com.servicios.acency" target="_blank" rel="noopener">
+          <span class="svc-ico"><svg class="ico"><use href="#s-pintura"/></svg></span>
+          <span><h3>Pintura residencial</h3><p>Pintor para interiores, fachadas y acabados, en casas y negocios.</p></span>
+          <span class="svc-tag">Residencial</span><svg class="ico svc-go"><use href="#i-arrow"/></svg></a></li>
+        <li class="svc" data-k="cisterna cisternas tinaco tinacos limpieza limpiar lavar desinfectar desinfeccion agua sucia tanque"><a data-play data-cursor="Pedir" href="https://play.google.com/store/apps/details?id=com.servicios.acency" target="_blank" rel="noopener">
+          <span class="svc-ico"><svg class="ico"><use href="#s-cisterna"/></svg></span>
+          <span><h3>Limpieza de cisternas y tinacos</h3><p>Lavado y desinfección para que el agua de tu casa se mantenga limpia.</p></span>
+          <span class="svc-tag">A domicilio</span><svg class="ico svc-go"><use href="#i-arrow"/></svg></a></li>
+        <li class="svc" data-k="jardinero jardineria jardin pasto podar poda arbol arboles plantas cesped hojas"><a data-play data-cursor="Pedir" href="https://play.google.com/store/apps/details?id=com.servicios.acency" target="_blank" rel="noopener">
+          <span class="svc-ico"><svg class="ico"><use href="#s-jardin"/></svg></span>
+          <span><h3>Jardinería y mantenimiento de jardines</h3><p>Jardinero para poda, corte de pasto, limpieza y cuidado periódico.</p></span>
+          <span class="svc-tag">Programado</span><svg class="ico svc-go"><use href="#i-arrow"/></svg></a></li>
+        <li class="svc" data-k="mudanza mudanzas mudar mover muebles mueble cargar carga descarga armar armado desarmar desarmado flete cajas"><a data-play data-cursor="Pedir" href="https://play.google.com/store/apps/details?id=com.servicios.acency" target="_blank" rel="noopener">
+          <span class="svc-ico"><svg class="ico"><use href="#s-mudanza"/></svg></span>
+          <span><h3>Mudanzas y armado de muebles</h3><p>Ayudante de mudanzas, carga y descarga, armado y desarmado de muebles.</p></span>
+          <span class="svc-tag">Hoy mismo</span><svg class="ico svc-go"><use href="#i-arrow"/></svg></a></li>
+        <li class="svc" data-k="mandado mandados tramite tramites diligencia diligencias fila pago pagos pagar mensajeria mensajero paquete recoger entregar"><a data-play data-cursor="Pedir" href="https://play.google.com/store/apps/details?id=com.servicios.acency" target="_blank" rel="noopener">
+          <span class="svc-ico"><svg class="ico"><use href="#s-mandados"/></svg></span>
+          <span><h3>Mandados, trámites y diligencias</h3><p>Mensajería local, hacer fila, pagos y trámites mientras tú te ocupas de lo demás.</p></span>
+          <span class="svc-tag">Rápido</span><svg class="ico svc-go"><use href="#i-arrow"/></svg></a></li>
+        <li class="svc" data-k="perro perros perrito mascota mascotas pasear paseo paseador cuidar cuidado gato"><a data-play data-cursor="Pedir" href="https://play.google.com/store/apps/details?id=com.servicios.acency" target="_blank" rel="noopener">
+          <span class="svc-ico"><svg class="ico"><use href="#s-mascotas"/></svg></span>
+          <span><h3>Paseador de mascotas</h3><p>Cuidado y paseo de perros con personas verificadas de tu zona.</p></span>
+          <span class="svc-tag">Cerca de ti</span><svg class="ico svc-go"><use href="#i-arrow"/></svg></a></li>
+      </ul>
+      <p class="svc-empty" id="svcEmpty" hidden>No lo vemos en esta lista, pero en la app hay más categorías de hogar y belleza. Descríbelo ahí y recibe ofertas.</p>
+      <div class="services-cta rv">
+        <a class="btn btn-dark" data-play data-magnetic href="https://play.google.com/store/apps/details?id=com.servicios.acency" target="_blank" rel="noopener">Solicitar servicio a domicilio <svg class="ico ico-arrow"><use href="#i-arrow"/></svg></a>
+        <p>Para casas y negocios. Cotizar en la app no te compromete a contratar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CÓMO FUNCIONA ============ -->
+<section class="how" id="como-funciona" aria-labelledby="como-title">
+  <div class="wrap how-grid">
+    <div>
+      <div class="how-head rv" data-rv="blur">
+        <span class="label">Cómo funciona</span>
+        <h2 class="h2" id="como-title">Recibe diferentes cotizaciones y <span class="accent">elige la mejor</span> para ti.</h2>
+      </div>
+      <div class="steps" id="steps">
+        <span class="steps-progress" id="stepsProgress" aria-hidden="true"></span>
+        <div role="list" class="steps-list">
+          <div class="step on" role="listitem"><span>Paso 1</span><h3>Elige el servicio</h3><p>Plomería, electricidad, pintura, jardinería y más categorías de hogar en una sola pantalla.</p></div>
+          <div class="step" role="listitem"><span>Paso 2</span><h3>Describe lo que necesitas</h3><p>Cuéntanos el problema, agrega fotos o hasta un video e indica tu zona. Elige si es urgente para hoy o mañana, o agéndalo para el día que quieras.</p></div>
+          <div class="step" role="listitem"><span>Paso 3</span><h3>Compara ofertas en tiempo real</h3><p>Los especialistas cercanos responden con su precio, calificación, garantía y cuándo pueden llegar.</p></div>
+          <div class="step" role="listitem"><span>Paso 4</span><h3>Contrata y califica</h3><p>Sigue el servicio desde la app y, al terminar, califica para ayudar a otras personas a elegir.</p></div>
+        </div>
+      </div>
+      <a class="how-try" href="#demo">Pruébalo aquí mismo, sin descargar nada <svg class="ico"><use href="#i-arrow"/></svg></a>
+    </div>
+    <div class="how-visual rv" data-rv="scale">
+      <div class="ring" data-speed="0.06"></div>
+      <figure class="shot" data-speed="-0.05"><img src="assets/shot-cotizaciones.jpg" alt="Pantalla de Acency mostrando tres ofertas recibidas para un servicio de plomería con precio, calificación y garantía" width="720" height="1558" loading="lazy"></figure>
+      <div class="price-chip" data-speed="-0.12"><svg class="ico" style="color:var(--mint)"><use href="#i-tag"/></svg><div><small>Ejemplo de oferta</small><b id="priceCount">$300 MXN</b></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DEMO INTERACTIVA (nueva) ============ -->
+<section class="demo on-ink" id="demo" aria-labelledby="demo-title">
+  <div class="aura a1" aria-hidden="true"></div>
+  <div class="wrap demo-grid">
+    <div class="demo-copy">
+      <span class="label">Pruébalo aquí</span>
+      <h2 class="h2" id="demo-title">Vive un servicio de Acency <span class="accent">de principio a fin</span>.</h2>
+      <p class="lead">Esta es una simulación de la app. Toca el teléfono: pide, compara ofertas, sigue a tu especialista y califica. Los nombres y precios son de ejemplo.</p>
+
+      <ol class="demo-steps" id="demoSteps">
+        <li><button type="button" data-go="0"><span>01</span><b>Pide</b><small>Fotos, video y horario</small></button></li>
+        <li><button type="button" data-go="1"><span>02</span><b>Compara</b><small>Ofertas en tiempo real</small></button></li>
+        <li><button type="button" data-go="2"><span>03</span><b>Síguelo</b><small>En camino, en vivo</small></button></li>
+        <li><button type="button" data-go="3"><span>04</span><b>Verifica</b><small>Código de seguridad</small></button></li>
+        <li><button type="button" data-go="4"><span>05</span><b>Confirma</b><small>Pago y garantía</small></button></li>
+        <li><button type="button" data-go="5"><span>06</span><b>Califica</b><small>Reseñas de ambos lados</small></button></li>
+      </ol>
+
+      <p class="demo-note" id="demoNote" aria-live="polite">Abres la app y cuentas qué te pasa. Puedes mandar fotos y hasta un video para que se entienda mejor, y eliges si es urgente (hoy o mañana) o si lo agendas para un día específico.</p>
+
+      <div class="demo-actions">
+        <button class="btn btn-ghost" id="demoAuto" type="button"><svg class="ico ico-fill"><use href="#i-play"/></svg><span>Verlo en automático</span></button>
+        <button class="demo-reset" id="demoReset" type="button"><svg class="ico"><use href="#i-refresh"/></svg>Reiniciar</button>
+      </div>
+    </div>
+
+    <div class="demo-device">
+      <div class="phone" id="phone">
+        <div class="phone-screen">
+          <div class="phone-status" aria-hidden="true"><span id="phoneTime">9:41</span><span class="island"></span><span class="sig"><i></i><i></i><i></i><i></i><b></b></span></div>
+          <div class="ghost" id="ghost" aria-hidden="true"></div>
+
+          <div class="screens" id="screens">
+            <!-- 0 · Pide -->
+            <section class="scr is-on" data-scr="0" aria-label="Nueva solicitud">
+              <header class="scr-head"><small>Nueva solicitud</small><h3>¿Qué necesitas?</h3></header>
+              <div class="cat-grid" id="catGrid">
+                <button type="button" data-cat="plomeria" aria-pressed="true"><svg class="ico"><use href="#s-plomeria"/></svg>Plomería</button>
+                <button type="button" data-cat="electricidad" aria-pressed="false"><svg class="ico"><use href="#s-electricidad"/></svg>Electricidad</button>
+                <button type="button" data-cat="drenaje" aria-pressed="false"><svg class="ico"><use href="#s-drenaje"/></svg>Drenaje</button>
+                <button type="button" data-cat="pintura" aria-pressed="false"><svg class="ico"><use href="#s-pintura"/></svg>Pintura</button>
+                <button type="button" data-cat="jardineria" aria-pressed="false"><svg class="ico"><use href="#s-jardin"/></svg>Jardín</button>
+                <button type="button" data-cat="albanileria" aria-pressed="false"><svg class="ico"><use href="#s-albanil"/></svg>Albañil</button>
+              </div>
+              <label class="fld" for="demoText"><span>Cuéntanos qué pasa</span>
+                <textarea id="demoText" rows="3">Gotea la llave del fregadero y ya hay agua debajo de la tarja.</textarea>
+              </label>
+              <div class="attach" id="attach">
+                <span class="att att-photo"><svg class="ico"><use href="#i-camera"/></svg><em>Foto</em></span>
+                <span class="att att-photo b"><svg class="ico"><use href="#i-camera"/></svg><em>Foto</em></span>
+                <span class="att att-video"><svg class="ico"><use href="#i-video"/></svg><em>0:12</em><i class="up"></i></span>
+                <span class="att att-add">+</span>
+              </div>
+              <div class="when">
+                <span class="when-label">¿Cuándo lo necesitas?</span>
+                <div class="seg" id="whenSeg">
+                  <button type="button" data-mode="urgente" aria-pressed="true">Urgente</button>
+                  <button type="button" data-mode="programar" aria-pressed="false">Programar</button>
+                </div>
+                <div class="when-opts" id="whenOpts"></div>
+              </div>
+              <button class="phone-cta" id="publishBtn" type="button">Publicar solicitud</button>
+            </section>
+
+            <!-- 1 · Compara -->
+            <section class="scr" data-scr="1" aria-label="Ofertas recibidas">
+              <header class="scr-head"><small class="mint" id="offersCat">Plomería</small><h3>¡Ya casi tienes la solución!</h3></header>
+              <div class="radar-box"><span class="radar" aria-hidden="true"></span><p>Contactando especialistas en tiempo real. Las ofertas irán apareciendo aquí.</p></div>
+              <div class="offers-bar">
+                <span class="offers-count"><i class="live" aria-hidden="true"></i><b id="offerCount">0</b>&nbsp;<span id="offerWord">ofertas recibidas</span></span>
+              </div>
+              <div class="sort" id="sortBar" role="group" aria-label="Ordenar ofertas">
+                <button type="button" data-sort="precio" aria-pressed="true">Precio</button>
+                <button type="button" data-sort="calif" aria-pressed="false">Calificación</button>
+                <button type="button" data-sort="garantia" aria-pressed="false">Garantía</button>
+              </div>
+              <ul class="offers" id="offers"></ul>
+              <button class="phone-cta" id="acceptBtn" type="button" disabled>Elige una oferta</button>
+            </section>
+
+            <!-- 2 · Síguelo -->
+            <section class="scr" data-scr="2" aria-label="Seguimiento en tiempo real">
+              <header class="scr-head"><small>Servicio en curso</small><h3 id="trackTitle">Va en camino</h3></header>
+              <div class="map">
+                <svg viewBox="0 0 300 170" role="img" aria-label="Mapa de ejemplo con la ruta del especialista">
+                  <rect width="300" height="170" fill="#e9eeed"/>
+                  <g fill="#f7f9f9">
+                    <rect x="8" y="8" width="70" height="42" rx="6"/><rect x="92" y="8" width="96" height="42" rx="6"/><rect x="202" y="8" width="90" height="42" rx="6"/>
+                    <rect x="8" y="64" width="44" height="42" rx="6"/><rect x="66" y="64" width="80" height="42" rx="6"/><rect x="160" y="64" width="62" height="42" rx="6"/><rect x="236" y="64" width="56" height="42" rx="6"/>
+                    <rect x="8" y="120" width="88" height="42" rx="6"/><rect x="110" y="120" width="70" height="42" rx="6"/><rect x="194" y="120" width="98" height="42" rx="6"/>
+                  </g>
+                  <rect x="236" y="64" width="56" height="42" rx="6" fill="#c9f7ef"/>
+                  <path id="routeBase" d="M30 113 H103 V57 H195 V113 H229 V85" fill="none" stroke="#cfd6d5" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path id="route" d="M30 113 H103 V57 H195 V113 H229 V85" fill="none" stroke="#1aecd1" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <g transform="translate(240 70)"><circle r="11" fill="#0a0a0a"/><path d="M-5 1 0-4 5 1V6H-5z" fill="#1aecd1"/></g>
+                  <g id="car"><circle r="11" fill="#1aecd1" opacity=".25"/><circle r="6.5" fill="#0a0a0a"/><circle r="2.6" fill="#1aecd1"/></g>
+                </svg>
+                <div class="eta"><small>Llega en</small><b id="eta">12</b><small>min</small></div>
+              </div>
+              <ol class="track" id="track">
+                <li><i></i><span>Salió hacia tu casa</span><time></time></li>
+                <li><i></i><span>Llegó a tu puerta</span><time></time></li>
+                <li><i></i><span>Empezó a trabajar</span><time></time></li>
+                <li><i></i><span>Terminó el servicio</span><time></time></li>
+              </ol>
+              <div class="chat" id="chat">
+                <div class="chat-head"><svg class="ico"><use href="#i-chat"/></svg><b>Chat</b><span>Sin compartir tu teléfono ni tu correo</span></div>
+                <div class="chat-body" id="chatBody"></div>
+              </div>
+              <button class="phone-cta" id="arrivedBtn" type="button" disabled>Esperando llegada…</button>
+            </section>
+
+            <!-- 3 · Verifica -->
+            <section class="scr" data-scr="3" aria-label="Código de seguridad">
+              <header class="scr-head"><small>Llegó tu especialista</small><h3>Pídele tu código de seguridad</h3></header>
+              <div class="code-box">
+                <span><svg class="ico"><use href="#i-lock"/></svg>Tu código · solo tú lo ves</span>
+                <div class="code-digits" id="codeDigits"><b>4</b><b>7</b><b>1</b><b>9</b></div>
+              </div>
+              <div class="door">
+                <span class="av" id="doorAv">DG</span>
+                <div class="bubble" id="doorBubble">Hola, soy Daniel. Mi código es <b>4 7 1 9</b>.</div>
+              </div>
+              <p class="door-q">¿Coincide con el de tu pantalla?</p>
+              <div class="code-actions">
+                <button type="button" class="ok" id="codeOk"><svg class="ico"><use href="#i-check"/></svg>Coincide</button>
+                <button type="button" class="bad" id="codeBad"><svg class="ico"><use href="#i-close"/></svg>No coincide</button>
+              </div>
+              <div class="code-result" id="codeResult" aria-live="polite"></div>
+              <div class="work" id="work" hidden><span>Trabajando en tu servicio…</span><i><b id="workBar"></b></i></div>
+              <button class="link-btn" id="impostorBtn" type="button">Simular a alguien que no es</button>
+              <button class="phone-cta" id="doneBtn" type="button" hidden>Ver resumen</button>
+            </section>
+
+            <!-- 4 · Confirma -->
+            <section class="scr" data-scr="4" aria-label="Pago y garantía">
+              <header class="scr-head"><small>Servicio terminado</small><h3>¿Quedó como esperabas?</h3></header>
+              <div class="receipt">
+                <div><small id="rcCat">Plomería</small><b id="rcName">Daniel García</b></div>
+                <strong id="rcPrice">$350<small>MXN</small></strong>
+              </div>
+              <div class="escrow" id="escrow" data-state="held">
+                <div class="esc-node"><i><svg class="ico"><use href="#i-user"/></svg></i><span>Tú</span></div>
+                <div class="esc-line"><b class="coin" aria-hidden="true">$</b></div>
+                <div class="esc-node vault"><i><svg class="ico"><use href="#i-lock"/></svg></i><span>Acency</span></div>
+                <div class="esc-line two"><b class="coin" aria-hidden="true">$</b></div>
+                <div class="esc-node"><i><svg class="ico"><use href="#i-award"/></svg></i><span id="escName">Daniel</span></div>
+              </div>
+              <p class="esc-status" id="escStatus"><svg class="ico"><use href="#i-card"/></svg>Pagaste con tarjeta. Acency retiene el pago hasta que confirmes.</p>
+              <div class="warranty">
+                <svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="18"/><circle class="p" id="warrantyRing" cx="22" cy="22" r="18"/></svg>
+                <div><b id="warrantyDays">15 días de garantía</b><small id="warrantyUntil">Activa hasta el 8 de noviembre</small></div>
+              </div>
+              <button class="phone-cta" id="confirmBtn" type="button">Sí, quedó bien: liberar pago</button>
+              <button class="link-btn" id="claimBtn" type="button">Algo no quedó bien</button>
+              <p class="claim-note" id="claimNote" hidden>Reclama desde la app y el especialista regresa a corregirlo sin costo extra mientras tu garantía esté activa. Si aún no confirmas, tu pago sigue retenido.</p>
+            </section>
+
+            <!-- 5 · Califica -->
+            <section class="scr" data-scr="5" aria-label="Calificaciones">
+              <header class="scr-head"><small>Último paso</small><h3 id="rateTitle">Califica a Daniel</h3></header>
+              <div class="rate-stars" id="rateStars" role="radiogroup" aria-label="Calificación">
+                <button type="button" role="radio" aria-checked="false" aria-label="1 estrella" data-v="1"><svg class="ico"><use href="#i-star"/></svg></button>
+                <button type="button" role="radio" aria-checked="false" aria-label="2 estrellas" data-v="2"><svg class="ico"><use href="#i-star"/></svg></button>
+                <button type="button" role="radio" aria-checked="false" aria-label="3 estrellas" data-v="3"><svg class="ico"><use href="#i-star"/></svg></button>
+                <button type="button" role="radio" aria-checked="false" aria-label="4 estrellas" data-v="4"><svg class="ico"><use href="#i-star"/></svg></button>
+                <button type="button" role="radio" aria-checked="false" aria-label="5 estrellas" data-v="5"><svg class="ico"><use href="#i-star"/></svg></button>
+              </div>
+              <div class="rate-tags" id="rateTags">
+                <button type="button" aria-pressed="false">Puntual</button>
+                <button type="button" aria-pressed="false">Dejó todo limpio</button>
+                <button type="button" aria-pressed="false">Buen precio</button>
+                <button type="button" aria-pressed="false">Amable</button>
+              </div>
+              <div class="sealed" id="sealed">
+                <div class="seal-card"><small>Tu reseña</small><p id="mineText">Aún no calificas</p><i><svg class="ico"><use href="#i-lock"/></svg></i></div>
+                <div class="seal-card"><small id="theirLabel">Daniel sobre ti</small><p id="theirText">Calificando…</p><i><svg class="ico"><use href="#i-lock"/></svg></i></div>
+              </div>
+              <p class="seal-note" id="sealNote">Las dos reseñas se publican al mismo tiempo, cuando ambos ya calificaron.</p>
+              <button class="phone-cta" id="sendRate" type="button" disabled>Enviar calificación</button>
+              <div class="end" id="demoEnd" hidden>
+                <button class="link-btn" type="button" id="againBtn">Repetir la demo</button>
+                <a class="phone-cta as-link" data-play href="https://play.google.com/store/apps/details?id=com.servicios.acency" target="_blank" rel="noopener">Descargar Acency</a>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+      <p class="demo-tag"><span class="dot"></span>Simulación · datos de ejemplo</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SEGURIDAD (nueva) ============ -->
+<section class="trust" id="seguridad" aria-labelledby="trust-title">
+  <div class="wrap">
+    <div class="trust-head rv" data-rv="blur">
+      <span class="label">Confianza de principio a fin</span>
+      <h2 class="h2" id="trust-title">Todo pensado para que contrates <span class="accent">con tranquilidad</span>.</h2>
+      <p class="lead">Desde que el especialista sale hasta que confirmas que todo quedó bien, cada paso tiene una protección para ti.</p>
+    </div>
+
+    <div class="bento rv-group">
+      <article class="tile t-pay spot">
+        <div class="tile-copy">
+          <i class="tile-ico"><svg class="ico"><use href="#i-lock"/></svg></i>
+          <h3>Tu pago, protegido</h3>
+          <p>Si pagas con tarjeta, Acency no le suelta el pago al especialista de inmediato: lo retiene hasta que confirmas que el servicio quedó como esperabas.</p>
+        </div>
+        <div class="pay-flow" aria-hidden="true">
+          <div class="pf-node"><i><svg class="ico"><use href="#i-user"/></svg></i><span>Tú pagas</span></div>
+          <div class="pf-track"><b class="pf-coin">$</b></div>
+          <div class="pf-node vault"><i><svg class="ico"><use href="#i-lock"/></svg></i><span class="pf-held">Retenido</span><span class="pf-ok">Confirmaste</span></div>
+          <div class="pf-track two"><b class="pf-coin two">$</b></div>
+          <div class="pf-node"><i><svg class="ico"><use href="#i-award"/></svg></i><span>Especialista</span></div>
+        </div>
+      </article>
+
+      <article class="tile t-code spot">
+        <i class="tile-ico"><svg class="ico"><use href="#i-door"/></svg></i>
+        <h3>Código de seguridad</h3>
+        <p>Al llegar, le pides el código que solo tú tienes en pantalla. Así sabes que es la persona correcta.</p>
+        <div class="slot" id="slot" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+      </article>
+
+      <article class="tile t-warranty spot">
+        <i class="tile-ico"><svg class="ico"><use href="#i-award"/></svg></i>
+        <h3>Garantía de hasta 30 días</h3>
+        <p>Cada especialista decide cuántos días respalda su trabajo. Si algo no quedó bien, regresa a corregirlo sin costo extra.</p>
+        <div class="gauge">
+          <svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="50"/><circle class="p" id="gaugeRing" cx="60" cy="60" r="50"/></svg>
+          <div class="gauge-val"><b id="gaugeDays">15</b><small>días</small></div>
+        </div>
+        <label class="range" for="gaugeInput"><span>Prueba con distintas garantías</span>
+          <input id="gaugeInput" type="range" min="1" max="30" value="15">
+        </label>
+        <p class="gauge-until" id="gaugeUntil">Cubierto hasta el 8 de noviembre</p>
+      </article>
+
+      <article class="tile t-track spot">
+        <i class="tile-ico"><svg class="ico"><use href="#i-route"/></svg></i>
+        <h3>Seguimiento en tiempo real</h3>
+        <p>Ves cuándo salió, cuándo llegó y cuándo empezó a trabajar.</p>
+        <svg class="mini-map" viewBox="0 0 260 96" aria-hidden="true">
+          <path class="mm-base" d="M14 78 H82 V24 H168 V64 H246"/>
+          <path class="mm-route" d="M14 78 H82 V24 H168 V64 H246"/>
+          <g transform="translate(246 64)"><circle r="10" class="mm-home"/><path d="M-4.5 1 0-3.5 4.5 1V5.5h-9z" class="mm-roof"/></g>
+          <g class="mm-car"><circle r="10" class="mm-halo"/><circle r="5.5" class="mm-dot"/>
+            <animateMotion dur="6s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;.7;1" calcMode="linear" path="M14 78 H82 V24 H168 V64 H246"/>
+          </g>
+        </svg>
+        <ol class="mini-track" aria-hidden="true">
+          <li><i></i>Salió</li><li><i></i>Llegó</li><li><i></i>Trabajando</li><li><i></i>Listo</li>
+        </ol>
+      </article>
+
+      <article class="tile t-chat spot">
+        <i class="tile-ico"><svg class="ico"><use href="#i-chat"/></svg></i>
+        <h3>Chat dentro de la app</h3>
+        <p>Toda la comunicación pasa por el chat. No das tu teléfono ni tu correo a nadie.</p>
+        <div class="mini-chat" aria-hidden="true">
+          <span class="mc them">Hola, ya voy en camino.</span>
+          <span class="mc me">¡Gracias! Te espero.</span>
+          <span class="mc them">¿Me pasas tu número?</span>
+          <span class="mc me">Mejor por aquí, todo queda en la app.</span>
+          <span class="mc masked"><svg class="ico"><use href="#i-lock"/></svg>+52 ●● ●●●● ●●●● · oculto</span>
+        </div>
+      </article>
+
+      <article class="tile t-rate spot">
+        <div class="tile-copy">
+          <i class="tile-ico"><svg class="ico"><use href="#i-star"/></svg></i>
+          <h3>Se califican los dos</h3>
+          <p>Tú calificas al especialista y el especialista te califica a ti. Las reseñas se publican hasta que ambos calificaron, para que nadie ponga una buena nota por miedo a represalias. Y se quedan en su perfil para ayudar al siguiente cliente.</p>
+        </div>
+        <div class="duo" aria-hidden="true">
+          <div class="duo-card"><small>Cliente → especialista</small><span class="stars">★★★★★</span><em>“Llegó puntual y dejó todo limpio.”</em><i class="seal"><svg class="ico"><use href="#i-lock"/></svg></i></div>
+          <div class="duo-card"><small>Especialista → cliente</small><span class="stars">★★★★★</span><em>“Muy claro con lo que necesitaba.”</em><i class="seal"><svg class="ico"><use href="#i-lock"/></svg></i></div>
+        </div>
+      </article>
+
+      <article class="tile t-cta">
+        <h3>Todo esto, desde tu celular.</h3>
+        <p>Descarga Acency y pide tu primer servicio hoy.</p>
+        <a class="btn btn-dark" data-play data-magnetic href="https://play.google.com/store/apps/details?id=com.servicios.acency" target="_blank" rel="noopener"><svg class="ico ico-fill"><use href="#i-play"/></svg> Google Play</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NOSOTROS ============ -->
+<section class="about" id="nosotros" aria-labelledby="nosotros-title">
+  <div class="wrap">
+    <div class="about-top">
+      <div class="about-copy rv">
+        <span class="label">Quiénes somos</span>
+        <h2 class="h2" id="nosotros-title">Conectamos hogares con especialistas en quienes <span class="accent">sí se puede confiar</span>.</h2>
+        <p><strong>Acency es una app mexicana</strong> que reúne en un solo lugar a especialistas verificados de hogar y belleza. Publicas lo que necesitas, recibes cotizaciones en tiempo real y eliges con información clara: precio, calificación, garantía y cuándo pueden llegar.</p>
+        <p>Nacimos de algo que todos hemos vivido: buscar a un plomero o a un electricista de confianza a última hora, sin saber cuánto va a costar ni quién va a tocar la puerta. Del otro lado, miles de personas con oficio que no encuentran clientes constantes ni un trato justo. Acency existe para que las dos partes salgan ganando.</p>
+      </div>
+      <aside class="signature rv" data-rv="scale">
+        <img src="assets/logo-black.png" alt="Acency" width="900" height="413" loading="lazy">
+        <dl>
+          <div><dt>Origen</dt><dd>Hecho en México</dd></div>
+          <div><dt>Plataforma</dt><dd>App para Android</dd></div>
+          <div><dt>Categorías</dt><dd>Hogar y belleza</dd></div>
+          <div><dt>Para</dt><dd>Clientes y especialistas</dd></div>
+        </dl>
+      </aside>
+    </div>
+
+    <div class="mv rv-group">
+      <article>
+        <div class="mv-head"><i><svg class="ico"><use href="#i-target"/></svg></i><h3>Misión</h3></div>
+        <p>Hacer que contratar un servicio para el hogar sea simple, seguro y transparente, y que ofrecerlo sea una forma digna y estable de ganarse la vida.</p>
+      </article>
+      <article>
+        <div class="mv-head"><i><svg class="ico"><use href="#i-eye"/></svg></i><h3>Visión</h3></div>
+        <p>Ser la plataforma de servicios para el hogar más confiable de México y Latinoamérica, donde cada trabajo se cotiza con claridad, se hace bien y se paga a tiempo.</p>
+      </article>
+    </div>
+
+    <div class="values">
+      <div class="values-head rv"><h3>Valores</h3><p class="lead" style="font-size:1rem;max-width:44ch">Lo que guía cada decisión, tanto para quien contrata como para quien trabaja.</p></div>
+      <ul class="values-list rv-group">
+        <li class="value-card spot"><b>Confianza</b><p>Verificamos a cada especialista antes de que llegue a tu puerta.</p></li>
+        <li class="value-card spot"><b>Transparencia</b><p>Precios, garantías y tiempos visibles desde la primera oferta.</p></li>
+        <li class="value-card spot"><b>Justicia</b><p>Condiciones claras y justas para clientes y especialistas por igual.</p></li>
+        <li class="value-card spot"><b>Calidad</b><p>Las calificaciones reales premian el trabajo bien hecho.</p></li>
+        <li class="value-card spot"><b>Cercanía</b><p>Personas de tu zona, con trato humano en cada servicio.</p></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ESPECIALISTAS ============ -->
+<section class="pros on-ink" id="especialistas" aria-labelledby="pros-title">
+  <div class="aura a1" aria-hidden="true"></div>
+  <div class="aura a2" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="pros-grid">
+      <div class="pros-copy rv" data-rv="blur">
+        <span class="label">Para especialistas</span>
+        <h2 class="h2" id="pros-title">¿Eres especialista en alguno de <span class="accent">nuestros servicios</span>?</h2>
+        <p class="lead"><strong>Únete ahora, obtén tu código de referido y empieza a ganar.</strong> Recibe solicitudes de clientes cerca de ti y convierte tu oficio en una fuente de ingresos constante.</p>
+        <blockquote class="slogan">
+          El único lugar donde contratar y trabajar <em>al fin se sienten justos.</em>
+          <cite>Acency</cite>
+        </blockquote>
+        <ul class="perks">
+          <li class="perk"><i><svg class="ico"><use href="#i-tag"/></svg></i><div><b>Tú pones tu precio</b><p>Envía tu cotización y elige los trabajos que te convienen.</p></div></li>
+          <li class="perk"><i><svg class="ico"><use href="#i-pin"/></svg></i><div><b>Clientes en tu zona</b><p>Solicitudes cerca de ti, sin pagar por anuncios.</p></div></li>
+          <li class="perk"><i><svg class="ico"><use href="#i-gift"/></svg></i><div><b>Gana con tu código</b><p>Comparte tu código de referido e invita a más especialistas y clientes.</p></div></li>
+          <li class="perk"><i><svg class="ico"><use href="#i-star"/></svg></i><div><b>Crece tu reputación</b><p>Cada trabajo bien hecho suma calificaciones que atraen clientes.</p></div></li>
+          <li class="perk"><i><svg class="ico"><use href="#i-award"/></svg></i><div><b>Tú decides tu garantía</b><p>Elige cuántos días respaldas tu trabajo, hasta 30, y destaca frente a otras ofertas.</p></div></li>
+          <li class="perk"><i><svg class="ico"><use href="#i-shield"/></svg></i><div><b>Tú también calificas</b><p>Calificas a cada cliente, y las reseñas se publican cuando ambos ya calificaron.</p></div></li>
+        </ul>
+        <div class="pros-ctas">
+          <a class="btn" data-play data-magnetic href="https://play.google.com/store/apps/details?id=com.servicios.acency" target="_blank" rel="noopener">Unirme como especialista <svg class="ico ico-arrow"><use href="#i-arrow"/></svg></a>
+          <p>Registro gratuito desde la app.</p>
+        </div>
+      </div>
+
+      <div class="pros-visual rv" data-rv="scale">
+        <div class="photo" data-speed="-0.04">
+          <img src="assets/phones-especialistas.jpg" alt="App de Acency para especialistas: seguimiento del servicio en curso, tiempo y estado del trabajo" width="420" height="460" loading="lazy">
+        </div>
+        <div class="ticket" data-speed="-0.1">
+          <div class="ticket-top"><span>Tu código de referido</span><em>Ejemplo</em></div>
+          <div class="ticket-code">
+            <code id="refCode">ACENCY-LUIS24</code>
+            <button class="copy-btn" id="copyBtn" type="button"><svg class="ico"><use href="#i-copy"/></svg><span>Copiar</span></button>
+          </div>
+          <p>Recibes tu código personal al completar tu registro como especialista en la app.</p>
+        </div>
+      </div>
+    </div>
+
+    <ol class="pros-steps rv-group" id="prosSteps">
+      <li><span>01</span><b>Descarga Acency</b><p>Disponible gratis en Google Play.</p></li>
+      <li><span>02</span><b>Crea tu perfil</b><p>Elige tus servicios y tu zona de trabajo.</p></li>
+      <li><span>03</span><b>Verifica tu identidad</b><p>Un proceso rápido que genera confianza en tus clientes.</p></li>
+      <li><span>04</span><b>Obtén tu código y gana</b><p>Compártelo y empieza a recibir trabajos.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ GOOGLE PLAY ============ -->
+<section class="store" id="descargar" aria-labelledby="store-title">
+  <div class="wrap">
+    <div class="store-head">
+      <div class="rv" data-rv="blur">
+        <span class="label">Descarga gratis</span>
+        <h2 id="store-title">Encuéntranos en Play Store.</h2>
+      </div>
+      <div class="store-side rv">
+        <img src="assets/logo-black.png" alt="Acency" width="900" height="413" loading="lazy">
+        <p>Descarga Acency en tu Android. Pide un servicio, compara cotizaciones y sigue a tu especialista en tiempo real, todo desde tu celular.</p>
+        <div class="store-actions">
+          <a class="btn btn-dark play-badge" data-play data-magnetic href="https://play.google.com/store/apps/details?id=com.servicios.acency" target="_blank" rel="noopener">
+            <svg class="ico ico-fill"><use href="#i-play"/></svg>
+            <span><small>Disponible en</small><b>Google Play</b></span>
+          </a>
+          <div class="qr-card" id="qrCard" hidden>
+            <div class="qr" id="qr" role="img" aria-label="Código QR para abrir Acency en Google Play"></div>
+            <p><b>Escanea con tu Android</b>Apunta la cámara y llegas directo a Google Play.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="gallery">
+      <figure data-speed="0.04" data-cursor="Ver"><img src="assets/shot-servicios.jpg" alt="Acency: todos los servicios a un click de ti" width="720" height="1558" loading="lazy"></figure>
+      <figure data-speed="-0.03" data-cursor="Ver"><img src="assets/shot-cotizaciones.jpg" alt="Acency: recibe diferentes cotizaciones y elige la mejor para ti" width="720" height="1558" loading="lazy"></figure>
+      <figure data-speed="0.06" data-cursor="Ver"><img src="assets/shot-categorias.jpg" alt="Acency: categorías de servicios para el hogar" width="720" height="1558" loading="lazy"></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PREGUNTAS ============ -->
+<section class="faq" id="preguntas" aria-labelledby="faq-title">
+  <div class="wrap faq-grid">
+    <div class="faq-aside rv">
+      <span class="label">Preguntas frecuentes</span>
+      <h2 class="h2" id="faq-title">Lo que más nos <span class="accent">preguntan</span>.</h2>
+      <p class="lead">Si tu duda no está aquí, escríbenos desde la sección de ayuda de la app.</p>
+      <div class="faq-tools">
+        <label class="faq-search" for="faqSearch">
+          <svg class="ico"><use href="#i-search"/></svg>
+          <input id="faqSearch" type="search" autocomplete="off" placeholder="Busca: garantía, pago, gas…" aria-label="Buscar en preguntas frecuentes">
+        </label>
+        <div class="faq-filters" id="faqFilters" role="group" aria-label="Filtrar preguntas">
+          <button type="button" data-cat="all" aria-pressed="true">Todas</button>
+          <button type="button" data-cat="servicios" aria-pressed="false">Servicios</button>
+          <button type="button" data-cat="seguridad" aria-pressed="false">Seguridad y pagos</button>
+          <button type="button" data-cat="especialistas" aria-pressed="false">Especialistas</button>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="faq-list rv-group" id="faqList">
+        <details class="faq-item" data-cat="servicios" open><summary>¿Hay plomería 24 horas cerca de mí?<i aria-hidden="true"></i></summary><div class="answer">Sí. Publicas tu solicitud a cualquier hora y los plomeros disponibles en tu zona te envían su cotización para fugas de agua, desazolve de cañerías o destape de drenajes.</div></details>
+        <details class="faq-item" data-cat="servicios"><summary>¿Cuánto cuesta desazolvar una tubería?<i aria-hidden="true"></i></summary><div class="answer">Depende del tipo de drenaje, la longitud y tu zona. En Acency recibes varias cotizaciones y eliges la que más te convenga antes de confirmar.</div></details>
+        <details class="faq-item" data-cat="servicios"><summary>¿Realizan trabajos de electricidad a domicilio?<i aria-hidden="true"></i></summary><div class="answer">Sí. Encuentra un electricista cerca de ti para instalaciones eléctricas, cortos, contactos, apagadores y reparaciones urgentes.</div></details>
+        <details class="faq-item" data-cat="servicios"><summary>¿Hacen impermeabilización de techos?<i aria-hidden="true"></i></summary><div class="answer">Sí. Especialistas en impermeabilización de casas y techos te cotizan por metro cuadrado según el material y el estado de tu azotea.</div></details>
+        <details class="faq-item" data-cat="servicios"><summary>¿Limpian cisternas y tinacos?<i aria-hidden="true"></i></summary><div class="answer">Sí. Puedes solicitar limpieza y desinfección de cisternas y tinacos a domicilio.</div></details>
+        <details class="faq-item" data-cat="servicios"><summary>¿Realizan instalación de gas?<i aria-hidden="true"></i></summary><div class="answer">Sí. Técnicos de gas atienden instalación, reparación y revisión de fugas de gas.</div></details>
+        <details class="faq-item" data-cat="servicios"><summary>¿Arman y desarman muebles?<i aria-hidden="true"></i></summary><div class="answer">Sí. Hay ayudantes para mudanzas, carga y descarga, y armado y desarmado de muebles.</div></details>
+        <details class="faq-item" data-cat="servicios"><summary>¿Puedo pedir un servicio urgente para hoy?<i aria-hidden="true"></i></summary><div class="answer">Sí. Al crear tu solicitud eliges si es urgente y lo necesitas hoy o mañana, o si prefieres agendarlo para un día específico.</div></details>
+        <details class="faq-item" data-cat="servicios"><summary>¿Puedo mandar fotos o un video del problema?<i aria-hidden="true"></i></summary><div class="answer">Sí. Puedes adjuntar fotos y hasta un video para que el especialista entienda mejor lo que pasa y te cotice con más precisión.</div></details>
+        <details class="faq-item" data-cat="seguridad"><summary>¿Cómo sé que quien llega es la persona correcta?<i aria-hidden="true"></i></summary><div class="answer">Cuando el especialista llega a tu puerta, le pides el código de seguridad que solo tú tienes en pantalla. Si coincide, es la persona que aceptaste en la app.</div></details>
+        <details class="faq-item" data-cat="seguridad"><summary>¿Qué garantía tiene el trabajo?<i aria-hidden="true"></i></summary><div class="answer">Cada oferta trae su propia garantía: el especialista decide cuántos días respalda su trabajo, hasta un máximo de 30. Si algo no quedó bien, lo reclamas desde la app y regresa a corregirlo sin costo extra.</div></details>
+        <details class="faq-item" data-cat="seguridad"><summary>¿Cuándo recibe el pago el especialista?<i aria-hidden="true"></i></summary><div class="answer">Si pagas con tarjeta, Acency retiene el pago y lo libera hasta que confirmas que el servicio quedó como esperabas. Así hay margen para resolver cualquier detalle antes de que el dinero se libere.</div></details>
+        <details class="faq-item" data-cat="seguridad"><summary>¿Tengo que dar mi teléfono o mi correo?<i aria-hidden="true"></i></summary><div class="answer">No. Toda la comunicación pasa por el chat de la app, así que no necesitas compartir tu teléfono ni tu correo con nadie.</div></details>
+        <details class="faq-item" data-cat="seguridad especialistas"><summary>¿Cómo funcionan las calificaciones?<i aria-hidden="true"></i></summary><div class="answer">Al terminar, tú calificas al especialista y el especialista te califica a ti. Las reseñas se publican hasta que ambos calificaron, para que nadie sienta que tiene que poner una buena nota por miedo a represalias. Se quedan en el perfil del especialista para ayudar al siguiente cliente a elegir.</div></details>
+        <details class="faq-item" data-cat="especialistas"><summary>¿Cómo me uno como especialista?<i aria-hidden="true"></i></summary><div class="answer">Descarga Acency en Google Play, crea tu perfil de especialista y completa la verificación. Al terminar recibes tu código de referido para invitar a otras personas y empezar a ganar.</div></details>
+      </div>
+      <p class="faq-empty" id="faqEmpty" hidden>No encontramos esa pregunta. Escríbenos desde la sección de ayuda de la app y te respondemos.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="assets/logo-mint.png" alt="Acency" width="900" height="413" loading="lazy">
+        <p>El único lugar donde contratar y trabajar al fin se sienten justos.</p>
+        <a class="btn play-badge" data-play data-magnetic href="https://play.google.com/store/apps/details?id=com.servicios.acency" target="_blank" rel="noopener">
+          <svg class="ico ico-fill"><use href="#i-play"/></svg><span><small>Disponible en</small><b>Google Play</b></span>
+        </a>
+        <button class="share-btn" id="shareBtn" type="button"><svg class="ico"><use href="#i-share"/></svg>Recomendar Acency</button>
+      </div>
+      <div class="footer-col">
+        <h4>Servicios</h4>
+        <ul>
+          <li><a href="#servicios">Plomero cerca de mí</a></li>
+          <li><a href="#servicios">Electricista a domicilio</a></li>
+          <li><a href="#servicios">Impermeabilización</a></li>
+          <li><a href="#servicios">Instalación de gas</a></li>
+          <li><a href="#servicios">Limpieza de cisternas</a></li>
+          <li><a href="#servicios">Mudanzas</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Acency</h4>
+        <ul>
+          <li><a href="#nosotros">Quiénes somos</a></li>
+          <li><a href="#como-funciona">Cómo funciona</a></li>
+          <li><a href="#demo">Pruébalo en línea</a></li>
+          <li><a href="#seguridad">Pagos y garantía</a></li>
+          <li><a href="#especialistas">Únete como especialista</a></li>
+          <li><a href="#preguntas">Preguntas frecuentes</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Descarga</h4>
+        <ul>
+          <li><a data-play href="https://play.google.com/store/apps/details?id=com.servicios.acency" target="_blank" rel="noopener">Google Play</a></li>
+          <li><a href="#descargar">Capturas de la app</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-mark" id="footerMark" aria-hidden="true">
+      <img src="assets/logo-white.png" alt="" width="900" height="413" loading="lazy">
+      <img class="lit" src="assets/logo-mint.png" alt="" width="900" height="413" loading="lazy">
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Acency. Hecho en México.</span>
+      <nav aria-label="Legal"><a href="#privacidad" data-legal="privacidad">Aviso de privacidad</a><a href="#terminos" data-legal="terminos">Términos y condiciones</a></nav>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ DOCUMENTOS LEGALES ============ -->
+<dialog class="modal" id="legalModal" aria-labelledby="legalTitle">
+  <div class="modal-in">
+    <button class="modal-x" type="button" data-close aria-label="Cerrar"><svg class="ico"><use href="#i-close"/></svg></button>
+    <span class="label">Documento legal</span>
+    <h2 id="legalTitle">Aviso de privacidad</h2>
+    <p id="legalLead">El documento completo y vigente está dentro de la app, en la sección <b>Reglamentario</b>.</p>
+    <div class="modal-box">
+      <h3>Lo esencial</h3>
+      <ul id="legalList"></ul>
+    </div>
+    <div class="modal-actions">
+      <a class="btn" data-play href="https://play.google.com/store/apps/details?id=com.servicios.acency" target="_blank" rel="noopener"><svg class="ico ico-fill"><use href="#i-play"/></svg> Abrir en Google Play</a>
+      <button class="btn btn-line" type="button" data-close>Cerrar</button>
+    </div>
+  </div>
+</dialog>
+
+</body>
+</html>
