@@ -6,7 +6,75 @@
   'use strict';
   /* Cambia este enlace por el de la ficha oficial de Acency en Google Play */
   var PLAY_URL = 'https://play.google.com/store/apps/details?id=com.servicios.acency';
-  document.querySelectorAll('[data-play]').forEach(function (a) { a.href = PLAY_URL; });
+
+  /* ---------- Google Ads: medición y atribución ----------
+     ADS_ID es el ID de la cuenta (AW-XXXXXXXXXX) y ADS_LABEL la etiqueta de la
+     conversión "Clic a Google Play". Vacíos = no se carga nada de Google. */
+  var ADS_ID = '';
+  var ADS_LABEL = '';
+  var qs = new URLSearchParams(location.search);
+  /* La fuente del anuncio viaja a Google Play en `referrer` (Play Console la muestra
+     en Adquisición). Sin anuncio, se marca como tráfico de la página. */
+  var PLAY_LINK = (function () {
+    var keep = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'gbraid', 'wbraid'], ref = [];
+    keep.forEach(function (k) { var v = qs.get(k); if (v) ref.push(k + '=' + encodeURIComponent(v.slice(0, 100))); });
+    if (!qs.get('utm_source')) ref.unshift('utm_source=' + (qs.get('gclid') || qs.get('gbraid') || qs.get('wbraid') ? 'google' : 'acency_web'), 'utm_medium=' + (qs.get('gclid') ? 'cpc' : 'landing'));
+    return PLAY_URL + '&referrer=' + encodeURIComponent(ref.join('&'));
+  })();
+  document.querySelectorAll('[data-play]').forEach(function (a) { a.href = PLAY_LINK; });
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { window.dataLayer.push(arguments); }
+  if (ADS_ID) {
+    gtag('js', new Date()); gtag('config', ADS_ID);
+    var loadTag = function () { var t = document.createElement('script'); t.async = true; t.src = 'https://www.googletagmanager.com/gtag/js?id=' + ADS_ID; document.head.appendChild(t); };
+    if (document.readyState === 'complete') loadTag(); else window.addEventListener('load', loadTag);
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('[data-play]');
+    if (!a) return;
+    window.dataLayer.push({ event: 'clic_google_play', ubicacion: (a.closest('[id]') || {}).id || '' });
+    if (ADS_ID && ADS_LABEL) gtag('event', 'conversion', { send_to: ADS_ID + '/' + ADS_LABEL });
+  });
+
+  /* ---------- Titular según el anuncio: ?servicio=plomeria ----------
+     Cada campaña de búsqueda aterriza con su oficio y el hero repite lo que la
+     persona buscó. *palabra* = palabra en menta. */
+  var SERVICIOS = {
+    plomeria: ['¿Necesitas un *plomero* *hoy?*', 'Fugas, llaves que gotean, drenajes tapados o un WC que no funciona. Cuenta qué pasa, recibe ofertas de plomeros verificados cerca de ti y elige la que más te convenga. Cotizar es gratis.', 'fuga de agua', 'plomeria'],
+    electricidad: ['¿Necesitas un *electricista* *hoy?*', 'Un cuarto sin luz, contactos, apagadores o un tablero que falla. Recibe ofertas de electricistas verificados cerca de ti, compara y elige. Cotizar es gratis.', 'se fue la luz', 'electricidad'],
+    impermeabilizacion: ['Impermeabiliza tu techo *antes* *de* *que* *llueva.*', 'Graba un video de tu azotea y recibe cotizaciones de especialistas cerca de ti, cada una con su precio y su garantía. Cotizar es gratis.', 'gotera en el techo', 'impermeabilizacion'],
+    drenaje: ['¿Drenaje tapado? *Resuélvelo* *ya.*', 'Desazolve de drenajes, cañerías y registros a domicilio. Manda fotos o un video, recibe ofertas de especialistas cercanos y elige. Cotizar es gratis.', 'drenaje tapado', 'drenaje'],
+    gas: ['Instalación de gas *segura,* *a* *domicilio.*', 'Instalación y conexión de líneas y aparatos de gas con especialistas verificados de tu zona. Compara ofertas antes de contratar. Cotizar es gratis.', 'instalacion de gas', ''],
+    pintura: ['Pinta tu casa *sin* *batallar.*', 'Interiores y fachadas. Recibe ofertas de pintores verificados cerca de ti con precio, día de visita y garantía. Cotizar es gratis.', 'pintar mi casa', 'pintura'],
+    albanileria: ['Albañil a domicilio, *cerca* *de* *ti.*', 'Paredes cuarteadas, pisos, azulejos y reparaciones. Manda fotos, recibe ofertas y elige con calificaciones reales. Cotizar es gratis.', 'pared cuarteada', 'albanileria'],
+    herreria: ['Herrero a domicilio, *cerca* *de* *ti.*', 'Rejas, portones, protecciones y soldadura. Compara ofertas de herreros verificados antes de contratar. Cotizar es gratis.', 'rejas', ''],
+    carpinteria: ['Carpintero a domicilio, *cerca* *de* *ti.*', 'Muebles, puertas y madera. Recibe ofertas con precio, día de visita y garantía, y elige la que más te convenga. Cotizar es gratis.', '', ''],
+    jardineria: ['Jardinero a domicilio, *cuando* *lo* *necesites.*', 'Poda, corte de pasto y mantenimiento. Agenda y recibe ofertas de jardineros cerca de ti. Cotizar es gratis.', 'podar el jardin', ''],
+    cisternas: ['Limpieza de cisternas *y* *tinacos.*', 'Lavado y desinfección a domicilio con especialistas verificados de tu zona. Compara ofertas antes de contratar. Cotizar es gratis.', 'limpiar cisterna', ''],
+    mudanzas: ['¿Te mudas? *Consigue* *ayuda.*', 'Ayudantes para cargar, mover y acomodar, y armado o desarmado de muebles. El día y la hora vienen en cada oferta. Cotizar es gratis.', 'mudanza', ''],
+    muebles: ['Armado de muebles *a* *domicilio.*', 'Closets, camas, mesas y más. Recibe ofertas de especialistas cerca de ti y elige. Cotizar es gratis.', 'armar muebles', ''],
+    mandados: ['Mandados y trámites, *sin* *salir.*', 'Compras, pagos, trámites, entregas o hacer fila por ti. Compara ofertas de personas verificadas cerca de ti. Cotizar es gratis.', 'mandados', ''],
+    mascotas: ['Paseador de mascotas *cerca* *de* *ti.*', 'Paseo, ejercicio y cuidado breve de tu mascota con personas verificadas de tu zona. Cotizar es gratis.', 'pasear a mi perro', '']
+  };
+  var ALIAS = { plomero: 'plomeria', electricista: 'electricidad', impermeabilizar: 'impermeabilizacion', desazolve: 'drenaje', pintor: 'pintura', albanil: 'albanileria', herrero: 'herreria', carpintero: 'carpinteria', jardin: 'jardineria', jardinero: 'jardineria', tinacos: 'cisternas', mudanza: 'mudanzas', paseador: 'mascotas' };
+  var servicioSlug = (qs.get('servicio') || '').toLowerCase().normalize('NFD').replace(/[^a-z]/g, '');
+  servicioSlug = ALIAS[servicioSlug] || servicioSlug;
+  var servicio = SERVICIOS.hasOwnProperty(servicioSlug) ? SERVICIOS[servicioSlug] : null;
+  if (servicio) (function () {
+    var h1 = document.getElementById('hero-title'), lead = document.getElementById('heroLead');
+    if (h1) {
+      h1.textContent = '';
+      servicio[0].split(' ').forEach(function (word, i) {
+        if (i) h1.appendChild(document.createTextNode(' '));
+        var w = document.createElement('span'), acc = /^\*.*\*$/.test(word);
+        w.className = acc ? 'w accent' : 'w';
+        w.textContent = acc ? word.slice(1, -1) : word;
+        h1.appendChild(w);
+      });
+    }
+    if (lead) lead.textContent = servicio[1];
+    document.title = h1.textContent + ' · Acency';
+  })();
 
   var root = document.documentElement;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -281,8 +349,19 @@
     toTop.classList.toggle('show', y > window.innerHeight * 0.9);
   });
 
+  /* ---------- Barra fija de descarga (celular) ---------- */
+  var dock = $('#dock'), heroEl = $('#inicio'), sheetEl = $('#sheet');
+  var dockHide = [$('#descargar'), $('.footer')];
+  if (dock) scrollHooks.push(function () {
+    var vh = window.innerHeight, past = heroEl && heroEl.getBoundingClientRect().bottom < vh * 0.35;
+    var near = dockHide.some(function (el) { if (!el) return false; var r = el.getBoundingClientRect(); return r.top < vh && r.bottom > 0; });
+    var on = !!past && !near && !(sheetEl && sheetEl.classList.contains('open'));
+    dock.classList.toggle('show', on);
+    root.classList.toggle('dock-on', on && window.innerWidth <= 860);
+  });
+
   /* ---------- Capítulo actual (pantallas anchas) ---------- */
-  var chapters = [['inicio', 'Inicio'], ['servicios', 'Servicios'], ['como-funciona', 'Cómo funciona'], ['demo', 'Pruébalo'], ['seguridad', 'Seguridad'], ['nosotros', 'Nosotros'], ['especialistas', 'Especialistas'], ['descargar', 'Descargar'], ['preguntas', 'Preguntas']]
+  var chapters = [['inicio', 'Inicio'], ['te-salva', 'Te salva'], ['servicios', 'Servicios'], ['como-funciona', 'Cómo funciona'], ['videos', 'Videos'], ['demo', 'Pruébalo'], ['diferencia', 'La diferencia'], ['seguridad', 'Seguridad'], ['nosotros', 'Nosotros'], ['especialistas', 'Especialistas'], ['descargar', 'Descargar'], ['preguntas', 'Preguntas']]
     .map(function (c) { return { el: document.getElementById(c[0]), name: c[1] }; });
   var tones = $$('main > section, .ticker, .footer').map(function (el) {
     var ink = el.classList.contains('on-ink') || el.classList.contains('ticker') || el.classList.contains('footer');
@@ -448,6 +527,9 @@
     finder.addEventListener('input', run);
     clearB.addEventListener('click', function () { finder.value = ''; run(); finder.focus(); });
     $$('.finder-chips button').forEach(function (b) { b.addEventListener('click', function () { finder.value = b.getAttribute('data-q'); run(); }); });
+
+    /* Si llegó desde un anuncio de un oficio, el buscador ya muestra ese oficio */
+    if (servicio && servicio[2]) { finder.value = servicio[2]; run(); }
 
     /* Ejemplos que se escriben solos en el campo vacío */
     if (!reduce) {
@@ -1026,7 +1108,7 @@
   if (qrCard && typeof window.qrcode === 'function') {
     try {
       var qr = window.qrcode(0, 'M');
-      qr.addData(PLAY_URL); qr.make();
+      qr.addData(PLAY_LINK); qr.make();
       $('#qr').innerHTML = qr.createSvgTag({ cellSize: 4, margin: 0, scalable: true });
       qrCard.hidden = false;
     } catch (e) {}

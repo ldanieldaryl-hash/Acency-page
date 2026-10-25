@@ -169,6 +169,11 @@
   <svg class="ico"><use href="#i-up"/></svg>
 </a>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<aside class="dock" id="dock" aria-label="Descargar Acency">
+  <img src="assets/icon.png" alt="" width="40" height="40" loading="lazy">
+  <div class="dock-txt"><b>Acency</b><small>Cotiza gratis · Android</small></div>
+  <a class="btn" data-play href="https://play.google.com/store/apps/details?id=com.servicios.acency" target="_blank" rel="noopener"><svg class="ico ico-fill"><use href="#i-play"/></svg>Descargar</a>
+</aside>
 <canvas class="confetti" id="confetti" aria-hidden="true"></canvas>
 
 <!-- ============ INTRO ============ -->
@@ -214,7 +219,8 @@
 
 <div class="sheet" id="sheet" aria-hidden="true">
   <nav aria-label="Menú principal">
-    <a href="#servicios">Servicios <small>12 categorías</small></a>
+    <a href="#te-salva">Te salva <small>Cuando algo falla</small></a>
+    <a href="#servicios">Servicios <small>Hogar</small></a>
     <a href="#como-funciona">Cómo funciona <small>4 pasos</small></a>
     <a href="#demo">Pruébalo <small>Demo interactiva</small></a>
     <a href="#seguridad">Seguridad <small>Pago · Garantía</small></a>
@@ -252,7 +258,7 @@
         <span class="w accent">a</span> <span class="w accent">un</span> <span class="w accent">click</span> <span class="w">de</span> <span class="w">ti.</span>
       </h1>
 
-      <p class="lead">Plomero, electricista, impermeabilización, jardinería y más, a domicilio y cerca de ti. Publica lo que necesitas, recibe cotizaciones de especialistas verificados y elige la que más te convenga.</p>
+      <p class="lead" id="heroLead">Plomero, electricista, impermeabilización, jardinería y más, a domicilio y cerca de ti. Publica lo que necesitas, recibe cotizaciones de especialistas verificados y elige la que más te convenga.</p>
 
       <div class="hero-ctas">
         <a class="btn" data-play data-magnetic href="https://play.google.com/store/apps/details?id=com.servicios.acency" target="_blank" rel="noopener">
@@ -262,6 +268,8 @@
           Ver servicios <svg class="ico ico-arrow"><use href="#i-arrow"/></svg>
         </a>
       </div>
+
+      <p class="hero-free"><span>Gratis</span>Cotizar no cuesta nada · solo pagas si contratas · App para Android</p>
 
       <ul class="hero-proof">
         <li><svg class="ico"><use href="#i-shield"/></svg> Especialistas verificados</li>
@@ -343,6 +351,48 @@
   <div class="wrap">
     <span class="label">Sin vueltas</span>
     <p class="manifesto-text" id="manifesto">¿Una fuga a medianoche, un apagón, una pared que pide pintura? Abres la app, cuentas qué te pasa con fotos o hasta un video, y en poco tiempo te llegan ofertas de especialistas cercanos con su precio, su calificación y sus reseñas. <em>Comparas cuantas veces quieras y eliges tú.</em></p>
+  </div>
+</section>
+
+<!-- ============ ACENCY TE SALVA (nuevo) ============ -->
+<section class="rescue on-ink" id="te-salva" aria-labelledby="rescue-title">
+  <div class="aura a1" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="rescue-head rv" data-rv="blur">
+      <span class="label">Para cuando algo falla</span>
+      <h2 class="h2" id="rescue-title">Cuando algo falla en casa, <span class="accent">Acency te salva</span>.</h2>
+      <p class="lead">Sin buscar números, sin esperar a que alguien conteste y sin precios a ciegas. Así se ve un mal momento con la app en tu celular.</p>
+    </div>
+    <ol class="rescue-list rv-group">
+      <li class="rescue-card spot">
+        <span class="rescue-time"><svg class="ico"><use href="#i-clock"/></svg>11:40 p. m.</span>
+        <h3>Se rompió una tubería</h3>
+        <p class="rescue-pain">El agua no para y no sabes a quién llamar.</p>
+        <p class="rescue-fix"><svg class="ico"><use href="#i-check"/></svg><span>Pides <b>Urgente</b> (hoy o mañana), mandas fotos y un video, y los plomeros cercanos te mandan su oferta con precio, día y hora de llegada.</span></p>
+      </li>
+      <li class="rescue-card spot">
+        <span class="rescue-time"><svg class="ico"><use href="#i-clock"/></svg>7:15 p. m.</span>
+        <h3>Se fue la luz en un cuarto</h3>
+        <p class="rescue-pain">No sabes si es el foco, el contacto o el tablero.</p>
+        <p class="rescue-fix"><svg class="ico"><use href="#i-check"/></svg><span>Lo cuentas con tus palabras o con las opciones rápidas, y eliges electricista viendo su calificación, sus reseñas y fotos de sus proyectos.</span></p>
+      </li>
+      <li class="rescue-card spot">
+        <span class="rescue-time"><svg class="ico"><use href="#i-calendar"/></svg>Temporada de lluvias</span>
+        <h3>El techo empezó a gotear</h3>
+        <p class="rescue-pain">Cada aguacero es una cubeta más.</p>
+        <p class="rescue-fix"><svg class="ico"><use href="#i-check"/></svg><span>Grabas un video de la azotea y te cotizan especialistas de tu zona. Cada oferta dice cuántos días de garantía trae.</span></p>
+      </li>
+      <li class="rescue-card spot">
+        <span class="rescue-time"><svg class="ico"><use href="#i-calendar"/></svg>Este sábado</span>
+        <h3>Te mudas y no te da tiempo</h3>
+        <p class="rescue-pain">Cajas, muebles por armar y nadie que ayude.</p>
+        <p class="rescue-fix"><svg class="ico"><use href="#i-check"/></svg><span>Eliges <b>Agendar</b> y pides un ayudante de mudanzas o el armado de muebles. Cada oferta te dice qué día y a qué hora llega.</span></p>
+      </li>
+    </ol>
+    <div class="rescue-cta rv">
+      <a class="btn" data-play data-magnetic href="https://play.google.com/store/apps/details?id=com.servicios.acency" target="_blank" rel="noopener"><svg class="ico ico-fill"><use href="#i-play"/></svg> Descargar gratis</a>
+      <p>Instálala hoy, aunque todavía no la necesites. El día que algo falle, ya la tienes a la mano.</p>
+    </div>
   </div>
 </section>
 
@@ -652,6 +702,29 @@
         </div>
       </div>
       <p class="demo-tag"><span class="dot"></span>Simulación · datos de ejemplo</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMO SIEMPRE / CON ACENCY (nuevo) ============ -->
+<section class="versus" id="diferencia" aria-labelledby="versus-title">
+  <div class="wrap">
+    <div class="versus-head rv" data-rv="blur">
+      <span class="label">La diferencia</span>
+      <h2 class="h2" id="versus-title">Contratar como siempre, o contratar <span class="accent">con Acency</span>.</h2>
+    </div>
+    <div class="vs-cols" aria-hidden="true"><span></span><span>Como siempre</span><span>Con Acency</span></div>
+    <ul class="vs-rows rv-group">
+      <li class="vs-row"><h3>Encontrar a alguien</h3><p class="vs-old"><svg class="ico"><use href="#i-close"/></svg><span>Preguntas en grupos y a vecinos, y esperas a que alguien conteste.</span></p><p class="vs-new"><svg class="ico"><use href="#i-check"/></svg><span>Publicas una vez y te llegan ofertas de especialistas de tu zona.</span></p></li>
+      <li class="vs-row"><h3>El precio</h3><p class="vs-old"><svg class="ico"><use href="#i-close"/></svg><span>Te lo dicen cuando ya están en tu casa.</span></p><p class="vs-new"><svg class="ico"><use href="#i-check"/></svg><span>Lo ves en la oferta antes de aceptar. Ya incluye mano de obra, comisión e impuestos.</span></p></li>
+      <li class="vs-row"><h3>Quién llega</h3><p class="vs-old"><svg class="ico"><use href="#i-close"/></svg><span>No sabes quién va a tocar la puerta.</span></p><p class="vs-new"><svg class="ico"><use href="#i-check"/></svg><span>Especialistas verificados con INE y teléfono, y un código de seguridad al llegar.</span></p></li>
+      <li class="vs-row"><h3>El pago</h3><p class="vs-old"><svg class="ico"><use href="#i-close"/></svg><span>Pagas y cruzas los dedos.</span></p><p class="vs-new"><svg class="ico"><use href="#i-check"/></svg><span>Con tarjeta, Acency retiene el pago hasta que confirmas que quedó bien.</span></p></li>
+      <li class="vs-row"><h3>Si quedó mal</h3><p class="vs-old"><svg class="ico"><use href="#i-close"/></svg><span>Ya nadie te contesta.</span></p><p class="vs-new"><svg class="ico"><use href="#i-check"/></svg><span>Si la oferta trae garantía, regresa a corregirlo sin costo dentro de esos días.</span></p></li>
+      <li class="vs-row"><h3>Tus datos</h3><p class="vs-old"><svg class="ico"><use href="#i-close"/></svg><span>Tu número termina en manos de desconocidos.</span></p><p class="vs-new"><svg class="ico"><use href="#i-check"/></svg><span>Todo pasa por el chat de la app, sin compartir tu teléfono.</span></p></li>
+    </ul>
+    <div class="versus-cta rv">
+      <a class="btn btn-dark" data-play data-magnetic href="https://play.google.com/store/apps/details?id=com.servicios.acency" target="_blank" rel="noopener"><svg class="ico ico-fill"><use href="#i-play"/></svg> Probar Acency gratis</a>
+      <p>Cotizar no te compromete a contratar.</p>
     </div>
   </div>
 </section>
