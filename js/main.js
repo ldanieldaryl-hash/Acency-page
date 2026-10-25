@@ -36,6 +36,16 @@
     if (ADS_ID && ADS_LABEL) gtag('event', 'conversion', { send_to: ADS_ID + '/' + ADS_LABEL });
   });
 
+  /* ---------- Videos introductorios ----------
+     Pega aquí el ID de YouTube (lo que va después de v= o de /shorts/) o la ruta
+     de un MP4 en assets/videos/. Vacío = la tarjeta dice "Próximamente". */
+  var VIDEOS = {
+    intro: { youtube: '', archivo: '', poster: '', duracion: '' },
+    pedir: { youtube: '', archivo: '', poster: '', duracion: '' },
+    elegir: { youtube: '', archivo: '', poster: '', duracion: '' },
+    seguridad: { youtube: '', archivo: '', poster: '', duracion: '' }
+  };
+
   /* ---------- Titular según el anuncio: ?servicio=plomeria ----------
      Cada campaña de búsqueda aterriza con su oficio y el hero repite lo que la
      persona buscó. *palabra* = palabra en menta. */
@@ -547,6 +557,47 @@
       })();
     }
   })();
+
+  /* ---------- Videos: YouTube solo carga al tocar play ---------- */
+  var vidsSec = $('#videos');
+  if (vidsSec) {
+    $$('.vid', vidsSec).forEach(function (li) {
+      var cfg = VIDEOS[li.getAttribute('data-video')] || {}, frame = $('.vid-frame', li), badge = $('.vid-badge', li);
+      var yt = (cfg.youtube || '').trim(), file = (cfg.archivo || '').trim();
+      if (!yt && !file) {
+        frame.addEventListener('click', function () {
+          toast('Este video llega muy pronto. Mientras, pruébalo aquí mismo.');
+          var d = $('#demo'); if (d) d.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+        });
+        return;
+      }
+      li.classList.add('has-video');
+      badge.textContent = cfg.duracion || 'Video';
+      var poster = cfg.poster || (yt ? 'https://i.ytimg.com/vi/' + encodeURIComponent(yt) + '/hqdefault.jpg' : '');
+      if (poster) { var im = new Image(); im.alt = ''; im.loading = 'lazy'; im.src = poster; frame.insertBefore(im, frame.firstChild); }
+      frame.addEventListener('click', function () {
+        if (li.classList.contains('playing')) return;
+        li.classList.add('playing');
+        var el;
+        if (yt) {
+          el = document.createElement('iframe');
+          el.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(yt) + '?autoplay=1&playsinline=1&rel=0';
+          el.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+          el.title = $('h3', li).textContent;
+        } else {
+          el = document.createElement('video');
+          el.src = file; el.controls = true; el.autoplay = true; el.playsInline = true;
+          if (cfg.poster) el.poster = cfg.poster;
+        }
+        /* Un iframe no puede vivir dentro de un botón: el reproductor toma su lugar */
+        var box = document.createElement('div'); box.className = 'vid-frame';
+        box.appendChild(el); frame.replaceWith(box);
+      });
+    });
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (es) {
+      vidsSec.classList.toggle('in-view', es[0].isIntersecting && !reduce);
+    }, { threshold: 0.2 }).observe(vidsSec);
+  }
 
   /* ---------- Confeti ---------- */
   var cv = $('#confetti'), cctx = cv.getContext && cv.getContext('2d'), parts = [], confRaf = 0;

@@ -143,6 +143,7 @@
     <symbol id="i-card" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/></symbol>
     <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 4 2.8 19.5h18.4L12 4z"/><path d="M12 10v4.2M12 17h.01"/></symbol>
     <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.3-4.9L4 8"/><path d="M4 4v4h4"/><path d="M4 13a8 8 0 0 0 14.3 4.9L20 16"/><path d="M20 20v-4h-4"/></symbol>
+    <symbol id="i-playv" viewBox="0 0 24 24"><path d="M8.5 5.8v12.4a.8.8 0 0 0 1.2.7l9.6-6.2a.8.8 0 0 0 0-1.4L9.7 5.1a.8.8 0 0 0-1.2.7z"/></symbol>
     <symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></symbol>
     <symbol id="s-plomeria" viewBox="0 0 24 24"><path d="M4 11h8a5 5 0 0 1 5 5v1"/><path d="M8 11V7"/><path d="M5 7h6"/><path d="M17 20v.5"/><path d="M4 14.5h4"/></symbol>
     <symbol id="s-electricidad" viewBox="0 0 24 24"><path d="M13 3 5 13.5h6L10 21l8-10.5h-6L13 3z"/></symbol>
@@ -222,6 +223,7 @@
     <a href="#te-salva">Te salva <small>Cuando algo falla</small></a>
     <a href="#servicios">Servicios <small>Hogar</small></a>
     <a href="#como-funciona">Cómo funciona <small>4 pasos</small></a>
+    <a href="#videos">Videos <small>Míralo en 1 minuto</small></a>
     <a href="#demo">Pruébalo <small>Demo interactiva</small></a>
     <a href="#seguridad">Seguridad <small>Pago · Garantía</small></a>
     <a href="#nosotros">Nosotros <small>Misión · Visión</small></a>
@@ -510,6 +512,56 @@
       <figure class="shot" data-speed="-0.05"><picture><source srcset="assets/shot-cotizaciones.webp" type="image/webp"><img src="assets/shot-cotizaciones.jpg" alt="Pantalla de Acency mostrando tres ofertas recibidas para un servicio de plomería con precio, calificación y garantía" width="720" height="1558" loading="lazy"></picture></figure>
       <div class="price-chip" data-speed="-0.12"><svg class="ico" style="color:var(--mint)"><use href="#i-tag"/></svg><div><small>Ejemplo de oferta</small><b id="priceCount">$300 MXN</b></div></div>
     </div>
+  </div>
+</section>
+
+<!-- ============ VIDEOS (nuevo) ============ -->
+<section class="videos" id="videos" aria-labelledby="videos-title">
+  <div class="wrap">
+    <div class="videos-head rv" data-rv="blur">
+      <span class="label">Míralo en 1 minuto</span>
+      <h2 class="h2" id="videos-title">Entiende Acency <span class="accent">antes de descargarla</span>.</h2>
+      <p class="lead">Videos cortos, en formato de celular: cómo se pide un servicio, cómo se elige una oferta y qué te protege.</p>
+    </div>
+    <ul class="vids rv-group" id="vids">
+      <li class="vid" data-video="intro">
+        <button class="vid-frame" type="button" aria-label="Ver el video: Acency en 45 segundos">
+          <span class="vid-story" aria-hidden="true"><i style="--n:0">Se rompe la tubería</i><i style="--n:1">Pides desde la app</i><i style="--n:2">Llegan ofertas</i><i style="--n:3">Problema resuelto</i></span>
+          <span class="vid-play" aria-hidden="true"><svg class="ico ico-fill"><use href="#i-playv"/></svg></span>
+          <span class="vid-badge">Próximamente</span>
+        </button>
+        <h3>Acency en 45 segundos</h3>
+        <p>De una fuga a medianoche a un problema resuelto, sin salir de la app.</p>
+      </li>
+      <li class="vid" data-video="pedir">
+        <button class="vid-frame" type="button" aria-label="Ver el video: Cómo pedir un servicio">
+          <span class="vid-story" aria-hidden="true"><i style="--n:0">Elige el oficio</i><i style="--n:1">Agendar o Urgente</i><i style="--n:2">Fotos y video</i><i style="--n:3">Enviar solicitud</i></span>
+          <span class="vid-play" aria-hidden="true"><svg class="ico ico-fill"><use href="#i-playv"/></svg></span>
+          <span class="vid-badge">Próximamente</span>
+        </button>
+        <h3>Cómo pedir un servicio</h3>
+        <p>Elige el oficio, Agendar o Urgente, cuenta qué pasa y manda fotos y video.</p>
+      </li>
+      <li class="vid" data-video="elegir">
+        <button class="vid-frame" type="button" aria-label="Ver el video: Cómo elegir tu oferta">
+          <span class="vid-story" aria-hidden="true"><i style="--n:0">Precio en MXN</i><i style="--n:1">Día y hora</i><i style="--n:2">Garantía</i><i style="--n:3">¡Contratar ahora!</i></span>
+          <span class="vid-play" aria-hidden="true"><svg class="ico ico-fill"><use href="#i-playv"/></svg></span>
+          <span class="vid-badge">Próximamente</span>
+        </button>
+        <h3>Cómo elegir tu oferta</h3>
+        <p>Qué mirar en cada tarjeta: precio, día y hora, materiales, garantía y vencimiento.</p>
+      </li>
+      <li class="vid" data-video="seguridad">
+        <button class="vid-frame" type="button" aria-label="Ver el video: Lo que te protege">
+          <span class="vid-story" aria-hidden="true"><i style="--n:0">Verificados con INE</i><i style="--n:1">Código al llegar</i><i style="--n:2">Pago retenido</i><i style="--n:3">Garantía</i></span>
+          <span class="vid-play" aria-hidden="true"><svg class="ico ico-fill"><use href="#i-playv"/></svg></span>
+          <span class="vid-badge">Próximamente</span>
+        </button>
+        <h3>Lo que te protege</h3>
+        <p>Verificación con INE, código de 6 caracteres, pago retenido y garantía.</p>
+      </li>
+    </ul>
+    <p class="vids-note">¿Prefieres tocarlo tú? <a href="#demo">Prueba la demo interactiva <svg class="ico"><use href="#i-arrow"/></svg></a></p>
   </div>
 </section>
 
