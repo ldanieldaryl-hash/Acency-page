@@ -957,11 +957,13 @@
 
   /* ---------- Seguridad: animaciones solo en pantalla ---------- */
   var bento = $('.bento');
-  var slot = $('#slot'), slotTimer = 0, slotCur = [4, 7, 1, 9], SLOT_H = 64;
+  var slot = $('#slot'), slotTimer = 0, slotCur = [6, 1, 4, 9, 2, 7], SLOT_H = 64;
+  /* Como en la app: 6 caracteres (letras y números). */
+  var SLOT_CH = ['A', '3', 'K', '7', 'P', '2', 'Q', '9', 'M', '4'];
   if (slot) {
     $$('span', slot).forEach(function (c, i) {
       var col = document.createElement('i');
-      for (var k = 0; k < 20; k++) { var d = document.createElement('b'); d.textContent = k % 10; col.appendChild(d); }
+      for (var k = 0; k < 20; k++) { var d = document.createElement('b'); d.textContent = SLOT_CH[k % 10]; col.appendChild(d); }
       col.style.transform = 'translateY(' + (-slotCur[i] * SLOT_H) + 'px)';
       c.appendChild(col);
     });

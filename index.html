@@ -85,7 +85,7 @@
         { "@type": "Question", "name": "¿Limpian cisternas y tinacos?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. Puedes solicitar limpieza y desinfección de cisternas y tinacos a domicilio." } },
         { "@type": "Question", "name": "¿Realizan instalación de gas?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. Técnicos de gas atienden instalación, reparación y revisión de fugas de gas." } },
         { "@type": "Question", "name": "¿Arman y desarman muebles?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. Hay ayudantes para mudanzas, carga y descarga, y armado y desarmado de muebles." } },
-        { "@type": "Question", "name": "¿Puedo pedir un servicio urgente para hoy?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. Al crear tu solicitud eliges si es urgente y lo necesitas hoy o mañana, o si prefieres agendarlo para un día específico." } },
+        { "@type": "Question", "name": "¿Puedo pedir un servicio urgente para hoy?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. Al crear tu solicitud eliges Urgente (atención prioritaria, sujeta a disponibilidad: los especialistas solo pueden ofrecerte hoy o mañana) o Agendar (atención en tiempo estándar). En los dos casos, cada oferta te dice el día, la hora de llegada y cuánto dura el trabajo, y tú eliges la que mejor te acomode." } },
         { "@type": "Question", "name": "¿Puedo mandar fotos o un video del problema?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. Puedes adjuntar fotos y hasta un video para que el especialista entienda mejor lo que pasa y te cotice con más precisión." } },
         { "@type": "Question", "name": "¿Cómo sé que quien llega es la persona correcta?", "acceptedAnswer": { "@type": "Answer", "text": "Cuando el especialista llega a tu puerta, le pides el código de seguridad que solo tú tienes en pantalla. Si coincide, es la persona que aceptaste en la app." } },
         { "@type": "Question", "name": "¿Qué garantía tiene el trabajo?", "acceptedAnswer": { "@type": "Answer", "text": "Cada oferta trae su propia garantía: el especialista decide cuántos días respalda su trabajo, hasta un máximo de 30. Si algo no quedó bien, lo reclamas desde la app y regresa a corregirlo sin costo extra." } },
@@ -302,7 +302,7 @@
   <div class="ticker-row alt" data-dir="1">
     <div class="ticker-track">
       <span>Urgente para hoy</span><b>✦</b>
-      <span>Agenda tu día</span><b>✦</b>
+      <span>O agéndalo sin prisa</span><b>✦</b>
       <span>Fotos y video</span><b>✦</b>
       <span>Ofertas en tiempo real</span><b>✦</b>
       <span>Código de seguridad</span><b>✦</b>
@@ -424,7 +424,7 @@
           <span><h3>Paseador de mascotas</h3><p>Cuidado y paseo de perros con personas verificadas de tu zona.</p></span>
           <span class="svc-tag">Cerca de ti</span><svg class="ico svc-go"><use href="#i-arrow"/></svg></a></li>
       </ul>
-      <p class="svc-empty" id="svcEmpty" hidden>No lo vemos en esta lista, pero en la app hay más categorías de hogar y belleza. Descríbelo ahí y recibe ofertas.</p>
+      <p class="svc-empty" id="svcEmpty" hidden>No lo vemos en esta lista, pero en la app hay más servicios para tu hogar. Descríbelo ahí con tus palabras y recibe ofertas.</p>
       <div class="services-cta rv">
         <a class="btn btn-dark" data-play data-magnetic href="https://play.google.com/store/apps/details?id=com.servicios.acency" target="_blank" rel="noopener">Solicitar servicio a domicilio <svg class="ico ico-arrow"><use href="#i-arrow"/></svg></a>
         <p>Para casas y negocios. Cotizar en la app no te compromete a contratar.</p>
@@ -445,7 +445,7 @@
         <span class="steps-progress" id="stepsProgress" aria-hidden="true"></span>
         <div role="list" class="steps-list">
           <div class="step on" role="listitem"><span>Paso 1</span><h3>Elige el servicio</h3><p>Plomería, electricidad, pintura, jardinería y más categorías de hogar en una sola pantalla.</p></div>
-          <div class="step" role="listitem"><span>Paso 2</span><h3>Describe lo que necesitas</h3><p>Cuéntanos el problema, agrega fotos o hasta un video e indica tu zona. Elige si es urgente para hoy o mañana, o agéndalo para el día que quieras.</p></div>
+          <div class="step" role="listitem"><span>Paso 2</span><h3>Describe lo que necesitas</h3><p>Cuéntanos el problema, agrega fotos o hasta un video e indica tu zona. Elige <b>Urgente</b> (hoy o mañana) o <b>Agendar</b>: el día y la hora te los propone cada especialista en su oferta.</p></div>
           <div class="step" role="listitem"><span>Paso 3</span><h3>Compara ofertas en tiempo real</h3><p>Los especialistas cercanos responden con su precio, calificación, garantía y cuándo pueden llegar.</p></div>
           <div class="step" role="listitem"><span>Paso 4</span><h3>Contrata y califica</h3><p>Sigue el servicio desde la app y, al terminar, califica para ayudar a otras personas a elegir.</p></div>
         </div>
@@ -681,8 +681,8 @@
       <article class="tile t-code spot">
         <i class="tile-ico"><svg class="ico"><use href="#i-door"/></svg></i>
         <h3>Código de seguridad</h3>
-        <p>Al llegar, le pides el código que solo tú tienes en pantalla. Así sabes que es la persona correcta.</p>
-        <div class="slot" id="slot" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+        <p>Al llegar, le das tu código de 6 caracteres, que solo tú tienes en pantalla. Tu especialista lo escribe en su app y así se confirma que es la persona correcta.</p>
+        <div class="slot" id="slot" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
       </article>
 
       <article class="tile t-warranty spot">
@@ -757,7 +757,7 @@
       <div class="about-copy rv">
         <span class="label">Quiénes somos</span>
         <h2 class="h2" id="nosotros-title">Conectamos hogares con especialistas en quienes <span class="accent">sí se puede confiar</span>.</h2>
-        <p><strong>Acency es una app mexicana</strong> que reúne en un solo lugar a especialistas verificados de hogar y belleza. Publicas lo que necesitas, recibes cotizaciones en tiempo real y eliges con información clara: precio, calificación, garantía y cuándo pueden llegar.</p>
+        <p><strong>Acency es una app mexicana</strong> que reúne en un solo lugar a especialistas verificados para tu hogar (y muy pronto, también de belleza). Publicas lo que necesitas, recibes cotizaciones en tiempo real y eliges con información clara: precio, calificación, garantía y cuándo pueden llegar.</p>
         <p>Nacimos de algo que todos hemos vivido: buscar a un plomero o a un electricista de confianza a última hora, sin saber cuánto va a costar ni quién va a tocar la puerta. Del otro lado, miles de personas con oficio que no encuentran clientes constantes ni un trato justo. Acency existe para que las dos partes salgan ganando.</p>
       </div>
       <aside class="signature rv" data-rv="scale">
@@ -765,7 +765,7 @@
         <dl>
           <div><dt>Origen</dt><dd>Hecho en México</dd></div>
           <div><dt>Plataforma</dt><dd>App para Android</dd></div>
-          <div><dt>Categorías</dt><dd>Hogar y belleza</dd></div>
+          <div><dt>Categorías</dt><dd>Hogar · Belleza, muy pronto</dd></div>
           <div><dt>Para</dt><dd>Clientes y especialistas</dd></div>
         </dl>
       </aside>
@@ -907,7 +907,7 @@
         <details class="faq-item" data-cat="servicios"><summary>¿Limpian cisternas y tinacos?<i aria-hidden="true"></i></summary><div class="answer">Sí. Puedes solicitar limpieza y desinfección de cisternas y tinacos a domicilio.</div></details>
         <details class="faq-item" data-cat="servicios"><summary>¿Realizan instalación de gas?<i aria-hidden="true"></i></summary><div class="answer">Sí. Técnicos de gas atienden instalación, reparación y revisión de fugas de gas.</div></details>
         <details class="faq-item" data-cat="servicios"><summary>¿Arman y desarman muebles?<i aria-hidden="true"></i></summary><div class="answer">Sí. Hay ayudantes para mudanzas, carga y descarga, y armado y desarmado de muebles.</div></details>
-        <details class="faq-item" data-cat="servicios"><summary>¿Puedo pedir un servicio urgente para hoy?<i aria-hidden="true"></i></summary><div class="answer">Sí. Al crear tu solicitud eliges si es urgente y lo necesitas hoy o mañana, o si prefieres agendarlo para un día específico.</div></details>
+        <details class="faq-item" data-cat="servicios"><summary>¿Puedo pedir un servicio urgente para hoy?<i aria-hidden="true"></i></summary><div class="answer">Sí. Al crear tu solicitud eliges <b>Urgente</b> (atención prioritaria, sujeta a disponibilidad: los especialistas solo pueden ofrecerte hoy o mañana) o <b>Agendar</b> (atención en tiempo estándar). En los dos casos, cada oferta te dice el día, la hora de llegada y cuánto dura el trabajo, y tú eliges la que mejor te acomode.</div></details>
         <details class="faq-item" data-cat="servicios"><summary>¿Puedo mandar fotos o un video del problema?<i aria-hidden="true"></i></summary><div class="answer">Sí. Puedes adjuntar fotos y hasta un video para que el especialista entienda mejor lo que pasa y te cotice con más precisión.</div></details>
         <details class="faq-item" data-cat="seguridad"><summary>¿Cómo sé que quien llega es la persona correcta?<i aria-hidden="true"></i></summary><div class="answer">Cuando el especialista llega a tu puerta, le pides el código de seguridad que solo tú tienes en pantalla. Si coincide, es la persona que aceptaste en la app.</div></details>
         <details class="faq-item" data-cat="seguridad"><summary>¿Qué garantía tiene el trabajo?<i aria-hidden="true"></i></summary><div class="answer">Cada oferta trae su propia garantía: el especialista decide cuántos días respalda su trabajo, hasta un máximo de 30. Si algo no quedó bien, lo reclamas desde la app y regresa a corregirlo sin costo extra.</div></details>
