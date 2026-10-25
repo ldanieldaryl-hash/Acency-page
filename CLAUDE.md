@@ -4,7 +4,8 @@ Lee esto antes de hacer cualquier cosa. Está pensado para que no trabajes de m�
 
 ## 1. Qué es este repositorio (y qué NO es)
 
-- **Este repo es solo la página web (landing) de Acency.** Sitio estático: `index.html`, `css/styles.css`, `js/main.js`, `assets/`. Sin build, sin npm, sin framework.
+- **Este repo es solo la página web (landing) de Acency.** Sitio estático: un solo `index.html` (CSS y JS van dentro), `assets/` y `js/vendor/qrcode.min.js`. Sin build, sin npm, sin framework.
+- **La versión principal es el artifact** https://claude.ai/artifact/9cxfU2MQPDk69HMwFSyGD1 (decisión del dueño, oct 2026). Este repo es su **copia exacta** para publicarla en un dominio propio. Trabaja sobre el artifact y, al terminar, copia el resultado aquí (sección 5). Si el artifact y el repo no coinciden, manda el artifact: léelo antes de tocar nada.
 - **NO es la app de Acency.** La app móvil, su backend, base de datos, reglas de seguridad (Firestore/Firebase *rules*), notificaciones, pagos dentro de la app y documentos legales de la app viven en **otro repositorio**.
 
 ### Cómo decidir a qué proyecto va una petición
@@ -23,26 +24,31 @@ Lee esto antes de hacer cualquier cosa. Está pensado para que no trabajes de m�
 
 ## 2. Ahorra contexto: no leas archivos completos
 
-Los tres archivos son largos (≈1000, 1340 y 1150 líneas). Busca la sección con `grep` y lee solo ese rango.
+`index.html` mide ≈4,300 líneas. Busca la sección con `grep -n` y lee solo ese rango. Va en este orden:
 
-- `index.html` · marcadores `<!-- ============ NOMBRE ============ -->`: INTRO, NAV, HERO, CINTA DE SERVICIOS, PROPUESTA DE VALOR, MANIFIESTO, SERVICIOS, CÓMO FUNCIONA, DEMO INTERACTIVA, SEGURIDAD, NOSOTROS, ESPECIALISTAS, GOOGLE PLAY, PREGUNTAS, FOOTER, DOCUMENTOS LEGALES.
-- `css/styles.css` · marcadores `/* ---------- Nombre ---------- */`. Hasta la línea con `AGREGADOS` está el **CSS original**; debajo, todo lo que se agregó después (arreglos, cinta, buscador, demo, bento, FAQ, modal…).
-- `js/main.js` · un solo IIFE. Parte 1 = JS original (intro, nav, pasos, revelado, parallax, cursor, copiar). Debajo de `AGREGADOS`, módulos con marcador `/* ---------- Nombre ---------- */`.
+1. **`<head>` y SEO** (líneas 1–100): título, metas, JSON-LD (LocalBusiness, MobileApplication, FAQPage).
+2. **`<style>`** · marcadores `/* ---------- Nombre ---------- */`. Al final, bloque `Fase 2 (oct 2026)` con lo agregado: cinta, WebP, sello Gratis, Acency te salva, Como siempre / con Acency, barra fija, videos, demo fiel a la app.
+3. **HTML** · marcadores `<!-- ============ NOMBRE ============ -->`: BARRA SUPERIOR, MENÚ, INICIO, CINTA DE SERVICIOS, VISTA 1 · CLIENTES (app, manifiesto, Acency te salva, servicios, cómo funciona, videos, demo, como siempre / con Acency, seguridad, pagos y garantía), VISTA 2 · ESPECIALISTAS (únete, herramientas, cómo unirte, tutoriales, ayuda), SECCIONES COMPARTIDAS (nosotros, descargar, novedades y redes, preguntas), pie y modal legal.
+4. **`<script>`** · un IIFE. Arriba: `PLAY_URL`, Google Ads (`ADS_ID`, `ADS_LABEL`, `PLAY_LINK`), `VIDEOS`, `SERVICIOS` (titulares por oficio). Luego bloques `/* ================= Nombre ================= */` (inicio, vistas, menú, revelado, scroll) y módulos `/* ---------- Nombre ---------- */` (buscador, demo, seguridad, FAQ, legales, videos, cinta, manifiesto, barra fija).
 - `js/vendor/qrcode.min.js` · librería de QR (MIT, Kazuhiko Arase). No la edites.
 
 ## 3. Lo importante del proyecto
 
-- **Enlace de Google Play:** ficha oficial `https://play.google.com/store/apps/details?id=com.servicios.acency`. Vive en la constante `PLAY_URL` al inicio de `js/main.js`, en los `href` con `data-play` del HTML (respaldo sin JS) y en `url`/`installUrl` del JSON-LD `MobileApplication`. Si cambia, actualiza los tres. El QR de la sección Descargar se genera solo desde `PLAY_URL`.
+- **Enlace de Google Play:** ficha oficial `https://play.google.com/store/apps/details?id=com.servicios.acency`. Vive en la constante `PLAY_URL` al inicio del `<script>`, en los `href` con `data-play` del HTML (respaldo sin JS) y en `url`/`installUrl` del JSON-LD `MobileApplication`. Si cambia, actualiza los tres. Los botones y el QR usan `PLAY_LINK` (= `PLAY_URL` + `referrer` con la fuente del anuncio).
 - **Identidad visual (no la cambies):** `--ink #0a0a0a`, `--mint #1aecd1`, `--mint-deep #0b7a6d`, `--paper #efefee`, `--white`. Tipos: *Plus Jakarta Sans* (texto/títulos) y *DM Mono* (etiquetas). Capítulos alternos tinta / papel / menta. Un solo tema claro (es intencional).
-- **Preferencia del dueño:** "no cambies lo que ya está, mejóralo". Agrega, no reemplaces. Los estilos nuevos van debajo de `AGREGADOS`.
+- **Preferencia del dueño:** "no cambies lo que ya está, mejóralo". Agrega, no reemplaces. Los estilos nuevos van al final del `<style>`.
 - **Datos de ejemplo:** la demo y el bento usan nombres y precios de ejemplo, marcados como "Simulación · datos de ejemplo". No inventes cifras reales (usuarios, servicios hechos, calificación promedio) ni testimonios presentados como reales.
-- **Documentos legales:** el texto completo está dentro de la app (sección *Reglamentario*). El pie abre un modal (`#legalModal`, objeto `LEGAL` en `main.js`) con lo esencial. Si algún día hay URLs públicas, enlázalas ahí.
+- **Documentos legales:** el texto completo está dentro de la app (sección *Reglamentario*). El pie abre un modal (`#legalModal`, objeto `LEGAL` en el `<script>`) con lo esencial. Si algún día hay URLs públicas, enlázalas ahí.
 - **SEO:** JSON-LD (LocalBusiness, MobileApplication, FAQPage) en `<head>`. Si agregas o cambias una pregunta del FAQ, actualiza también el `FAQPage`. `og:image` es relativa: cuando haya dominio, ponla absoluta y agrega `canonical`.
+- **Google Ads:** `?servicio=plomeria` (y 14 oficios más, ver `SERVICIOS`) cambia titular, texto, buscador y demo para que coincidan con el anuncio; también vale `#plomeria`. La conversión "clic a Google Play" se activa con `ADS_ID` y `ADS_LABEL`. **El artifact no recibe el `?query` ni carga la etiqueta de Google**: los anuncios deben apuntar a la copia de este repo publicada en un dominio propio.
+- **Videos:** se configuran en `VIDEOS`. `archivo` = MP4 propio en `assets/videos/` (se reproduce en la página); `youtube` = ID (abre YouTube en otra pestaña: el artifact no permite incrustar otros sitios). Vacío = "Próximamente".
 - **Movimiento:** todo respeta `prefers-reduced-motion` (estado final estático y legible). Las animaciones pesadas se pausan fuera de pantalla con `IntersectionObserver`. Mantén eso en lo que agregues.
 
 ### Cómo funciona Acency (fuente de verdad para los textos)
 
-Conecta a personas que necesitan algo en casa con especialistas de confianza, desde el celular. El cliente cuenta qué pasa (con fotos y hasta un video) y elige si es **urgente** (hoy o mañana) o **programado** para un día específico. Llegan **ofertas de especialistas cercanos** con precio, calificación y reseñas; el cliente compara las veces que quiera antes de aceptar. **Seguimiento en tiempo real** (salió, llegó, empezó a trabajar). Al llegar, el cliente le pide un **código de seguridad** que solo él tiene en pantalla. **Cada oferta trae su garantía** (el especialista decide los días, máximo 30); si algo no quedó bien, regresa a corregirlo sin costo. Si se paga con **tarjeta, Acency retiene el pago** hasta que el cliente confirma. Todo pasa por el **chat de la app** (sin compartir teléfono ni correo). Al final **se califican los dos** y las reseñas se publican cuando ambos calificaron; quedan en el perfil del especialista. Categorías: hogar y belleza. App para Android.
+Conecta a personas que necesitan algo en casa con especialistas de confianza, desde el celular. El cliente cuenta qué pasa (con fotos y hasta un video) y elige el tipo de atención: **Urgente** (prioritaria, solo hoy o mañana) o **Agendar** (tiempo estándar). **El cliente no elige la fecha:** el día, la hora de llegada y la duración vienen en cada oferta. Llegan **ofertas de especialistas cercanos** con precio, calificación (o la etiqueta *Nuevo*), materiales, garantía y hora de vencimiento; el cliente compara las veces que quiera antes de aceptar. **Seguimiento en tiempo real** (En camino → En tu puerta → Trabajando → Verificando). Al llegar, el cliente le da un **código de seguridad de 6 caracteres** que solo él tiene en pantalla. **Cada oferta trae su garantía** (el especialista decide los días, máximo 30); si algo no quedó bien, regresa a corregirlo sin costo. Si se paga con **tarjeta, Acency retiene el pago** hasta que el cliente confirma. Todo pasa por el **chat de la app** (sin compartir teléfono ni correo). Al final **se califican los dos** y las reseñas se publican cuando ambos calificaron; quedan en el perfil del especialista. Hoy el cliente solo puede pedir **Hogar** (oficios y favores); **Belleza está oculta al cliente** y se lanza después (`kCategoriasOcultasCliente` en la app): en la página va como *muy pronto*. Cotizar es gratis; la solicitud dura 20 h. App para Android.
+
+El flujo detallado (con archivos de la app) y el plan vigente de la página están en el documento *Plan · Página de Acency que convierte*: https://claude.ai/artifact/3rGQUb8969eV9cVks4M7DS
 
 ## 4. Probar cambios
 
@@ -52,9 +58,22 @@ python3 -m http.server 8000   # y abre http://localhost:8000
 
 En sesiones en la nube hay Chromium + Playwright (`require('playwright')`). Revisa al menos 320, 390, 768 y 1440 px: sin scroll horizontal, sin errores en consola, y la demo completa (Pide → Califica).
 
-## 5. Artifact de la página
+## 5. Artifact (versión principal) y copia en el repo
 
-La página también vive como artifact: https://claude.ai/artifact/9cxfU2MQPDk69HMwFSyGD1. Para republicarlo, quita `<!doctype>`, `<html>`, `<head>`, `<body>` y los `<meta charset/viewport>` (el artifact pone su propio esqueleto) y publica con los archivos `css/`, `js/` y `assets/` en las mismas rutas.
+Artifact: https://claude.ai/artifact/9cxfU2MQPDk69HMwFSyGD1. Lee siempre la versión publicada antes de editar (puede tener cambios hechos fuera del repo).
+
+- **Del repo al artifact:** el artifact pone su propio esqueleto, así que se publica el contenido sin las 5 primeras líneas (`<!doctype>`, `<html>`, `<head>`, metas charset/viewport) ni el cierre `</body></html>`, y con `<title>Acency</title>` (el título del artifact no cambia). Los archivos de `assets/` y `js/vendor/` van en las mismas rutas.
+
+```bash
+python3 - <<'EOF'
+s = open('index.html', encoding='utf-8').read()
+s = s.split('\n', 5)[5].rsplit('</body>', 1)[0]
+s = s.replace('<title>Acency · Plomero, electricista y más a domicilio · Cotiza gratis</title>', '<title>Acency</title>', 1)
+open('/tmp/acency-artifact.html', 'w', encoding='utf-8').write(s)
+EOF
+```
+
+- **Del artifact al repo:** el contenido publicado, con esa cabecera de 5 líneas, el título largo para Google y `</body></html>` al final.
 
 ## 6. Git
 
