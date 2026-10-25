@@ -565,28 +565,30 @@
   </div>
 </section>
 
-<!-- ============ DEMO INTERACTIVA (nueva) ============ -->
+<!-- ============ DEMO INTERACTIVA (fiel a la app) ============ -->
 <section class="demo on-ink" id="demo" aria-labelledby="demo-title">
   <div class="aura a1" aria-hidden="true"></div>
   <div class="wrap demo-grid">
     <div class="demo-copy">
       <span class="label">Pruébalo aquí</span>
-      <h2 class="h2" id="demo-title">Vive un servicio de Acency <span class="accent">de principio a fin</span>.</h2>
-      <p class="lead">Esta es una simulación de la app. Toca el teléfono: pide, compara ofertas, sigue a tu especialista y califica. Los nombres y precios son de ejemplo.</p>
+      <h2 class="h2" id="demo-title">Así funciona la app, <span class="accent">paso a paso</span>.</h2>
+      <p class="lead">Una simulación con las mismas pantallas que vas a ver en Acency: pides, te llegan ofertas, eliges, pagas, sigues a tu especialista y calificas. Los nombres y precios son de ejemplo.</p>
 
       <ol class="demo-steps" id="demoSteps">
-        <li><button type="button" data-go="0"><span>01</span><b>Pide</b><small>Fotos, video y horario</small></button></li>
-        <li><button type="button" data-go="1"><span>02</span><b>Compara</b><small>Ofertas en tiempo real</small></button></li>
-        <li><button type="button" data-go="2"><span>03</span><b>Síguelo</b><small>En camino, en vivo</small></button></li>
-        <li><button type="button" data-go="3"><span>04</span><b>Verifica</b><small>Código de seguridad</small></button></li>
-        <li><button type="button" data-go="4"><span>05</span><b>Confirma</b><small>Pago y garantía</small></button></li>
-        <li><button type="button" data-go="5"><span>06</span><b>Califica</b><small>Reseñas de ambos lados</small></button></li>
+        <li><button type="button" data-go="0"><span>01</span><b>Pide</b><small>Agendar o Urgente</small></button></li>
+        <li><button type="button" data-go="1"><span>02</span><b>Ofertas</b><small>En tiempo real</small></button></li>
+        <li><button type="button" data-go="2"><span>03</span><b>Elige</b><small>Detalle y reseñas</small></button></li>
+        <li><button type="button" data-go="3"><span>04</span><b>Paga</b><small>Tarjeta o efectivo</small></button></li>
+        <li><button type="button" data-go="4"><span>05</span><b>Síguelo</b><small>En camino, en vivo</small></button></li>
+        <li><button type="button" data-go="5"><span>06</span><b>Código</b><small>6 caracteres</small></button></li>
+        <li><button type="button" data-go="6"><span>07</span><b>Confirma</b><small>Verificando</small></button></li>
+        <li><button type="button" data-go="7"><span>08</span><b>Califica</b><small>Doble ciego</small></button></li>
       </ol>
 
-      <p class="demo-note" id="demoNote" aria-live="polite">Abres la app y cuentas qué te pasa. Puedes mandar fotos y hasta un video para que se entienda mejor, y eliges si es urgente (hoy o mañana) o si lo agendas para un día específico.</p>
+      <p class="demo-note" id="demoNote" aria-live="polite">Así se pide en la app: eliges el oficio y si lo quieres Agendar o Urgente, cuentas qué pasa y mandas fotos y video. Tú no eliges la fecha: el día y la hora vienen en cada oferta.</p>
 
       <div class="demo-actions">
-        <button class="btn btn-ghost" id="demoAuto" type="button"><svg class="ico ico-fill"><use href="#i-play"/></svg><span>Verlo en automático</span></button>
+        <button class="btn btn-ghost" id="demoAuto" type="button"><svg class="ico ico-fill"><use href="#i-playv"/></svg><span>Verlo en automático</span></button>
         <button class="demo-reset" id="demoReset" type="button"><svg class="ico"><use href="#i-refresh"/></svg>Reiniciar</button>
       </div>
     </div>
@@ -600,54 +602,96 @@
           <div class="screens" id="screens">
             <!-- 0 · Pide -->
             <section class="scr is-on" data-scr="0" aria-label="Nueva solicitud">
-              <header class="scr-head"><small>Nueva solicitud</small><h3>¿Qué necesitas?</h3></header>
+              <header class="scr-head"><small>Hogar · Nueva solicitud</small><h3>¿Qué necesitas?</h3></header>
               <div class="cat-grid" id="catGrid">
                 <button type="button" data-cat="plomeria" aria-pressed="true"><svg class="ico"><use href="#s-plomeria"/></svg>Plomería</button>
                 <button type="button" data-cat="electricidad" aria-pressed="false"><svg class="ico"><use href="#s-electricidad"/></svg>Electricidad</button>
-                <button type="button" data-cat="drenaje" aria-pressed="false"><svg class="ico"><use href="#s-drenaje"/></svg>Drenaje</button>
+                <button type="button" data-cat="desazolve" aria-pressed="false"><svg class="ico"><use href="#s-drenaje"/></svg>Desazolve</button>
                 <button type="button" data-cat="pintura" aria-pressed="false"><svg class="ico"><use href="#s-pintura"/></svg>Pintura</button>
-                <button type="button" data-cat="jardineria" aria-pressed="false"><svg class="ico"><use href="#s-jardin"/></svg>Jardín</button>
-                <button type="button" data-cat="albanileria" aria-pressed="false"><svg class="ico"><use href="#s-albanil"/></svg>Albañil</button>
-              </div>
-              <label class="fld" for="demoText"><span>Cuéntanos qué pasa</span>
-                <textarea id="demoText" rows="3">Gotea la llave del fregadero y ya hay agua debajo de la tarja.</textarea>
-              </label>
-              <div class="attach" id="attach">
-                <span class="att att-photo"><svg class="ico"><use href="#i-camera"/></svg><em>Foto</em></span>
-                <span class="att att-photo b"><svg class="ico"><use href="#i-camera"/></svg><em>Foto</em></span>
-                <span class="att att-video"><svg class="ico"><use href="#i-video"/></svg><em>0:12</em><i class="up"></i></span>
-                <span class="att att-add">+</span>
+                <button type="button" data-cat="jardineria" aria-pressed="false"><svg class="ico"><use href="#s-jardin"/></svg>Jardinería</button>
+                <button type="button" data-cat="albanileria" aria-pressed="false"><svg class="ico"><use href="#s-albanil"/></svg>Albañilería</button>
               </div>
               <div class="when">
-                <span class="when-label">¿Cuándo lo necesitas?</span>
-                <div class="seg" id="whenSeg">
-                  <button type="button" data-mode="urgente" aria-pressed="true">Urgente</button>
-                  <button type="button" data-mode="programar" aria-pressed="false">Programar</button>
+                <span class="when-label">¿Cómo necesitas el servicio?</span>
+                <div class="seg seg-2l" id="whenSeg">
+                  <button type="button" data-mode="agendar" aria-pressed="false">Agendar<small>Tiempo estándar</small></button>
+                  <button type="button" data-mode="urgente" aria-pressed="true">Urgente<small>Hoy o mañana</small></button>
                 </div>
-                <div class="when-opts" id="whenOpts"></div>
+                <p class="hint-line" id="whenHint">El día y la hora te los propone cada especialista en su oferta.</p>
               </div>
-              <button class="phone-cta" id="publishBtn" type="button">Publicar solicitud</button>
+              <label class="fld" for="demoText"><span>Describe lo que necesitas</span>
+                <textarea id="demoText" rows="3"></textarea>
+              </label>
+              <div class="quick" id="quick" aria-label="Opciones rápidas"></div>
+              <div class="qrow"><span>¿Es fácil acceder al problema?</span>
+                <div class="chips" data-q="acceso"><button type="button" aria-pressed="true" data-v="si">Sí, visible</button><button type="button" aria-pressed="false" data-v="no">No, oculto</button></div>
+              </div>
+              <div class="qrow"><span>¿Cuentas con los materiales?</span>
+                <div class="chips" data-q="mat"><button type="button" aria-pressed="false" data-v="si">Sí, los tengo</button><button type="button" aria-pressed="true" data-v="no">No, que los consiga</button></div>
+              </div>
+              <div class="fld"><span>Evidencia · fotos y video</span>
+                <div class="attach" id="attach">
+                  <span class="att att-photo"><svg class="ico"><use href="#i-camera"/></svg><em>Foto</em></span>
+                  <span class="att att-photo b"><svg class="ico"><use href="#i-camera"/></svg><em>Foto</em></span>
+                  <span class="att att-video"><svg class="ico"><use href="#i-video"/></svg><em>0:24</em><i class="up"></i></span>
+                  <span class="att att-add">+</span>
+                </div>
+              </div>
+              <button class="phone-cta" id="reviewBtn" type="button">Siguiente</button>
             </section>
 
-            <!-- 1 · Compara -->
+            <!-- 1 · Ofertas -->
             <section class="scr" data-scr="1" aria-label="Ofertas recibidas">
-              <header class="scr-head"><small class="mint" id="offersCat">Plomería</small><h3>¡Ya casi tienes la solución!</h3></header>
-              <div class="radar-box"><span class="radar" aria-hidden="true"></span><p>Contactando especialistas en tiempo real. Las ofertas irán apareciendo aquí.</p></div>
+              <header class="scr-head"><small class="mint" id="offersCat">Plomería · Urgente</small><h3>¡Ya casi tienes la solución!</h3></header>
+              <div class="radar-box"><span class="radar" aria-hidden="true"></span><p>Contactando especialistas en tiempo real. Las ofertas irán apareciendo aquí. Elige la que más te convenga.</p></div>
               <div class="offers-bar">
                 <span class="offers-count"><i class="live" aria-hidden="true"></i><b id="offerCount">0</b>&nbsp;<span id="offerWord">ofertas recibidas</span></span>
-              </div>
-              <div class="sort" id="sortBar" role="group" aria-label="Ordenar ofertas">
-                <button type="button" data-sort="precio" aria-pressed="true">Precio</button>
-                <button type="button" data-sort="calif" aria-pressed="false">Calificación</button>
-                <button type="button" data-sort="garantia" aria-pressed="false">Garantía</button>
+                <span class="avail" id="avail">Disponible por 20h 0m más</span>
               </div>
               <ul class="offers" id="offers"></ul>
-              <button class="phone-cta" id="acceptBtn" type="button" disabled>Elige una oferta</button>
+              <p class="hint-line center" id="offersHint">Toca una oferta para ver el detalle.</p>
             </section>
 
-            <!-- 2 · Síguelo -->
-            <section class="scr" data-scr="2" aria-label="Seguimiento en tiempo real">
-              <header class="scr-head"><small>Servicio en curso</small><h3 id="trackTitle">Va en camino</h3></header>
+            <!-- 2 · Elige -->
+            <section class="scr" data-scr="2" aria-label="Detalle de la oferta">
+              <button class="back-btn" id="backOffers" type="button"><svg class="ico"><use href="#i-arrow"/></svg>Ofertas</button>
+              <div class="det-head">
+                <span class="av" id="detAv">DG</span>
+                <div><b id="detName">Daniel García</b><span id="detRate"></span></div>
+              </div>
+              <div class="tabs" role="tablist" id="detTabs">
+                <button type="button" role="tab" aria-selected="true" data-tab="info">Información</button>
+                <button type="button" role="tab" aria-selected="false" data-tab="resenas">Reseñas</button>
+                <button type="button" role="tab" aria-selected="false" data-tab="proyectos">Proyectos</button>
+              </div>
+              <div class="tabp" data-panel="info">
+                <div class="diag-band" id="detDiag" hidden><b>Diagnóstico</b><span>Visita de revisión. Después recibes un dictamen con fotos y un precio en firme.</span></div>
+                <dl class="bill" id="detBill"></dl>
+                <div class="note-esp"><small>Nota de tu especialista:</small><p id="detNote"></p></div>
+                <div class="gar" id="detGar"></div>
+                <div class="matx" id="detMat"></div>
+              </div>
+              <div class="tabp" data-panel="resenas" hidden><ul class="revs" id="detRevs"></ul></div>
+              <div class="tabp" data-panel="proyectos" hidden><div class="projs" id="detProjs"></div></div>
+              <button class="phone-cta mint" id="hireBtn" type="button">¡Contratar ahora!</button>
+            </section>
+
+            <!-- 3 · Paga -->
+            <section class="scr" data-scr="3" aria-label="Método de pago">
+              <header class="scr-head"><small id="payWho">Daniel García · Plomería</small><h3>¿Cómo quieres pagar?</h3></header>
+              <div class="pay-opts" id="payOpts" role="radiogroup" aria-label="Método de pago">
+                <button type="button" role="radio" aria-checked="true" data-pay="tarjeta"><span class="pay-ico"><svg class="ico"><use href="#i-card"/></svg></span><span><b>Tarjeta</b><small>Protegido · Con garantía · Reembolsable</small></span></button>
+                <button type="button" role="radio" aria-checked="false" data-pay="efectivo"><span class="pay-ico"><svg class="ico"><use href="#i-tag"/></svg></span><span><b>Efectivo</b><small>Sin cargo extra · Pago directo a tu especialista</small></span></button>
+              </div>
+              <ul class="pay-how" id="payHow"></ul>
+              <div class="receipt"><div><small id="payLabel">Total a pagar</small><b>IVA incluido</b></div><strong id="payTotal">$350<small>MXN</small></strong></div>
+              <p class="hint-line" id="payFee"></p>
+              <button class="phone-cta" id="payBtn" type="button">Confirmar pedido</button>
+            </section>
+
+            <!-- 4 · Síguelo -->
+            <section class="scr" data-scr="4" aria-label="Seguimiento en tiempo real">
+              <header class="scr-head"><small id="trackSub">Servicio confirmado</small><h3 id="trackTitle">Va en camino</h3></header>
               <div class="map">
                 <svg viewBox="0 0 300 170" role="img" aria-label="Mapa de ejemplo con la ruta del especialista">
                   <rect width="300" height="170" fill="#e9eeed"/>
@@ -665,10 +709,11 @@
                 <div class="eta"><small>Llega en</small><b id="eta">12</b><small>min</small></div>
               </div>
               <ol class="track" id="track">
-                <li><i></i><span>Salió hacia tu casa</span><time></time></li>
-                <li><i></i><span>Llegó a tu puerta</span><time></time></li>
-                <li><i></i><span>Empezó a trabajar</span><time></time></li>
-                <li><i></i><span>Terminó el servicio</span><time></time></li>
+                <li><i></i><span>Confirmado · se abrió el chat</span><time></time></li>
+                <li><i></i><span>En camino</span><time></time></li>
+                <li><i></i><span>En tu puerta</span><time></time></li>
+                <li><i></i><span>Trabajando</span><time></time></li>
+                <li><i></i><span>Verificando</span><time></time></li>
               </ol>
               <div class="chat" id="chat">
                 <div class="chat-head"><svg class="ico"><use href="#i-chat"/></svg><b>Chat</b><span>Sin compartir tu teléfono ni tu correo</span></div>
@@ -677,35 +722,35 @@
               <button class="phone-cta" id="arrivedBtn" type="button" disabled>Esperando llegada…</button>
             </section>
 
-            <!-- 3 · Verifica -->
-            <section class="scr" data-scr="3" aria-label="Código de seguridad">
-              <header class="scr-head"><small>Llegó tu especialista</small><h3>Pídele tu código de seguridad</h3></header>
+            <!-- 5 · Código -->
+            <section class="scr" data-scr="5" aria-label="Código de seguridad">
+              <header class="scr-head"><small>En tu puerta</small><h3>Revisa quién es y entrégale tu código</h3></header>
               <div class="code-box">
                 <span><svg class="ico"><use href="#i-lock"/></svg>Tu código · solo tú lo ves</span>
-                <div class="code-digits" id="codeDigits"><b>4</b><b>7</b><b>1</b><b>9</b></div>
+                <div class="code-digits six" id="codeDigits"><b></b><b></b><b></b><b></b><b></b><b></b></div>
               </div>
+              <div class="pcard"><span class="av" id="profAv">DG</span><div><small>Tu especialista en la app</small><b id="profName">Daniel García</b></div><svg class="ico"><use href="#i-shield"/></svg></div>
               <div class="door">
                 <span class="av" id="doorAv">DG</span>
-                <div class="bubble" id="doorBubble">Hola, soy Daniel. Mi código es <b>4 7 1 9</b>.</div>
+                <div class="bubble" id="doorBubble">Hola, soy Daniel, de Acency. ¿Me das tu código?</div>
               </div>
-              <p class="door-q">¿Coincide con el de tu pantalla?</p>
+              <p class="door-q">¿Es la persona de la foto y el nombre del perfil?</p>
               <div class="code-actions">
-                <button type="button" class="ok" id="codeOk"><svg class="ico"><use href="#i-check"/></svg>Coincide</button>
-                <button type="button" class="bad" id="codeBad"><svg class="ico"><use href="#i-close"/></svg>No coincide</button>
+                <button type="button" class="ok" id="codeOk"><svg class="ico"><use href="#i-check"/></svg>Sí, es</button>
+                <button type="button" class="bad" id="codeBad"><svg class="ico"><use href="#i-close"/></svg>No es</button>
               </div>
               <div class="code-result" id="codeResult" aria-live="polite"></div>
               <div class="work" id="work" hidden><span>Trabajando en tu servicio…</span><i><b id="workBar"></b></i></div>
               <button class="link-btn" id="impostorBtn" type="button">Simular a alguien que no es</button>
-              <button class="phone-cta" id="doneBtn" type="button" hidden>Ver resumen</button>
+              <button class="phone-cta" id="doneBtn" type="button" hidden>Revisar el trabajo</button>
             </section>
 
-            <!-- 4 · Confirma -->
-            <section class="scr" data-scr="4" aria-label="Pago y garantía">
-              <header class="scr-head"><small>Servicio terminado</small><h3>¿Quedó como esperabas?</h3></header>
-              <div class="receipt">
-                <div><small id="rcCat">Plomería</small><b id="rcName">Daniel García</b></div>
-                <strong id="rcPrice">$350<small>MXN</small></strong>
-              </div>
+            <!-- 6 · Confirma -->
+            <section class="scr" data-scr="6" aria-label="Verificar y confirmar">
+              <header class="scr-head"><small id="verSub">Estado: Verificando</small><h3 id="verTitle">¿Quedó como esperabas?</h3></header>
+              <div class="proof"><span class="ph a"><svg class="ico"><use href="#i-camera"/></svg><em id="phA">Antes</em></span><span class="ph b"><svg class="ico"><use href="#i-camera"/></svg><em id="phB">Después</em></span></div>
+              <ul class="checks" id="checks"></ul>
+              <div class="dict" id="dict" hidden></div>
               <div class="escrow" id="escrow" data-state="held">
                 <div class="esc-node"><i><svg class="ico"><use href="#i-user"/></svg></i><span>Tú</span></div>
                 <div class="esc-line"><b class="coin" aria-hidden="true">$</b></div>
@@ -713,18 +758,18 @@
                 <div class="esc-line two"><b class="coin" aria-hidden="true">$</b></div>
                 <div class="esc-node"><i><svg class="ico"><use href="#i-award"/></svg></i><span id="escName">Daniel</span></div>
               </div>
-              <p class="esc-status" id="escStatus"><svg class="ico"><use href="#i-card"/></svg>Pagaste con tarjeta. Acency retiene el pago hasta que confirmes.</p>
-              <div class="warranty">
+              <p class="esc-status" id="escStatus"><svg class="ico"><use href="#i-card"/></svg><span></span></p>
+              <div class="warranty" id="warrantyBox">
                 <svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="18"/><circle class="p" id="warrantyRing" cx="22" cy="22" r="18"/></svg>
-                <div><b id="warrantyDays">15 días de garantía</b><small id="warrantyUntil">Activa hasta el 8 de noviembre</small></div>
+                <div><b id="warrantyDays">15 días de garantía</b><small id="warrantyUntil">Empieza cuando confirmes</small></div>
               </div>
-              <button class="phone-cta" id="confirmBtn" type="button">Sí, quedó bien: liberar pago</button>
+              <button class="phone-cta" id="confirmBtn" type="button">Confirmar trabajo terminado</button>
               <button class="link-btn" id="claimBtn" type="button">Algo no quedó bien</button>
-              <p class="claim-note" id="claimNote" hidden>Reclama desde la app y el especialista regresa a corregirlo sin costo extra mientras tu garantía esté activa. Si aún no confirmas, tu pago sigue retenido.</p>
+              <p class="claim-note" id="claimNote" hidden></p>
             </section>
 
-            <!-- 5 · Califica -->
-            <section class="scr" data-scr="5" aria-label="Calificaciones">
+            <!-- 7 · Califica -->
+            <section class="scr" data-scr="7" aria-label="Calificaciones">
               <header class="scr-head"><small>Último paso</small><h3 id="rateTitle">Califica a Daniel</h3></header>
               <div class="rate-stars" id="rateStars" role="radiogroup" aria-label="Calificación">
                 <button type="button" role="radio" aria-checked="false" aria-label="1 estrella" data-v="1"><svg class="ico"><use href="#i-star"/></svg></button>
@@ -743,13 +788,31 @@
                 <div class="seal-card"><small>Tu reseña</small><p id="mineText">Aún no calificas</p><i><svg class="ico"><use href="#i-lock"/></svg></i></div>
                 <div class="seal-card"><small id="theirLabel">Daniel sobre ti</small><p id="theirText">Calificando…</p><i><svg class="ico"><use href="#i-lock"/></svg></i></div>
               </div>
-              <p class="seal-note" id="sealNote">Las dos reseñas se publican al mismo tiempo, cuando ambos ya calificaron.</p>
+              <p class="seal-note" id="sealNote">Las reseñas son a doble ciego: se publican al mismo tiempo cuando los dos calificaron.</p>
               <button class="phone-cta" id="sendRate" type="button" disabled>Enviar calificación</button>
               <div class="end" id="demoEnd" hidden>
                 <button class="link-btn" type="button" id="againBtn">Repetir la demo</button>
                 <a class="phone-cta as-link" data-play href="https://play.google.com/store/apps/details?id=com.servicios.acency" target="_blank" rel="noopener">Descargar Acency</a>
               </div>
             </section>
+          </div>
+
+          <!-- Hoja "Revisa tu solicitud" (paso 1, antes de enviar) -->
+          <div class="rev-sheet" id="revSheet" hidden>
+            <div class="rev-card" role="dialog" aria-label="Revisa tu solicitud">
+              <b class="rev-t">Revisa tu solicitud</b>
+              <small class="rev-s">Toca el lápiz en cualquier campo para editarlo.</small>
+              <dl class="rev">
+                <div><dt>Servicio</dt><dd id="revSvc">Plomería · Urgente</dd></div>
+                <div><dt>Descripción</dt><dd id="revDesc"></dd></div>
+                <div><dt>Acceso</dt><dd id="revAcc">Visible / fácil acceso</dd></div>
+                <div><dt>Materiales</dt><dd id="revMat">Tu especialista comprará los materiales</dd></div>
+                <div><dt>Evidencia</dt><dd>2 fotos · 1 video</dd></div>
+                <div><dt>Ubicación</dt><dd>Tu dirección guardada</dd></div>
+              </dl>
+              <button class="phone-cta mint" id="publishBtn" type="button">ENVIAR SOLICITUD</button>
+              <button class="link-btn" id="revBack" type="button">Editar</button>
+            </div>
           </div>
         </div>
       </div>

@@ -53,13 +53,13 @@
     plomeria: ['¿Necesitas un *plomero* *hoy?*', 'Fugas, llaves que gotean, drenajes tapados o un WC que no funciona. Cuenta qué pasa, recibe ofertas de plomeros verificados cerca de ti y elige la que más te convenga. Cotizar es gratis.', 'fuga de agua', 'plomeria'],
     electricidad: ['¿Necesitas un *electricista* *hoy?*', 'Un cuarto sin luz, contactos, apagadores o un tablero que falla. Recibe ofertas de electricistas verificados cerca de ti, compara y elige. Cotizar es gratis.', 'se fue la luz', 'electricidad'],
     impermeabilizacion: ['Impermeabiliza tu techo *antes* *de* *que* *llueva.*', 'Graba un video de tu azotea y recibe cotizaciones de especialistas cerca de ti, cada una con su precio y su garantía. Cotizar es gratis.', 'gotera en el techo', 'impermeabilizacion'],
-    drenaje: ['¿Drenaje tapado? *Resuélvelo* *ya.*', 'Desazolve de drenajes, cañerías y registros a domicilio. Manda fotos o un video, recibe ofertas de especialistas cercanos y elige. Cotizar es gratis.', 'drenaje tapado', 'drenaje'],
+    drenaje: ['¿Drenaje tapado? *Resuélvelo* *ya.*', 'Desazolve de drenajes, cañerías y registros a domicilio. Manda fotos o un video, recibe ofertas de especialistas cercanos y elige. Cotizar es gratis.', 'drenaje tapado', 'desazolve'],
     gas: ['Instalación de gas *segura,* *a* *domicilio.*', 'Instalación y conexión de líneas y aparatos de gas con especialistas verificados de tu zona. Compara ofertas antes de contratar. Cotizar es gratis.', 'instalacion de gas', ''],
     pintura: ['Pinta tu casa *sin* *batallar.*', 'Interiores y fachadas. Recibe ofertas de pintores verificados cerca de ti con precio, día de visita y garantía. Cotizar es gratis.', 'pintar mi casa', 'pintura'],
     albanileria: ['Albañil a domicilio, *cerca* *de* *ti.*', 'Paredes cuarteadas, pisos, azulejos y reparaciones. Manda fotos, recibe ofertas y elige con calificaciones reales. Cotizar es gratis.', 'pared cuarteada', 'albanileria'],
     herreria: ['Herrero a domicilio, *cerca* *de* *ti.*', 'Rejas, portones, protecciones y soldadura. Compara ofertas de herreros verificados antes de contratar. Cotizar es gratis.', 'rejas', ''],
     carpinteria: ['Carpintero a domicilio, *cerca* *de* *ti.*', 'Muebles, puertas y madera. Recibe ofertas con precio, día de visita y garantía, y elige la que más te convenga. Cotizar es gratis.', '', ''],
-    jardineria: ['Jardinero a domicilio, *cuando* *lo* *necesites.*', 'Poda, corte de pasto y mantenimiento. Agenda y recibe ofertas de jardineros cerca de ti. Cotizar es gratis.', 'podar el jardin', ''],
+    jardineria: ['Jardinero a domicilio, *cuando* *lo* *necesites.*', 'Poda, corte de pasto y mantenimiento. Agenda y recibe ofertas de jardineros cerca de ti. Cotizar es gratis.', 'podar el jardin', 'jardineria'],
     cisternas: ['Limpieza de cisternas *y* *tinacos.*', 'Lavado y desinfección a domicilio con especialistas verificados de tu zona. Compara ofertas antes de contratar. Cotizar es gratis.', 'limpiar cisterna', ''],
     mudanzas: ['¿Te mudas? *Consigue* *ayuda.*', 'Ayudantes para cargar, mover y acomodar, y armado o desarmado de muebles. El día y la hora vienen en cada oferta. Cotizar es gratis.', 'mudanza', ''],
     muebles: ['Armado de muebles *a* *domicilio.*', 'Closets, camas, mesas y más. Recibe ofertas de especialistas cerca de ti y elige. Cotizar es gratis.', 'armar muebles', ''],
@@ -361,7 +361,7 @@
 
   /* ---------- Barra fija de descarga (celular) ---------- */
   var dock = $('#dock'), heroEl = $('#inicio'), sheetEl = $('#sheet');
-  var dockHide = [$('#descargar'), $('.footer')];
+  var dockHide = [$('#descargar'), $('.footer'), $('#phone')];
   if (dock) scrollHooks.push(function () {
     var vh = window.innerHeight, past = heroEl && heroEl.getBoundingClientRect().bottom < vh * 0.35;
     var near = dockHide.some(function (el) { if (!el) return false; var r = el.getBoundingClientRect(); return r.top < vh && r.bottom > 0; });
@@ -632,37 +632,66 @@
   function hhmm(d) { var m = d.getMinutes(); return d.getHours() + ':' + (m < 10 ? '0' : '') + m; }
   function money(n) { return n.toLocaleString('es-MX'); }
 
-  /* ---------- Demo interactiva ---------- */
+  /* ---------- Demo interactiva ----------
+     Copia el flujo real de la app (repo ACENCY, solo lectura):
+     crear_solicitud/ (tipo → describir → detalle → fotos → revisión),
+     pantalla_de_espera/ofertas_sheet.dart (tarjeta de oferta), detalle_oferta_sheet.dart,
+     metodos_pago/ (tarjeta retenida o efectivo) y la agenda del cliente
+     (En camino → En tu puerta → Trabajando → Verificando). Datos de ejemplo. */
   var demoEl = $('#demo');
   if (demoEl) (function () {
-    var screens = $$('.scr', demoEl), stepBtns = $$('#demoSteps button'), note = $('#demoNote');
+    var screens = $$('.scr', demoEl), stepBtns = $$('#demoSteps button'), note = $('#demoNote'), sheet = $('#revSheet');
     var NOTES = [
-      'Abres la app y cuentas qué te pasa. Puedes mandar fotos y hasta un video para que se entienda mejor, y eliges si es urgente (hoy o mañana) o si lo agendas para un día específico.',
-      'En poco tiempo empiezan a llegar ofertas de especialistas cercanos con su precio, su calificación, sus reseñas y su garantía. Compara cuantas veces quieras antes de aceptar.',
-      'Con el especialista en camino sigues todo en tiempo real: cuándo salió, cuándo llegó y cuándo empezó a trabajar. Hablan por el chat de la app, sin dar tu teléfono ni tu correo.',
-      'Cuando llega a tu puerta, le pides el código de seguridad que solo tú tienes en pantalla. Si coincide, es la persona correcta. Prueba también qué pasa si no coincide.',
-      'Si pagas con tarjeta, Acency retiene el pago hasta que confirmas que todo quedó bien. Y cada oferta trae su propia garantía, de hasta 30 días: si algo falla, el especialista regresa a corregirlo sin costo extra.',
-      'Al final se califican los dos. Las reseñas se publican hasta que ambos calificaron, para que nadie ponga una buena nota por miedo a represalias, y se quedan en el perfil del especialista para ayudar al siguiente cliente.'
+      'Así se pide en la app: eliges el oficio y si lo quieres Agendar (tiempo estándar) o Urgente (hoy o mañana, sujeto a disponibilidad), cuentas qué pasa con tus palabras o con opciones rápidas, contestas un par de preguntas y mandas fotos y video. Tú no eliges la fecha: el día y la hora vienen en cada oferta.',
+      'Tu solicitud queda abierta 20 horas y las ofertas aparecen en tiempo real. Cada tarjeta trae precio, día y hora de llegada, duración, si incluye materiales, días de garantía y cuándo vence la oferta. Si ninguna te convence, no aceptes ninguna: cotizar es gratis.',
+      'Toca una oferta para ver el detalle: desglose del precio, la nota del especialista, su garantía, sus reseñas y fotos de sus proyectos. En algunos oficios también llegan ofertas de diagnóstico: pagas solo la visita de revisión y después recibes un precio firme.',
+      'Eliges cómo pagar. Con tarjeta, Acency retiene el pago y tu especialista no recibe nada hasta que confirmas que quedó bien. En efectivo le pagas en mano antes de empezar, sin protección de pago digital.',
+      'Al confirmar se abre un chat con tu especialista y el servicio entra a tu agenda. Sigues cada estado en tiempo real: en camino, en tu puerta, trabajando. Todo se habla por el chat, sin compartir tu teléfono.',
+      'Cuando llega, revisa que sea la persona de la foto y el nombre del perfil, y entrégale tu código de 6 caracteres. Tu especialista lo escribe en su app y el servicio empieza oficialmente. Prueba también qué pasa si llega alguien que no es.',
+      'Al terminar, el estado pasa a Verificando: revisas que funcione, el acabado y las fotos. Al confirmar se libera el pago (si fue con tarjeta) y empieza a contar la garantía de la oferta.',
+      'Al final se califican los dos. Las reseñas son a doble ciego: se publican al mismo tiempo cuando ambos calificaron y quedan en el perfil del especialista.'
     ];
+    /* Opciones rápidas copiadas de servicios/models.dart. d = tarifa de diagnóstico (solo oficios que lo permiten). */
     var CATS = {
-      plomeria: { name: 'Plomería', text: 'Gotea la llave del fregadero y ya hay agua debajo de la tarja.', prices: [350, 290, 480, 420] },
-      electricidad: { name: 'Electricidad', text: 'Se bota la pastilla cada vez que prendo el microondas y un contacto huele a quemado.', prices: [450, 380, 600, 520] },
-      drenaje: { name: 'Drenaje', text: 'El drenaje del patio está tapado y el agua ya no baja.', prices: [550, 480, 700, 620] },
-      pintura: { name: 'Pintura', text: 'Quiero pintar una recámara de 3 × 4 m, paredes y techo.', prices: [1800, 1550, 2300, 2050] },
-      jardineria: { name: 'Jardinería', text: 'Necesito cortar el pasto y podar dos árboles del jardín.', prices: [500, 420, 650, 580] },
-      albanileria: { name: 'Albañilería', text: 'Se cuarteó una pared del baño y quiero resanarla antes de pintar.', prices: [950, 800, 1300, 1100] }
+      plomeria: { name: 'Plomería', quick: ['Tengo una fuga de agua que no para', 'Mi llave del baño gotea constantemente', 'Se tapó el drenaje de la cocina'], p: [350, 300, 290, 420], mat: 120, d: 200, fix: 650, dur: ['1 h', '1 h 30 min', '45 min', '1 h'] },
+      electricidad: { name: 'Electricidad', quick: ['Se fue la luz de un cuarto y no regresa', 'Quiero instalar contactos e interruptores nuevos', 'Mi tablero de luz está fallando'], p: [450, 380, 420, 520], mat: 180, d: 250, fix: 780, dur: ['1 h 30 min', '2 h', '1 h', '1 h 30 min'] },
+      desazolve: { name: 'Desazolve', quick: ['Mi drenaje está tapado y el agua no baja', 'Necesito desazolvar la cañería principal de mi casa', 'Los registros de mi patio están tapados'], p: [550, 480, 500, 620], mat: 150, d: 250, fix: 900, dur: ['1 h 30 min', '2 h', '1 h 30 min', '2 h'] },
+      pintura: { name: 'Pintura', quick: ['Necesito pintar dos habitaciones interiores', 'Quiero pintar toda la fachada de mi casa', 'La pintura de mi sala está descascarada'], p: [1800, 1500, 1650, 2050], mat: 900, d: 0, dur: ['1 día', '1 día', '1 día', '2 días'] },
+      jardineria: { name: 'Jardinería', quick: ['Necesito podar el pasto y los arbustos de mi jardín', 'Quiero mantenimiento general de mi jardín', 'Busco diseño y plantación de área verde nueva'], p: [500, 420, 450, 580], mat: 150, d: 0, dur: ['2 h', '2 h 30 min', '2 h', '3 h'] },
+      albanileria: { name: 'Albañilería', quick: ['Tengo una pared cuarteada que necesita reparación', 'Quiero colocar azulejos en el baño', 'Necesito nivelar el piso de una habitación'], p: [950, 800, 880, 1100], mat: 350, d: 250, fix: 1400, dur: ['4 h', '5 h', '4 h', '1 día'] }
     };
     var PROS = [
-      { id: 'dg', name: 'Daniel García', ini: 'DG', rating: 4.6, reviews: 128, days: 15, v: '', review: '“Llegó a tiempo, explicó todo y dejó limpio.” · Ana, hace 1 semana' },
-      { id: 'mt', name: 'Miguel Torres', ini: 'MT', rating: 4.8, reviews: 86, days: 7, v: 'v2', review: '“Muy profesional y respetó el precio.” · Jorge, hace 3 días' },
-      { id: 'cm', name: 'Carlos Mendoza', ini: 'CM', rating: 4.5, reviews: 203, days: 30, v: 'v3', review: '“Resolvió rápido y regresó a revisar sin costo.” · Paty, hace 2 semanas' },
-      { id: 'ls', name: 'Laura Sánchez', ini: 'LS', rating: 4.9, reviews: 54, days: 10, v: 'v4', review: '“Súper amable y cuidadosa con todo.” · Rocío, hace 5 días' }
+      { id: 'dg', name: 'Daniel García', ini: 'DG', v: '', rating: 4.6, reviews: 128 },
+      { id: 'mt', name: 'Miguel Torres', ini: 'MT', v: 'v2', rating: 4.8, reviews: 86 },
+      { id: 'ls', name: 'Laura Sánchez', ini: 'LS', v: 'v4', rating: 0, reviews: 0 },
+      { id: 'cm', name: 'Carlos Mendoza', ini: 'CM', v: 'v3', rating: 4.5, reviews: 203 }
     ];
+    var REVIEWS = {
+      dg: [['Ana', 5, 'Llegó a tiempo, explicó todo y dejó limpio.'], ['Jorge', 4, 'Buen trabajo y respetó el precio de la oferta.']],
+      mt: [['Rocío', 5, 'Trajo los materiales y me enseñó el ticket.'], ['Luis', 5, 'Muy profesional, regresó a revisar sin costo.']],
+      ls: [],
+      cm: [['Paty', 5, 'Me explicó qué tenía antes de cotizar.'], ['Óscar', 4, 'Su dictamen fue muy claro, con fotos.']]
+    };
+    var NOTE = [
+      'Llevo mi herramienta. Si hace falta material, te mando la lista y el precio por la app antes de comprar.',
+      'Ya incluyo los materiales; te muestro el ticket al llegar.',
+      'Soy nueva en Acency, pero llevo años en el oficio. Llego puntual.',
+      'Primero reviso con calma y te mando mi dictamen con fotos; después te doy precio firme de la reparación.'
+    ];
+    var GAR = [15, 30, 0, 7];
+    var CHECKS = ['Prueba que funcione de verdad', 'Revisa el acabado con buena luz', 'Que no quedaron herramientas ni escombro', 'Compara sus fotos con lo que ves'];
+    var PAY_HOW = {
+      tarjeta: ['Al confirmar se cobra el total: servicio, comisión de Acency e IVA.', 'Acency retiene el pago: tu especialista no recibe nada todavía.', 'Cuando confirmas que quedó bien, se libera el pago a tu especialista.', 'Si algo salió mal, el equipo de Acency revisa tu caso y gestiona el reembolso a tu tarjeta.'],
+      efectivo: ['Le pagas el monto completo en mano, antes de que empiece. Ten el efectivo exacto.', 'Sin cargo de procesamiento y pago directo a tu especialista.', 'Sin protección de pago digital: un reembolso depende de la revisión del equipo de Acency.']
+    };
+    var DOWL = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+    var CODE_CH = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
     var ARRIVE = [900, 1900, 3000, 4100];
     var st, timers = [], raf = 0;
 
     function fresh() {
-      return { stage: 0, cat: 'plomeria', mode: 'urgente', day: 0, date: 1, sort: 'precio', offers: [], shown: 0, needOffers: true, picked: null, code: '', impostor: false, verified: false, released: false, rating: 0, theirDone: false, sent: false };
+      var cat = servicio && CATS[servicio[3]] ? servicio[3] : 'plomeria';
+      return { stage: 0, cat: cat, mode: 'urgente', text: CATS[cat].quick[0], acc: 'si', mat: 'no', offers: [], shown: 0, needOffers: true, sentAt: Date.now(), picked: null, pay: 'tarjeta', code: '', impostor: false, verified: false, released: false, rating: 0, theirDone: false, sent: false };
     }
     st = fresh();
     function later(fn, ms) { timers.push(setTimeout(fn, reduce ? Math.min(ms, 80) : ms)); }
@@ -670,25 +699,41 @@
     function first(name) { return name.split(' ')[0]; }
     function stars(r) { var f = Math.round(r); return '★★★★★'.slice(0, f) + '☆☆☆☆☆'.slice(0, 5 - f); }
     function bump(el, cls) { el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); }
+    function fmtHora(d) { var h = d.getHours(), m = d.getMinutes(), ap = h < 12 ? 'AM' : 'PM'; return (h % 12 || 12) + ':' + (m < 10 ? '0' : '') + m + ' ' + ap; }
+    function dayLabel(d) {
+      var a = new Date(), b = new Date(d); a.setHours(0, 0, 0, 0); b.setHours(0, 0, 0, 0);
+      var diff = Math.round((b - a) / 864e5);
+      return diff === 0 ? 'Hoy' : diff === 1 ? 'Mañana' : DOWL[b.getDay()] + ' ' + b.getDate();
+    }
+    function rateHtml(p, long) {
+      return p.reviews ? '<span class="gold">' + stars(p.rating) + '</span> ' + p.rating.toFixed(1) + ' · ' + p.reviews + (long ? ' reseñas' : '') : '<span class="oc-new">Nuevo</span>' + (long ? ' Sin reseñas aún' : '');
+    }
 
-    /* Ofertas */
-    function arrivals() {
-      if (st.mode === 'urgente') return st.day === 0 ? ['Hoy · en 40 min', 'Hoy · en 1 h', 'Mañana 9:00', 'Hoy · en 25 min'] : ['Mañana 9:00', 'Mañana 11:30', 'Mañana 8:30', 'Mañana 13:00'];
-      var d = addDays(st.date), l = DOW[d.getDay()] + ' ' + d.getDate();
-      return [l + ' · 10:00', l + ' · 12:00', l + ' · 9:00', l + ' · 16:00'];
+    /* Ofertas: el día y la hora los propone cada especialista */
+    function slots() {
+      var now = new Date(), out = [];
+      if (st.mode === 'urgente') {
+        var base = new Date(now); base.setSeconds(0, 0); base.setMinutes(base.getMinutes() < 30 ? 30 : 60);
+        [90, 120, 60, 150].forEach(function (mins, i) {
+          var d = new Date(base.getTime() + mins * 60000);
+          if (d.getHours() >= 20 || d.getHours() < 8 || d.getDate() !== now.getDate()) { d = new Date(now); d.setDate(d.getDate() + 1); d.setHours(9 + i, i % 2 ? 30 : 0, 0, 0); }
+          out.push(d);
+        });
+      } else {
+        [[1, 10, 0], [2, 9, 0], [1, 16, 30], [3, 11, 0]].forEach(function (a) { var d = new Date(now); d.setDate(d.getDate() + a[0]); d.setHours(a[1], a[2], 0, 0); out.push(d); });
+      }
+      return out;
     }
     function buildOffers() {
-      var c = CATS[st.cat], a = arrivals();
-      st.offers = PROS.map(function (p, i) { return { p: p, price: c.prices[i], when: a[i] }; });
+      var c = CATS[st.cat], sl = slots(), now = Date.now();
+      st.offers = PROS.map(function (p, i) {
+        var diag = i === 3 && c.d > 0, mano = diag ? c.d : c.p[i], mat = !diag && i === 1 && st.mat === 'no' ? c.mat : 0;
+        var exp = new Date(st.mode === 'urgente' ? sl[i].getTime() - 45 * 60000 : Math.max(now + 3 * 3600000, sl[i].getTime() - 13 * 3600000));
+        exp.setMinutes(Math.round(exp.getMinutes() / 15) * 15, 0, 0);
+        return { p: p, diag: diag, mano: mano, mat: mat, total: mano + mat, when: sl[i], exp: exp, dur: diag ? '30 min' : c.dur[i], gar: diag ? 0 : GAR[i], note: NOTE[diag ? 3 : i === 3 ? 0 : i] };
+      });
       st.needOffers = false; st.shown = 0; st.picked = null;
       $('#offers').innerHTML = '';
-    }
-    function sortedOffers() {
-      return st.offers.slice(0, st.shown).sort(function (a, b) {
-        if (st.sort === 'precio') return a.price - b.price;
-        if (st.sort === 'calif') return b.p.rating - a.p.rating;
-        return b.p.days - a.p.days;
-      });
     }
     function picked() {
       for (var i = 0; i < st.offers.length; i++) if (st.offers[i].p.id === st.picked) return st.offers[i];
@@ -697,40 +742,28 @@
     function ensurePicked() {
       if (st.needOffers) buildOffers();
       if (st.shown < st.offers.length) st.shown = st.offers.length;
-      if (!st.picked) st.picked = sortedOffers()[0].p.id;
+      if (!st.picked) st.picked = st.offers[0].p.id;
     }
     function offerNode(o) {
-      var li = document.createElement('li');
-      li.className = 'offer'; li.setAttribute('data-id', o.p.id);
-      li.innerHTML = '<button type="button" aria-pressed="false"><span class="av ' + o.p.v + '">' + o.p.ini + '</span>' +
-        '<span class="o-main"><span class="o-name">' + o.p.name + '</span>' +
-        '<span class="o-stars"><span class="gold">' + stars(o.p.rating) + '</span> ' + o.p.rating.toFixed(1) + ' · ' + o.p.reviews + ' reseñas</span>' +
-        '<span class="o-tags"><em>Garantía ' + o.p.days + ' días</em><em>' + o.when + '</em></span></span>' +
-        '<span class="o-price">$' + money(o.price) + '<small>MXN</small></span>' +
-        '<span class="o-more">' + o.p.review + '</span></button>';
+      var li = document.createElement('li'), p = o.p;
+      li.className = 'ocard' + (o.diag ? ' diag' : ''); li.setAttribute('data-id', p.id);
+      var rows = [['Llegaría el día', dayLabel(o.when)], ['A la hora', fmtHora(o.when)], ['La duración del trabajo será', o.dur]];
+      if (o.diag) rows.push(['Diagnóstico', 'El precio de la reparación te lo cotiza después de revisar.', 'wide']);
+      else { rows.push(['Incluye materiales', o.mat ? 'Sí' : 'No', o.mat ? 'yes' : 'no']); rows.push(['Garantía', o.gar ? o.gar + ' días' : 'Sin garantía', o.gar ? 'blue' : 'mute']); }
+      rows.push(['Oferta vence', dayLabel(o.exp) + ', ' + fmtHora(o.exp), 'orange']);
+      li.innerHTML = '<button type="button"><span class="oc-top"><span class="av ' + p.v + '">' + p.ini + '</span>' +
+        '<span class="oc-who"><b>' + p.name + '</b><span class="oc-rate">' + rateHtml(p) + '</span></span>' +
+        '<span class="oc-price">' + (o.diag ? '<small>Tarifa de diagnóstico</small>' : '') + '<b>$' + money(o.total) + '</b><small>MXN' + (o.mat ? ' · incl. mat.' : '') + '</small></span></span>' +
+        (o.diag ? '<span class="oc-diag"><b>Diagnóstico</b>Visita de revisión. Después recibes un dictamen con fotos y un precio en firme.</span>' : '') +
+        '<span class="oc-info">' + rows.map(function (r) { return '<span' + (r[2] === 'wide' ? ' class="wide"' : '') + '><i>' + r[0] + '</i><em class="' + (r[2] || '') + '">' + r[1] + '</em></span>'; }).join('') + '</span></button>';
       li.addEventListener('animationend', function () { li.classList.add('settled'); }, { once: true });
       return li;
     }
     function renderOffers() {
-      var ul = $('#offers'), before = {}, nodes = {};
-      $$('.offer', ul).forEach(function (li) { nodes[li.getAttribute('data-id')] = li; before[li.getAttribute('data-id')] = li.getBoundingClientRect().top; });
-      var list = sortedOffers();
-      list.forEach(function (o) {
-        var li = nodes[o.p.id] || offerNode(o), on = st.picked === o.p.id;
-        li.classList.toggle('picked', on);
-        li.querySelector('button').setAttribute('aria-pressed', String(on));
-        ul.appendChild(li);
-      });
-      if (!reduce) list.forEach(function (o) {
-        var li = nodes[o.p.id];
-        if (!li || before[o.p.id] == null) return;
-        var dy = before[o.p.id] - li.getBoundingClientRect().top;
-        if (Math.abs(dy) > 1) li.animate([{ transform: 'translateY(' + dy + 'px)' }, { transform: 'none' }], { duration: 520, easing: 'cubic-bezier(.22,1,.36,1)' });
-      });
-      var btn = $('#acceptBtn'), o2 = picked();
-      btn.disabled = !o2;
-      btn.textContent = o2 ? 'Aceptar a ' + first(o2.p.name) + ' · $' + money(o2.price) : 'Elige una oferta';
-      btn.classList.toggle('mint', !!o2);
+      var ul = $('#offers'), have = {};
+      $$('.ocard', ul).forEach(function (li) { have[li.getAttribute('data-id')] = 1; });
+      st.offers.slice(0, st.shown).forEach(function (o) { if (!have[o.p.id]) ul.appendChild(offerNode(o)); });
+      $('#offersHint').hidden = !st.shown;
     }
     function updateCount(animate) {
       var b = $('#offerCount');
@@ -738,36 +771,52 @@
       $('#offerWord').textContent = st.shown === 1 ? 'oferta recibida' : 'ofertas recibidas';
       if (animate) bump(b, 'bump');
     }
+    function tickAvail() {
+      var left = Math.max(0, 20 * 3600000 - (Date.now() - st.sentAt)), h = Math.floor(left / 3600000), m = Math.floor(left % 3600000 / 60000);
+      $('#avail').textContent = 'Disponible por ' + h + 'h ' + m + 'm más';
+      later(tickAvail, 20000);
+    }
 
-    /* Paso 0: pide */
+    /* Paso 1: pide */
+    function renderCats() { $$('#catGrid button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-cat') === st.cat)); }); }
     function renderWhen() {
       $$('#whenSeg button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-mode') === st.mode)); });
-      var box = $('#whenOpts'), opts = [];
-      box.innerHTML = '';
-      if (st.mode === 'urgente') opts = [{ k: 0, t: 'Hoy', s: 'lo antes posible' }, { k: 1, t: 'Mañana', s: addDays(1).getDate() + ' ' + MON[addDays(1).getMonth()] }];
-      else for (var i = 1; i <= 6; i++) { var d = addDays(i); opts.push({ k: i, t: DOW[d.getDay()], s: d.getDate() + ' ' + MON[d.getMonth()] }); }
-      opts.forEach(function (o) {
-        var b = document.createElement('button');
-        b.type = 'button'; b.setAttribute('data-k', o.k);
-        b.setAttribute('aria-pressed', String((st.mode === 'urgente' ? st.day : st.date) === o.k));
-        b.appendChild(document.createTextNode(o.t));
-        var s = document.createElement('small'); s.textContent = o.s; b.appendChild(s);
-        box.appendChild(b);
+      $('#whenHint').textContent = st.mode === 'urgente'
+        ? 'Atención prioritaria, sujeta a disponibilidad: los especialistas solo pueden ofrecerte hoy o mañana.'
+        : 'Atención bajo tiempo estándar. El día y la hora te los propone cada especialista en su oferta.';
+    }
+    function renderQuick() {
+      var box = $('#quick'); box.innerHTML = '';
+      CATS[st.cat].quick.forEach(function (q) {
+        var b = document.createElement('button'); b.type = 'button'; b.textContent = q;
+        b.setAttribute('aria-pressed', String(q === st.text)); box.appendChild(b);
       });
     }
-    function renderCats() { $$('#catGrid button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-cat') === st.cat)); }); }
+    function renderChips() {
+      $$('.chips', screens[0]).forEach(function (g) {
+        var cur = st[g.getAttribute('data-q') === 'acceso' ? 'acc' : 'mat'];
+        $$('button', g).forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-v') === cur)); });
+      });
+    }
+    function openReview() {
+      var c = CATS[st.cat];
+      $('#revSvc').textContent = c.name + ' · ' + (st.mode === 'urgente' ? 'Urgente' : 'Agendar');
+      $('#revDesc').textContent = $('#demoText').value.trim() || 'Sin descripción';
+      $('#revAcc').textContent = st.acc === 'si' ? 'Visible / fácil acceso' : 'Oculto / difícil acceso';
+      $('#revMat').textContent = st.mat === 'si' ? 'Sí, cuento con materiales' : 'Tu especialista comprará los materiales';
+      sheet.hidden = false;
+    }
 
     var ENTER = [];
     ENTER[0] = function () {
-      renderCats(); renderWhen();
-      $('#demoText').value = CATS[st.cat].text;
+      renderCats(); renderWhen(); renderQuick(); renderChips();
+      $('#demoText').value = st.text;
     };
     ENTER[1] = function () {
       if (st.needOffers) buildOffers();
-      $('#offersCat').textContent = CATS[st.cat].name;
-      $$('#sortBar button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-sort') === st.sort)); });
+      $('#offersCat').textContent = CATS[st.cat].name + ' · ' + (st.mode === 'urgente' ? 'Urgente' : 'Agendar');
       var box = $('.radar-box', screens[1]);
-      updateCount(false); renderOffers();
+      updateCount(false); renderOffers(); tickAvail();
       if (st.shown < st.offers.length) {
         box.classList.remove('done');
         ARRIVE.slice(st.shown).forEach(function (ms) {
@@ -778,13 +827,57 @@
         });
       } else box.classList.add('done');
     };
+    function showTab(name) {
+      $$('#detTabs button').forEach(function (b) { b.setAttribute('aria-selected', String(b.getAttribute('data-tab') === name)); });
+      $$('.tabp', screens[2]).forEach(function (p) { p.hidden = p.getAttribute('data-panel') !== name; });
+    }
     ENTER[2] = function () {
+      ensurePicked();
+      var o = picked(), p = o.p, av = $('#detAv');
+      av.textContent = p.ini; av.className = 'av ' + p.v;
+      $('#detName').textContent = p.name;
+      $('#detRate').innerHTML = rateHtml(p, true);
+      $('#detDiag').hidden = !o.diag;
+      var bill = [[o.diag ? 'Tarifa de diagnóstico' : 'Mano de obra', o.mano]];
+      if (o.mat) bill.push(['Precio de materiales', o.mat]);
+      $('#detBill').innerHTML = bill.map(function (r) { return '<div><dt>' + r[0] + '</dt><dd>$' + money(r[1]) + '</dd></div>'; }).join('') +
+        '<div class="tot"><dt>Total a pagar</dt><dd>$' + money(o.total) + ' MXN</dd></div>';
+      $('#detNote').textContent = o.note;
+      var gar = $('#detGar'), mat = $('#detMat');
+      if (o.diag) gar.innerHTML = '<b><svg class="ico"><use href="#i-shield"/></svg>Visita de diagnóstico</b><p>No lleva materiales ni garantía. Si hace falta reparar, te llega una cotización aparte con precio firme y tú decides si la contratas.</p>';
+      else if (o.gar) gar.innerHTML = '<b><svg class="ico"><use href="#i-shield"/></svg>Garantía: ' + o.gar + ' días</b><p>Si el trabajo realizado presenta fallas relacionadas directamente con el servicio, tu especialista podrá regresar para corregirlo o repararlo sin costo adicional.</p>';
+      else gar.innerHTML = '<b><svg class="ico"><use href="#i-shield"/></svg>Sin garantía</b><p>Esta oferta no incluye días de garantía. Si el trabajo quedó mal, puedes reportarlo con un video dentro de las 24 horas después de terminado.</p>';
+      mat.hidden = o.diag;
+      if (o.mat) mat.innerHTML = '<b>¿Qué significa que incluye materiales?</b><p>Pagas la mano de obra y los materiales juntos, así es menos probable que haya pausas, y puedes ver el comprobante de lo que compró.</p>';
+      else if (st.mat === 'si') mat.innerHTML = '<b>Tú tienes los materiales</b><p>Tu especialista llega directo a trabajar con tus materiales. No va a comprar nada.</p>';
+      else mat.innerHTML = '<b>¿Qué significa sin materiales?</b><p>Durante el servicio, tu especialista te informará el costo de los materiales para que los apruebes. Nunca pagas un material que no autorizaste.</p>';
+      var revs = REVIEWS[p.id];
+      $('#detRevs').innerHTML = revs.length ? revs.map(function (r) { return '<li><b>' + r[0] + '</b><span class="gold">' + stars(r[1]) + '</span><p>“' + r[2] + '”</p></li>'; }).join('') : '<li class="empty"><b>Sin reseñas aún</b><p>Las reseñas se publican cuando cliente y especialista ya calificaron.</p></li>';
+      $('#detProjs').innerHTML = p.reviews ? '<span class="pj a"></span><span class="pj b"></span><span class="pj c"></span><small>Fotos de trabajos anteriores · ejemplo</small>' : '<p class="empty"><b>Sin proyectos aún</b>Este especialista no ha subido fotos de proyectos todavía.</p>';
+      showTab('info');
+    };
+    function renderPay() {
+      var o = picked();
+      $$('#payOpts button').forEach(function (b) { b.setAttribute('aria-checked', String(b.getAttribute('data-pay') === st.pay)); });
+      $('#payHow').innerHTML = PAY_HOW[st.pay].map(function (t) { return '<li>' + t + '</li>'; }).join('');
+      $('#payTotal').innerHTML = '$' + money(o.total) + '<small>MXN</small>';
+      $('#payFee').textContent = st.pay === 'efectivo' ? 'Ten listo el efectivo exacto cuando llegue tu especialista.'
+        : o.mano >= 1500 ? 'En servicios de $1,500 MXN o más, Acency absorbe el cargo de procesamiento de la tarjeta.'
+        : 'Con tarjeta se suma un cargo de procesamiento; Acency lo absorbe en servicios de $1,500 MXN o más.';
+    }
+    ENTER[3] = function () {
+      ensurePicked();
+      $('#payWho').textContent = picked().p.name + ' · ' + CATS[st.cat].name;
+      renderPay();
+    };
+    ENTER[4] = function () {
       ensurePicked();
       var o = picked(), fn = first(o.p.name), now = new Date();
       var lis = $$('#track li'), title = $('#trackTitle'), btn = $('#arrivedBtn');
       lis.forEach(function (li) { li.className = ''; li.querySelector('time').textContent = ''; });
       lis[0].className = 'done'; lis[0].querySelector('time').textContent = hhmm(now);
       lis[1].className = 'now';
+      $('#trackSub').textContent = 'Servicio confirmado · ' + (st.pay === 'tarjeta' ? 'pago retenido' : 'pago en efectivo');
       title.textContent = fn + ' va en camino';
       btn.disabled = true; btn.textContent = 'Esperando llegada…'; btn.classList.remove('mint');
 
@@ -799,9 +892,10 @@
         route.style.strokeDashoffset = (L * (1 - e)).toFixed(1);
         eta.textContent = Math.max(0, Math.ceil(12 * (1 - e)));
         if (p < 1) { raf = requestAnimationFrame(frame); return; }
-        lis[1].className = 'done'; lis[1].querySelector('time').textContent = hhmm(new Date(now.getTime() + 12 * 60000));
-        title.textContent = fn + ' llegó a tu puerta';
-        btn.disabled = false; btn.textContent = 'Verificar código de seguridad'; btn.classList.add('mint');
+        lis[1].className = 'done'; lis[1].querySelector('time').textContent = hhmm(now);
+        lis[2].className = 'now'; lis[2].querySelector('time').textContent = hhmm(new Date(now.getTime() + 12 * 60000));
+        title.textContent = fn + ' está en tu puerta';
+        btn.disabled = false; btn.textContent = 'Ver mi código de seguridad'; btn.classList.add('mint');
       }
       raf = requestAnimationFrame(frame);
 
@@ -809,17 +903,16 @@
       body.innerHTML = '';
       function typing() { var t = document.createElement('div'); t.className = 'msg them typing'; t.innerHTML = '<i></i><i></i><i></i>'; body.appendChild(t); }
       function say(who, text) { var ty = $('.typing', body); if (ty) ty.remove(); var m = document.createElement('div'); m.className = 'msg ' + who; m.textContent = text; body.appendChild(m); }
-      later(typing, 500);
-      later(function () { say('them', 'Hola, soy ' + fn + '. Ya voy para allá. ¿Es la casa del portón gris?'); }, 1600);
-      later(function () { say('me', 'Sí, es esa. ¡Gracias!'); }, 3200);
+      say('sys', 'Pedido confirmado. Este chat es privado: no compartas tu teléfono.');
+      later(typing, 700);
+      later(function () { say('them', 'Hola, soy ' + fn + '. Ya voy para allá. ¿Es la casa del portón gris?'); }, 1700);
+      later(function () { say('me', 'Sí, es esa. ¡Gracias!'); }, 3300);
     };
     function setBubble() {
-      var o = picked(), said = st.code;
-      if (st.impostor) { var arr = said.split(''); arr[1] = String((+arr[1] + 3) % 10); arr[3] = String((+arr[3] + 6) % 10); said = arr.join(''); }
-      var av = $('#doorAv'), b = $('#doorBubble');
+      var o = picked(), av = $('#doorAv'), b = $('#doorBubble');
       av.textContent = st.impostor ? '?' : o.p.ini;
       av.className = 'av ' + (st.impostor ? 'v0' : o.p.v);
-      b.innerHTML = (st.impostor ? 'Buenas, vengo de parte de Acency. Mi código es ' : 'Hola, soy ' + first(o.p.name) + '. Mi código es ') + '<b>' + said.split('').join(' ') + '</b>.';
+      b.textContent = st.impostor ? 'Buenas, vengo de parte de Acency a hacer el trabajo. ¿Me pasa el código?' : 'Hola, soy ' + first(o.p.name) + ', de Acency. ¿Me das tu código?';
       bump(b, 'swap');
     }
     function codeResult(kind, text) {
@@ -827,11 +920,14 @@
       box.innerHTML = '<p class="' + kind + '"><svg class="ico"><use href="#' + (kind === 'good' ? 'i-check' : 'i-alert') + '"/></svg><span></span></p>';
       box.querySelector('span').textContent = text;
     }
-    ENTER[3] = function () {
+    ENTER[5] = function () {
       ensurePicked();
-      st.code = String(1000 + Math.floor(Math.random() * 9000));
+      var o = picked(), pav = $('#profAv');
+      st.code = ''; for (var i = 0; i < 6; i++) st.code += CODE_CH.charAt(Math.floor(Math.random() * CODE_CH.length));
       st.impostor = false; st.verified = false;
       $$('#codeDigits b').forEach(function (b, i) { b.textContent = st.code.charAt(i); });
+      pav.textContent = o.p.ini; pav.className = 'av ' + o.p.v;
+      $('#profName').textContent = o.p.name;
       setBubble();
       $('#codeResult').innerHTML = '';
       $('#work').hidden = true; $('#workBar').style.transform = 'scaleX(0)';
@@ -839,29 +935,49 @@
       $('#codeOk').disabled = false; $('#codeBad').disabled = false;
       var imp = $('#impostorBtn'); imp.hidden = false; imp.textContent = 'Simular a alguien que no es';
     };
-    ENTER[4] = function () {
+    ENTER[6] = function () {
       ensurePicked();
-      var o = picked(), fn = first(o.p.name), until = addDays(o.p.days);
-      $('#rcCat').textContent = CATS[st.cat].name;
-      $('#rcName').textContent = o.p.name;
-      $('#rcPrice').innerHTML = '$' + money(o.price) + '<small>MXN</small>';
-      $('#escName').textContent = fn;
-      var esc = $('#escrow'); esc.setAttribute('data-state', st.released ? 'released' : 'held');
-      var s = $('#escStatus');
-      s.classList.toggle('ok', st.released);
-      s.lastChild.textContent = st.released ? 'Confirmaste el servicio y Acency liberó el pago a ' + fn + '.' : 'Pagaste con tarjeta. Acency retiene el pago hasta que confirmes.';
-      $('#warrantyDays').textContent = o.p.days + ' días de garantía';
-      $('#warrantyUntil').textContent = 'Activa hasta el ' + longDate(until);
-      var ringEl = $('#warrantyRing');
-      ringEl.style.strokeDashoffset = '113.1';
-      later(function () { ringEl.style.strokeDashoffset = (113.1 * (1 - o.p.days / 30)).toFixed(1); }, 250);
-      var btn = $('#confirmBtn');
-      btn.textContent = st.released ? 'Calificar a ' + fn : 'Sí, quedó bien: liberar pago';
-      btn.classList.add('mint');
-      $('#claimNote').hidden = true;
+      var o = picked(), c = CATS[st.cat], fn = first(o.p.name);
       var lis = $$('#track li');
       lis.forEach(function (li) { li.className = 'done'; });
+      $('#escName').textContent = fn;
+      $('#verSub').textContent = 'Estado: Verificando';
+      var checks = $('#checks'), dict = $('#dict'), wbox = $('#warrantyBox');
+      if (o.diag) {
+        $('#verTitle').textContent = 'Recibiste tu dictamen';
+        $('#phA').textContent = 'Lo que encontró'; $('#phB').textContent = 'Detalle';
+        checks.hidden = true; dict.hidden = false; wbox.hidden = true;
+        dict.innerHTML = '<b>Dictamen de ' + fn + '</b><p>Revisé la instalación y encontré el origen de la falla. Te dejo fotos y lo que hay que hacer para repararla.</p>' +
+          '<div class="dict-q"><span>Cotización de la reparación</span><strong>$' + money(c.fix) + ' MXN</strong><small>Precio en firme. Es el mismo especialista que realizó tu diagnóstico. Tú decides si lo contratas.</small></div>';
+      } else {
+        $('#verTitle').textContent = '¿Quedó como esperabas?';
+        $('#phA').textContent = 'Antes'; $('#phB').textContent = 'Después';
+        checks.hidden = false; dict.hidden = true; wbox.hidden = false;
+        checks.innerHTML = CHECKS.map(function (t) { return '<li><button type="button" aria-pressed="false"><i></i>' + t + '</button></li>'; }).join('');
+        $('#warrantyDays').textContent = o.gar ? o.gar + ' días de garantía' : 'Sin garantía';
+        $('#warrantyUntil').textContent = o.gar ? (st.released ? 'Activa hasta el ' + longDate(addDays(o.gar)) : 'Empieza a contar cuando confirmes') : 'Si quedó mal, repórtalo con un video dentro de 24 h';
+        var ringEl = $('#warrantyRing');
+        ringEl.style.strokeDashoffset = '113.1';
+        if (o.gar && st.released) later(function () { ringEl.style.strokeDashoffset = (113.1 * (1 - o.gar / 30)).toFixed(1); }, 250);
+      }
+      var esc = $('#escrow'), s = $('#escStatus');
+      esc.hidden = st.pay !== 'tarjeta';
+      esc.setAttribute('data-state', st.released ? 'released' : 'held');
+      s.classList.toggle('ok', st.released || st.pay !== 'tarjeta');
+      s.lastChild.textContent = statusText(o);
+      var btn = $('#confirmBtn');
+      btn.textContent = st.released ? 'Calificar a ' + fn : o.diag ? 'Confirmar visita terminada' : 'Confirmar trabajo terminado';
+      btn.classList.add('mint');
+      var cn = $('#claimNote'); cn.hidden = true;
+      cn.textContent = o.diag ? 'Si el dictamen no te convence, no tienes que contratar la reparación. También puedes reportar el servicio desde la app.'
+        : 'Díselo a ' + fn + ' antes de confirmar: este es el momento de pedir que lo corrija. Si ya confirmaste y la oferta trae garantía, la activas desde Mi actividad.';
     };
+    function statusText(o) {
+      var fn = first(o.p.name);
+      if (st.pay !== 'tarjeta') return 'Pagaste en efectivo antes de que empezara. Con efectivo no hay pago retenido.';
+      if (!st.released) return 'Pagaste con tarjeta. Acency retiene el pago hasta que confirmes.';
+      return 'Confirmaste y Acency liberó el pago a ' + fn + ' (suele tardar unas 48 h en llegar a su cuenta).';
+    }
     function renderStars() {
       $$('#rateStars button').forEach(function (b) {
         var v = +b.getAttribute('data-v');
@@ -873,7 +989,7 @@
       var tags = $$('#rateTags button[aria-pressed="true"]').map(function (b) { return b.textContent; });
       return stars(st.rating) + (tags.length ? ' · ' + tags.join(', ') : '');
     }
-    ENTER[5] = function () {
+    ENTER[7] = function () {
       ensurePicked();
       var fn = first(picked().p.name);
       $('#rateTitle').textContent = 'Califica a ' + fn;
@@ -884,7 +1000,7 @@
       $('#sealed').classList.remove('open');
       $('#mineText').textContent = 'Aún no calificas';
       $('#theirText').textContent = 'Calificando…';
-      var nt = $('#sealNote'); nt.classList.remove('ok'); nt.textContent = 'Las dos reseñas se publican al mismo tiempo, cuando ambos ya calificaron.';
+      var nt = $('#sealNote'); nt.classList.remove('ok'); nt.textContent = 'Las reseñas son a doble ciego: se publican al mismo tiempo cuando los dos calificaron.';
       var send = $('#sendRate'); send.hidden = false; send.disabled = true; send.classList.remove('mint');
       $('#demoEnd').hidden = true;
       later(function () {
@@ -907,6 +1023,7 @@
 
     function go(n) {
       clearTimers();
+      sheet.hidden = true;
       st.stage = n;
       screens.forEach(function (s, i) {
         s.classList.toggle('is-on', i === n);
@@ -927,53 +1044,56 @@
     /* Controles dentro del teléfono */
     $('#catGrid').addEventListener('click', function (e) {
       var b = e.target.closest('button'); if (!b) return;
-      st.cat = b.getAttribute('data-cat'); st.needOffers = true;
-      renderCats(); $('#demoText').value = CATS[st.cat].text;
+      st.cat = b.getAttribute('data-cat'); st.needOffers = true; st.text = CATS[st.cat].quick[0];
+      renderCats(); renderQuick(); $('#demoText').value = st.text;
     });
     $('#whenSeg').addEventListener('click', function (e) {
       var b = e.target.closest('button'); if (!b) return;
       st.mode = b.getAttribute('data-mode'); st.needOffers = true; renderWhen();
     });
-    $('#whenOpts').addEventListener('click', function (e) {
+    $('#quick').addEventListener('click', function (e) {
       var b = e.target.closest('button'); if (!b) return;
-      if (st.mode === 'urgente') st.day = +b.getAttribute('data-k'); else st.date = +b.getAttribute('data-k');
-      st.needOffers = true; renderWhen();
+      st.text = b.textContent; $('#demoText').value = st.text; renderQuick();
     });
-    $('#publishBtn').addEventListener('click', function () { st.needOffers = true; go(1); });
-    $('#sortBar').addEventListener('click', function (e) {
-      var b = e.target.closest('button'); if (!b) return;
-      st.sort = b.getAttribute('data-sort');
-      $$('#sortBar button').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
-      renderOffers();
+    $('#demoText').addEventListener('input', function () { st.text = this.value; renderQuick(); });
+    $$('.chips', screens[0]).forEach(function (g) {
+      g.addEventListener('click', function (e) {
+        var b = e.target.closest('button'); if (!b) return;
+        st[g.getAttribute('data-q') === 'acceso' ? 'acc' : 'mat'] = b.getAttribute('data-v');
+        st.needOffers = true; renderChips();
+      });
     });
+    $('#reviewBtn').addEventListener('click', openReview);
+    $('#revBack').addEventListener('click', function () { sheet.hidden = true; });
+    $('#publishBtn').addEventListener('click', function () { st.needOffers = true; st.sentAt = Date.now(); go(1); });
     $('#offers').addEventListener('click', function (e) {
-      var li = e.target.closest('.offer'); if (!li) return;
-      st.picked = li.getAttribute('data-id'); renderOffers();
+      var li = e.target.closest('.ocard'); if (!li) return;
+      st.picked = li.getAttribute('data-id'); go(2);
     });
-    $('#acceptBtn').addEventListener('click', function () {
-      if (!st.picked) return;
-      burstFrom($('#acceptBtn'), 70);
-      st.released = false;
-      go(2);
-    });
-    $('#arrivedBtn').addEventListener('click', function () { go(3); });
+    $('#backOffers').addEventListener('click', function () { go(1); });
+    $('#detTabs').addEventListener('click', function (e) { var b = e.target.closest('button'); if (b) showTab(b.getAttribute('data-tab')); });
+    $('#hireBtn').addEventListener('click', function () { burstFrom($('#hireBtn'), 70); st.released = false; go(3); });
+    $('#payOpts').addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; st.pay = b.getAttribute('data-pay'); renderPay(); });
+    $('#payBtn').addEventListener('click', function () { st.released = false; go(4); });
+    $('#arrivedBtn').addEventListener('click', function () { go(5); });
     $('#codeOk').addEventListener('click', function () {
       if (st.verified) return;
-      if (st.impostor) { codeResult('warn', '¡Ojo! Los códigos no coinciden. No le abras la puerta y repórtalo desde la app.'); bump($('#codeDigits'), 'shake'); return; }
+      if (st.impostor) { codeResult('warn', '¡Ojo! No es la persona del perfil. No le des tu código ni le abras la puerta; repórtalo desde la app.'); bump($('#codeDigits'), 'shake'); return; }
       st.verified = true;
-      codeResult('good', 'Es la persona correcta. Ya puedes abrirle la puerta.');
+      var fn = first(picked().p.name);
+      codeResult('good', 'Le diste tu código y ' + fn + ' lo escribió en su app: el servicio empezó.' + (st.pay === 'efectivo' ? ' Como elegiste efectivo, le pagas antes de que empiece.' : ''));
       $('#codeOk').disabled = true; $('#codeBad').disabled = true; $('#impostorBtn').hidden = true;
-      var lis = $$('#track li'); lis[2].className = 'done'; lis[2].querySelector('time').textContent = hhmm(new Date());
+      var lis = $$('#track li'); lis[2].className = 'done'; lis[3].className = 'done'; lis[3].querySelector('time').textContent = hhmm(new Date());
       var w = $('#work'), wb = $('#workBar'); w.hidden = false;
+      w.querySelector('span').textContent = 'Trabajando en tu servicio…';
       if (wb.animate && !reduce) wb.animate([{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], { duration: 2600, easing: 'cubic-bezier(.65,0,.35,1)', fill: 'forwards' });
       else wb.style.transform = 'scaleX(1)';
-      later(function () { w.querySelector('span').textContent = 'Trabajo terminado'; $('#doneBtn').hidden = false; }, 2700);
-      w.querySelector('span').textContent = 'Trabajando en tu servicio…';
+      later(function () { w.querySelector('span').textContent = 'Terminó: ahora revisa su trabajo'; $('#doneBtn').hidden = false; }, 2700);
     });
     $('#codeBad').addEventListener('click', function () {
       if (st.verified) return;
-      if (st.impostor) codeResult('good', 'Bien visto: no coincide. No abras la puerta y repórtalo desde la app.');
-      else { codeResult('warn', 'Revisa otra vez, dígito por dígito: sí coincide con tu pantalla.'); bump($('#codeDigits'), 'shake'); }
+      if (st.impostor) codeResult('good', 'Bien visto: no le des tu código ni le abras la puerta, y repórtalo desde la app.');
+      else { codeResult('warn', 'Compara otra vez con la foto y el nombre del perfil: sí es la persona asignada.'); bump($('#codeDigits'), 'shake'); }
     });
     $('#impostorBtn').addEventListener('click', function () {
       st.impostor = !st.impostor;
@@ -981,15 +1101,22 @@
       $('#codeResult').innerHTML = '';
       setBubble();
     });
-    $('#doneBtn').addEventListener('click', function () { go(4); });
+    $('#doneBtn').addEventListener('click', function () { go(6); });
+    $('#checks').addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (b) b.setAttribute('aria-pressed', String(b.getAttribute('aria-pressed') !== 'true'));
+    });
     $('#confirmBtn').addEventListener('click', function () {
-      if (st.released) { go(5); return; }
+      if (st.released) { go(7); return; }
       st.released = true;
-      var fn = first(picked().p.name), s = $('#escStatus');
+      var o = picked(), s = $('#escStatus');
       $('#escrow').setAttribute('data-state', 'released');
       s.classList.add('ok');
-      s.lastChild.textContent = 'Confirmaste el servicio y Acency liberó el pago a ' + fn + '.';
-      this.textContent = 'Calificar a ' + fn;
+      s.lastChild.textContent = o.diag && st.pay !== 'tarjeta' ? 'Visita confirmada. La reparación te llega como una oferta nueva: tú decides si la contratas.' : statusText(o);
+      if (!o.diag && o.gar) {
+        $('#warrantyUntil').textContent = 'Activa hasta el ' + longDate(addDays(o.gar));
+        $('#warrantyRing').style.strokeDashoffset = (113.1 * (1 - o.gar / 30)).toFixed(1);
+      }
+      this.textContent = 'Calificar a ' + first(o.p.name);
       $('#claimNote').hidden = true;
     });
     $('#claimBtn').addEventListener('click', function () { var c = $('#claimNote'); c.hidden = !c.hidden; });
@@ -1022,17 +1149,22 @@
     clock(); setInterval(clock, 20000);
 
     /* Piloto automático: un dedo fantasma recorre la demo */
-    var SCRIPT = [
-      ['wait', 500], ['tap', '#catGrid [data-cat="plomeria"]'], ['wait', 500], ['tap', '#whenSeg [data-mode="urgente"]'], ['wait', 400],
-      ['tap', '#whenOpts button'], ['wait', 600], ['tap', '#publishBtn'], ['wait', 4700],
-      ['tap', '#sortBar [data-sort="calif"]'], ['wait', 1200], ['tap', '#sortBar [data-sort="garantia"]'], ['wait', 1200],
-      ['tap', '#offers .offer:first-child button'], ['wait', 1400], ['tap', '#acceptBtn'],
-      ['tap', '#arrivedBtn'], ['wait', 1500], ['tap', '#codeOk'],
-      ['tap', '#doneBtn'], ['wait', 1300], ['tap', '#confirmBtn'], ['wait', 1900], ['tap', '#confirmBtn'], ['wait', 900],
-      ['tap', '#rateStars [data-v="5"]'], ['wait', 500], ['tap', '#rateTags button:nth-child(1)'], ['wait', 350],
-      ['tap', '#rateTags button:nth-child(2)'], ['wait', 600], ['tap', '#sendRate']
-    ];
-    var autoOn = false, autoIdx = 0, autoT = 0, autoBtn = $('#demoAuto'), ghost = $('#ghost'), screenBox = $('.phone-screen', demoEl);
+    function script() {
+      return [
+        ['wait', 500], ['tap', '#catGrid [data-cat="' + st.cat + '"]'], ['wait', 400], ['tap', '#whenSeg [data-mode="urgente"]'], ['wait', 500],
+        ['tap', '#quick button:nth-child(1)'], ['wait', 500], ['tap', '.chips[data-q="mat"] [data-v="no"]'], ['wait', 400],
+        ['tap', '#reviewBtn'], ['wait', 1400], ['tap', '#publishBtn'], ['wait', 4900],
+        ['tap', '#offers .ocard:nth-child(2) button'], ['wait', 1500], ['tap', '#detTabs [data-tab="resenas"]'], ['wait', 1300],
+        ['tap', '#detTabs [data-tab="info"]'], ['wait', 700], ['tap', '#hireBtn'], ['wait', 900],
+        ['tap', '#payOpts [data-pay="tarjeta"]'], ['wait', 1300], ['tap', '#payBtn'],
+        ['tap', '#arrivedBtn'], ['wait', 1300], ['tap', '#codeOk'],
+        ['tap', '#doneBtn'], ['wait', 900], ['tap', '#checks li:nth-child(1) button'], ['wait', 400], ['tap', '#checks li:nth-child(3) button'], ['wait', 600],
+        ['tap', '#confirmBtn'], ['wait', 1900], ['tap', '#confirmBtn'], ['wait', 900],
+        ['tap', '#rateStars [data-v="5"]'], ['wait', 500], ['tap', '#rateTags button:nth-child(1)'], ['wait', 350],
+        ['tap', '#rateTags button:nth-child(2)'], ['wait', 600], ['tap', '#sendRate']
+      ];
+    }
+    var SCRIPT = [], autoOn = false, autoIdx = 0, autoT = 0, autoBtn = $('#demoAuto'), ghost = $('#ghost'), screenBox = $('.phone-screen', demoEl);
     function setAutoLabel() { autoBtn.querySelector('span').textContent = autoOn ? 'Detener recorrido' : 'Verlo en automático'; }
     function stopAuto() { autoOn = false; clearTimeout(autoT); ghost.classList.remove('on'); setAutoLabel(); }
     function runAuto() {
@@ -1044,14 +1176,15 @@
     }
     function tapOn(sel, tries) {
       if (!autoOn) return;
-      var el = $(sel, demoEl);
-      var ready = el && !el.disabled && el.offsetParent !== null && el.closest('.scr').classList.contains('is-on');
+      var el = $(sel, demoEl), scr = el && el.closest('.scr');
+      var ready = el && !el.disabled && el.offsetParent !== null && (!scr || scr.classList.contains('is-on'));
       if (!ready) { if (tries < 60) autoT = setTimeout(function () { tapOn(sel, tries + 1); }, 200); else stopAuto(); return; }
-      var scr = el.closest('.scr'), er = el.getBoundingClientRect(), sr = scr.getBoundingClientRect();
-      if (er.bottom > sr.bottom - 12) scr.scrollTop += er.bottom - sr.bottom + 24;
-      else if (er.top < sr.top + 56) scr.scrollTop -= sr.top + 56 - er.top;
-      er = el.getBoundingClientRect();
-      var br = screenBox.getBoundingClientRect(), scale = br.width / screenBox.offsetWidth || 1;
+      if (scr) {
+        var er0 = el.getBoundingClientRect(), sr = scr.getBoundingClientRect();
+        if (er0.bottom > sr.bottom - 12) scr.scrollTop += er0.bottom - sr.bottom + 24;
+        else if (er0.top < sr.top + 56) scr.scrollTop -= sr.top + 56 - er0.top;
+      }
+      var er = el.getBoundingClientRect(), br = screenBox.getBoundingClientRect(), scale = br.width / screenBox.offsetWidth || 1;
       ghost.style.transform = 'translate(' + ((er.left + er.width / 2 - br.left) / scale).toFixed(1) + 'px,' + ((er.top + er.height / 2 - br.top) / scale).toFixed(1) + 'px)';
       ghost.classList.add('on');
       autoT = setTimeout(function () {
@@ -1063,7 +1196,7 @@
     }
     function startAuto() {
       autoOn = true; autoIdx = 0; setAutoLabel();
-      st = fresh(); go(0);
+      st = fresh(); SCRIPT = script(); go(0);
       autoT = setTimeout(runAuto, 300);
     }
     autoBtn.addEventListener('click', function () {
