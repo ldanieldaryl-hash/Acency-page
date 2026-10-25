@@ -2,16 +2,16 @@
 <html lang="es-MX">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
 <title>Acency · Plomero, electricista y más a domicilio · Cotiza gratis</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="¿Algo falló en casa? Con Acency pides plomero, electricista, impermeabilización, gas, mudanzas y más a domicilio. Cotizar es gratis: recibe ofertas de especialistas verificados cerca de ti, compara y paga protegido. ¿Tienes un oficio? Únete como especialista. Descarga la app en Google Play.">
+<meta name="description" content="¿Algo falló en casa? Con Acency pides plomero, electricista, impermeabilización, gas, mudanzas y más a domicilio. Cotizar es gratis y tu primer mes tienes 10% de descuento en cada servicio. Especialistas verificados cerca de ti y pago protegido. ¿Tienes un oficio? Únete como especialista. Descarga la app en Google Play.">
 <meta name="theme-color" content="#0a0a0a">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_MX">
 <meta property="og:site_name" content="Acency">
 <meta property="og:title" content="Acency · Todos los servicios del hogar, a un click de ti">
-<meta property="og:description" content="Pide un plomero, electricista, pintor o jardinero desde tu celular. Compara ofertas de especialistas cercanos, sigue el servicio en tiempo real y paga con garantía. ¿Tienes un oficio? Únete como especialista.">
+<meta property="og:description" content="Pide un plomero, electricista, pintor o jardinero desde tu celular. Compara ofertas de especialistas cercanos, sigue el servicio en tiempo real y paga con garantía. Tu primer mes, 10% de descuento en cada servicio.">
 <meta property="og:image" content="assets/promo-cotizaciones.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="robots" content="index,follow,max-image-preview:large">
@@ -30,12 +30,14 @@
       "@type": "LocalBusiness",
       "@id": "#acency",
       "name": "Acency",
+      "legalName": "ACENCY MX, S.A.S.",
+      "email": "soporte@acencyservicios.com",
       "slogan": "El único lugar donde contratar y trabajar al fin se sienten justos",
       "description": "App mexicana que conecta hogares con especialistas verificados: plomería 24 horas, electricista a domicilio, impermeabilización, albañilería, herrería, pintura, jardinería, instalación de gas, limpieza de cisternas, mudanzas, mandados y paseo de mascotas.",
       "logo": "assets/logo-black.png",
       "image": "assets/promo-cotizaciones.jpg",
       "areaServed": { "@type": "Country", "name": "México" },
-      "address": { "@type": "PostalAddress", "addressCountry": "MX" },
+      "address": { "@type": "PostalAddress", "addressLocality": "Coacalco de Berriozábal", "addressRegion": "Estado de México", "addressCountry": "MX" },
       "openingHours": "Mo-Su 00:00-23:59",
       "sameAs": [
         "https://www.instagram.com/acency_mx",
@@ -67,6 +69,7 @@
       "name": "Acency",
       "operatingSystem": "Android",
       "applicationCategory": "LifestyleApplication",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "MXN" },
       "url": "https://play.google.com/store/apps/details?id=com.servicios.acency",
       "installUrl": "https://play.google.com/store/apps/details?id=com.servicios.acency",
       "publisher": { "@id": "#acency" }
@@ -74,6 +77,7 @@
     {
       "@type": "FAQPage",
       "mainEntity": [
+        { "@type": "Question", "name": "¿Hay descuento para clientes nuevos?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. Si eres cliente nuevo, durante tus primeros 30 días desde que te registras tienes 10% de descuento en cada servicio que contrates, pagando con tarjeta y con tu identidad verificada. Tu especialista cobra exactamente lo mismo: el descuento lo pone Acency. Lo ves aplicado al pagar, junto con los días que te quedan." } },
         { "@type": "Question", "name": "¿Pedir cotizaciones tiene costo?", "acceptedAnswer": { "@type": "Answer", "text": "No. Puedes pedir cotizaciones a todos los especialistas que quieras sin ningún costo. Solo pagas cuando eliges y confirmas una oferta." } },
         { "@type": "Question", "name": "¿Cuánto tiempo tengo para elegir una oferta?", "acceptedAnswer": { "@type": "Answer", "text": "Tu solicitud está activa 20 horas desde que la envías y te avisamos 30 minutos antes de que venza. Además, cada oferta muestra su propia hora de vencimiento. Mientras esperas, puedes cancelar la solicitud sin costo." } },
         { "@type": "Question", "name": "¿Puedo elegir el día y la hora del servicio?", "acceptedAnswer": { "@type": "Answer", "text": "Al crear la solicitud no eliges fecha: eliges Agendar o Urgente y describes lo que necesitas. Cada especialista propone en su oferta el día de visita, la hora de llegada y la duración, y tú eliges la que mejor te acomode. Si ninguna te sirve, no aceptes ninguna: pueden llegarte más." } },
@@ -1683,6 +1687,33 @@ html.ad .hero-msg > *,html.ad .gates,html.ad .scroll-cue{animation-delay:.15s!im
 .vid.has-poster .vid-story{display:none}
 @media (prefers-reduced-motion:reduce){ .ticker-row{transform:none!important} }
 
+/* ---------- Descuento de bienvenida ---------- */
+.welcome{position:relative;overflow:hidden;background:var(--mint);color:var(--ink);padding-block:88px}
+.welcome::before{content:"";position:absolute;right:-12vw;top:-18vw;width:46vw;height:46vw;border-radius:50%;border:clamp(16px,2.4vw,32px) solid rgba(10,10,10,.07);pointer-events:none}
+.welcome-grid{position:relative;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:56px;align-items:center}
+.welcome-big{display:flex;flex-direction:column;align-items:flex-start;line-height:.85}
+.welcome-big b{font-size:clamp(5.5rem,15vw,12rem);font-weight:800;letter-spacing:-.07em}
+.welcome-big span{margin-top:14px;font-family:var(--f-mono);font-size:.8125rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(10,10,10,.7)}
+.welcome-copy{display:flex;flex-direction:column;gap:20px;min-width:0}
+.welcome .label{color:rgba(10,10,10,.7)}
+.welcome .label::before{background:var(--ink);box-shadow:0 0 0 4px rgba(10,10,10,.12)}
+.welcome .h2{max-width:18ch}
+.welcome .accent{color:var(--ink);text-decoration:underline;text-decoration-thickness:.07em;text-underline-offset:.1em}
+.welcome .lead{color:rgba(10,10,10,.76)}
+.welcome-terms{display:flex;flex-wrap:wrap;gap:8px}
+.welcome-terms li{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.55);box-shadow:inset 0 0 0 1px rgba(10,10,10,.08);font-size:.875rem;font-weight:600}
+.welcome-terms .ico{width:16px;height:16px}
+.welcome-cta{display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px}
+.welcome-cta p{font-size:var(--t-small);color:rgba(10,10,10,.7);max-width:34ch}
+@media (max-width:860px){ .welcome{padding-block:72px} .welcome-grid{grid-template-columns:1fr;gap:16px} }
+.welcome-line{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 12px;border-radius:12px;background:var(--app-mint-bg);color:var(--app-mint-fg);font-size:11.5px;font-weight:700;line-height:1.35;animation:fadeUp .35s var(--ease)}
+.welcome-line b{white-space:nowrap;font-variant-numeric:tabular-nums}
+.welcome-line.off{background:#eef2f2;color:var(--app-fg2);font-weight:600}
+.foot-contact{display:inline-flex;flex-wrap:wrap;align-items:center;gap:8px}
+.foot-contact b{color:var(--on-ink);font-weight:600;user-select:all}
+.copy-mini{padding:4px 10px;border-radius:999px;font-size:.75rem;font-weight:700;color:var(--mint);box-shadow:inset 0 0 0 1px rgba(26,236,209,.4);transition:background-color .3s}
+.copy-mini:hover{background:rgba(26,236,209,.12)}
+@media (prefers-reduced-motion:reduce){ .welcome-line{animation:none} }
 </style>
 
 <!-- Iconos (un solo trazo, 1.7px) -->
@@ -1759,7 +1790,7 @@ html.ad .hero-msg > *,html.ad .gates,html.ad .scroll-cue{animation-delay:.15s!im
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <aside class="dock" id="dock" aria-label="Descargar Acency">
   <img src="assets/icon.png" alt="" width="40" height="40" loading="lazy">
-  <div class="dock-txt"><b>Acency</b><small>Cotiza gratis · Android</small></div>
+  <div class="dock-txt"><b>Acency</b><small>10% en tu primer mes</small></div>
   <a class="btn" data-play href="https://play.google.com/store/apps/details?id=com.servicios.acency" target="_blank" rel="noopener"><svg class="ico ico-fill"><use href="#i-play"/></svg>Descargar</a>
 </aside>
 <canvas class="confetti" id="confetti" aria-hidden="true"></canvas>
@@ -1796,6 +1827,7 @@ html.ad .hero-msg > *,html.ad .gates,html.ad .scroll-cue{animation-delay:.15s!im
     <nav aria-label="Secciones">
       <div class="menu-group" data-group="clientes">
         <p class="menu-title">Para clientes</p>
+        <a class="mi" href="#bienvenida"><i><svg class="ico"><use href="#i-gift"/></svg></i><span><b>10% de bienvenida</b><small>En cada servicio de tu primer mes</small></span><svg class="ico"><use href="#i-arrow"/></svg></a>
         <a class="mi" href="#app-cliente"><i><svg class="ico"><use href="#i-home"/></svg></i><span><b>Conoce la app</b><small>Cotiza, compara y elige</small></span><svg class="ico"><use href="#i-arrow"/></svg></a>
         <a class="mi" href="#te-salva"><i><svg class="ico"><use href="#i-shield"/></svg></i><span><b>Acency te salva</b><small>Cuando algo falla en casa</small></span><svg class="ico"><use href="#i-arrow"/></svg></a>
         <a class="mi" href="#servicios"><i><svg class="ico"><use href="#i-grid"/></svg></i><span><b>Servicios</b><small>12 categorías a domicilio</small></span><svg class="ico"><use href="#i-arrow"/></svg></a>
@@ -1853,7 +1885,7 @@ html.ad .hero-msg > *,html.ad .gates,html.ad .scroll-cue{animation-delay:.15s!im
       <h1 id="hero-title">Todos los servicios del hogar, <span class="accent">a un click de ti.</span></h1>
       <p id="heroLead">Plomero, electricista, impermeabilización, jardinería y más, a domicilio y cerca de ti. Recibe cotizaciones de especialistas verificados y elige la que más te convenga.</p>
       <a class="btn" data-play data-magnetic href="https://play.google.com/store/apps/details?id=com.servicios.acency" target="_blank" rel="noopener"><svg class="ico ico-fill"><use href="#i-play"/></svg> Descargar en Google Play</a>
-      <p class="hero-free"><span>Gratis</span>Cotizar no cuesta nada · solo pagas si contratas · App para Android</p>
+      <p class="hero-free"><span>−10%</span>Tu primer mes, en cada servicio · Cotizar es gratis · App para Android</p>
     </div>
 
     <div class="gates">
@@ -1907,6 +1939,27 @@ html.ad .hero-msg > *,html.ad .gates,html.ad .scroll-cue{animation-delay:.15s!im
      VISTA 1 · CLIENTES
      ===================================================== -->
 <div class="view" id="clientes" data-view-panel="clientes" role="tabpanel" aria-label="Para clientes">
+
+  <!-- ============ DESCUENTO DE BIENVENIDA (nuevo) ============ -->
+  <section class="welcome" id="bienvenida" aria-labelledby="welcome-title">
+    <div class="wrap welcome-grid">
+      <div class="welcome-big" aria-hidden="true"><b>10%</b><span>de descuento · primer mes</span></div>
+      <div class="welcome-copy rv" data-rv="blur">
+        <span class="label">Bienvenida</span>
+        <h2 class="h2" id="welcome-title">Tu primer mes, <span class="accent">10% de descuento</span> en cada servicio.</h2>
+        <p class="lead">Si eres cliente nuevo, durante tus primeros 30 días desde que te registras tienes 10% de descuento en cada servicio que contrates. Tu especialista cobra lo mismo: el descuento lo pone Acency.</p>
+        <ul class="welcome-terms">
+          <li><svg class="ico"><use href="#i-calendar"/></svg>30 días desde tu registro</li>
+          <li><svg class="ico"><use href="#i-card"/></svg>Pagando con tarjeta</li>
+          <li><svg class="ico"><use href="#i-shield"/></svg>Con tu identidad verificada (INE)</li>
+        </ul>
+        <div class="welcome-cta">
+          <a class="btn btn-dark" data-play data-magnetic href="https://play.google.com/store/apps/details?id=com.servicios.acency" target="_blank" rel="noopener"><svg class="ico ico-fill"><use href="#i-play"/></svg> Descargar y aprovechar</a>
+          <p>Lo ves aplicado al pagar, junto con los días que te quedan.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section class="pano-sec" id="app-cliente" aria-labelledby="pano-title">
     <div class="wrap">
@@ -2285,6 +2338,7 @@ html.ad .hero-msg > *,html.ad .gates,html.ad .scroll-cue{animation-delay:.15s!im
                 <button type="button" role="radio" aria-checked="false" data-pay="efectivo"><span class="pay-ico"><svg class="ico"><use href="#i-tag"/></svg></span><span><b>Efectivo</b><small>Sin cargo extra · Pago directo a tu especialista</small></span></button>
               </div>
               <ul class="pay-how" id="payHow"></ul>
+              <p class="welcome-line" id="payWelcome"></p>
               <div class="receipt"><div><small id="payLabel">Total a pagar</small><b>IVA incluido</b></div><strong id="payTotal">$350<small>MXN</small></strong></div>
               <p class="hint-line" id="payFee"></p>
               <button class="phone-cta" id="payBtn" type="button">Confirmar pedido</button>
@@ -2839,7 +2893,7 @@ html.ad .hero-msg > *,html.ad .gates,html.ad .scroll-cue{animation-delay:.15s!im
     <div class="faq-aside rv">
       <span class="label">Preguntas frecuentes</span>
       <h2 class="h2" id="faq-title">Lo que más nos <span class="accent">preguntan</span>.</h2>
-      <p class="lead">Si tu duda no está aquí, escríbenos desde la sección de ayuda de la app.</p>
+      <p class="lead">Si tu duda no está aquí, escríbenos desde la ayuda de la app o a <b>soporte@acencyservicios.com</b>.</p>
       <div class="faq-tools">
         <label class="faq-search" for="faqSearch">
           <svg class="ico"><use href="#i-search"/></svg>
@@ -2855,7 +2909,8 @@ html.ad .hero-msg > *,html.ad .gates,html.ad .scroll-cue{animation-delay:.15s!im
     </div>
     <div>
       <div class="faq-list rv-group" id="faqList">
-        <details class="faq-item" data-cat="servicios" open><summary>¿Pedir cotizaciones tiene costo?<i aria-hidden="true"></i></summary><div class="answer">No. Puedes pedir cotizaciones a todos los especialistas que quieras sin ningún costo. Solo pagas cuando eliges y confirmas una oferta.</div></details>
+        <details class="faq-item" data-cat="seguridad" open><summary>¿Hay descuento para clientes nuevos?<i aria-hidden="true"></i></summary><div class="answer">Sí. Si eres cliente nuevo, durante tus primeros 30 días desde que te registras tienes 10% de descuento en cada servicio que contrates, pagando con tarjeta y con tu identidad verificada. Tu especialista cobra exactamente lo mismo: el descuento lo pone Acency. Lo ves aplicado al pagar, junto con los días que te quedan.</div></details>
+        <details class="faq-item" data-cat="servicios"><summary>¿Pedir cotizaciones tiene costo?<i aria-hidden="true"></i></summary><div class="answer">No. Puedes pedir cotizaciones a todos los especialistas que quieras sin ningún costo. Solo pagas cuando eliges y confirmas una oferta.</div></details>
         <details class="faq-item" data-cat="servicios"><summary>¿Cuánto tiempo tengo para elegir una oferta?<i aria-hidden="true"></i></summary><div class="answer">Tu solicitud está activa 20 horas desde que la envías y te avisamos 30 minutos antes de que venza. Además, cada oferta muestra su propia hora de vencimiento. Mientras esperas, puedes cancelar la solicitud sin costo.</div></details>
         <details class="faq-item" data-cat="servicios"><summary>¿Puedo elegir el día y la hora del servicio?<i aria-hidden="true"></i></summary><div class="answer">Al crear la solicitud no eliges fecha: eliges Agendar o Urgente y describes lo que necesitas. Cada especialista propone en su oferta el día de visita, la hora de llegada y la duración, y tú eliges la que mejor te acomode. Si ninguna te sirve, no aceptes ninguna: pueden llegarte más.</div></details>
         <details class="faq-item" data-cat="servicios"><summary>¿Qué es una oferta de diagnóstico?<i aria-hidden="true"></i></summary><div class="answer">En oficios como plomería, electricidad, albañilería, herrería, carpintería, impermeabilización y desazolve, un especialista puede ofrecerte primero una visita de revisión. Pagas solo esa visita; después recibes un dictamen con fotos y, si hace falta reparar, una cotización con precio firme. Tú decides si la contratas.</div></details>
@@ -2939,8 +2994,9 @@ html.ad .hero-msg > *,html.ad .gates,html.ad .scroll-cue{animation-delay:.15s!im
       <img class="lit" src="assets/logo-mint.png" alt="" width="900" height="413" loading="lazy">
     </div>
     <div class="footer-bottom">
-      <span>© 2026 Acency. Hecho en México.</span>
-      <nav aria-label="Legal"><a href="#privacidad" data-legal="privacidad">Aviso de privacidad</a><a href="#terminos" data-legal="terminos">Términos y condiciones</a></nav>
+      <span>© 2026 ACENCY MX, S.A.S. Hecho en México.</span>
+      <span class="foot-contact">Soporte: <b>soporte@acencyservicios.com</b> <button type="button" class="copy-mini" data-copy="soporte@acencyservicios.com">Copiar</button></span>
+      <nav aria-label="Legal"><a href="#privacidad" data-legal="privacidad">Aviso de privacidad</a><a href="#terminos" data-legal="terminos">Términos y condiciones</a><a href="https://acency-legal.web.app/politica_de_reembolsos_acency.html" target="_blank" rel="noopener">Reembolsos</a><a href="https://acency-legal.web.app/politica_de_cookies_acency.html" target="_blank" rel="noopener">Cookies</a><a href="https://acency-legal.web.app/" target="_blank" rel="noopener">Todos los documentos</a></nav>
     </div>
   </div>
 </footer>
@@ -2950,13 +3006,13 @@ html.ad .hero-msg > *,html.ad .gates,html.ad .scroll-cue{animation-delay:.15s!im
     <button class="modal-x" type="button" data-close aria-label="Cerrar"><svg class="ico"><use href="#i-close"/></svg></button>
     <span class="label">Documento legal</span>
     <h2 id="legalTitle">Aviso de privacidad</h2>
-    <p id="legalLead">El documento completo y vigente está dentro de la app, en la sección <b>Reglamentario</b>.</p>
+    <p id="legalLead">Aquí va lo esencial. El documento completo y vigente está publicado en <b>acency-legal.web.app</b> y dentro de la app, en <b>Reglamentario</b>.</p>
     <div class="modal-box">
       <h3>Lo esencial</h3>
       <ul id="legalList"></ul>
     </div>
     <div class="modal-actions">
-      <a class="btn" data-play href="https://play.google.com/store/apps/details?id=com.servicios.acency" target="_blank" rel="noopener"><svg class="ico ico-fill"><use href="#i-play"/></svg> Abrir en Google Play</a>
+      <a class="btn" id="legalFull" href="https://acency-legal.web.app/" target="_blank" rel="noopener"><svg class="ico"><use href="#i-doc"/></svg> Leer documento completo</a>
       <button class="btn btn-line" type="button" data-close>Cerrar</button>
     </div>
   </div>
@@ -3014,21 +3070,21 @@ html.ad .hero-msg > *,html.ad .gates,html.ad .scroll-cue{animation-delay:.15s!im
      Cada campaña de búsqueda aterriza con su oficio y el inicio repite lo que la
      persona buscó. *palabra* = palabra en menta. */
   var SERVICIOS = {
-    plomeria: ['¿Necesitas un *plomero* *hoy?*', 'Fugas, llaves que gotean, drenajes tapados o un WC que no funciona. Cuenta qué pasa, recibe ofertas de plomeros verificados cerca de ti y elige la que más te convenga. Cotizar es gratis.', 'fuga de agua', 'plomeria'],
-    electricidad: ['¿Necesitas un *electricista* *hoy?*', 'Un cuarto sin luz, contactos, apagadores o un tablero que falla. Recibe ofertas de electricistas verificados cerca de ti, compara y elige. Cotizar es gratis.', 'se fue la luz', 'electricidad'],
-    impermeabilizacion: ['Impermeabiliza tu techo *antes* *de* *que* *llueva.*', 'Graba un video de tu azotea y recibe cotizaciones de especialistas cerca de ti, cada una con su precio y su garantía. Cotizar es gratis.', 'gotera en el techo', 'impermeabilizacion'],
-    drenaje: ['¿Drenaje tapado? *Resuélvelo* *ya.*', 'Desazolve de drenajes, cañerías y registros a domicilio. Manda fotos o un video, recibe ofertas de especialistas cercanos y elige. Cotizar es gratis.', 'drenaje tapado', 'desazolve'],
-    gas: ['Instalación de gas *segura,* *a* *domicilio.*', 'Instalación y conexión de líneas y aparatos de gas con especialistas verificados de tu zona. Compara ofertas antes de contratar. Cotizar es gratis.', 'instalacion de gas', ''],
-    pintura: ['Pinta tu casa *sin* *batallar.*', 'Interiores y fachadas. Recibe ofertas de pintores verificados cerca de ti con precio, día de visita y garantía. Cotizar es gratis.', 'pintar mi casa', 'pintura'],
-    albanileria: ['Albañil a domicilio, *cerca* *de* *ti.*', 'Paredes cuarteadas, pisos, azulejos y reparaciones. Manda fotos, recibe ofertas y elige con calificaciones reales. Cotizar es gratis.', 'pared cuarteada', 'albanileria'],
-    herreria: ['Herrero a domicilio, *cerca* *de* *ti.*', 'Rejas, portones, protecciones y soldadura. Compara ofertas de herreros verificados antes de contratar. Cotizar es gratis.', 'rejas', ''],
-    carpinteria: ['Carpintero a domicilio, *cerca* *de* *ti.*', 'Muebles, puertas y madera. Recibe ofertas con precio, día de visita y garantía, y elige la que más te convenga. Cotizar es gratis.', '', ''],
-    jardineria: ['Jardinero a domicilio, *cuando* *lo* *necesites.*', 'Poda, corte de pasto y mantenimiento. Agenda y recibe ofertas de jardineros cerca de ti. Cotizar es gratis.', 'podar el jardin', 'jardineria'],
-    cisternas: ['Limpieza de cisternas *y* *tinacos.*', 'Lavado y desinfección a domicilio con especialistas verificados de tu zona. Compara ofertas antes de contratar. Cotizar es gratis.', 'limpiar cisterna', ''],
-    mudanzas: ['¿Te mudas? *Consigue* *ayuda.*', 'Ayudantes para cargar, mover y acomodar, y armado o desarmado de muebles. El día y la hora vienen en cada oferta. Cotizar es gratis.', 'mudanza', ''],
-    muebles: ['Armado de muebles *a* *domicilio.*', 'Closets, camas, mesas y más. Recibe ofertas de especialistas cerca de ti y elige. Cotizar es gratis.', 'armar muebles', ''],
-    mandados: ['Mandados y trámites, *sin* *salir.*', 'Compras, pagos, trámites, entregas o hacer fila por ti. Compara ofertas de personas verificadas cerca de ti. Cotizar es gratis.', 'mandados', ''],
-    mascotas: ['Paseador de mascotas *cerca* *de* *ti.*', 'Paseo, ejercicio y cuidado breve de tu mascota con personas verificadas de tu zona. Cotizar es gratis.', 'pasear a mi perro', '']
+    plomeria: ['¿Necesitas un *plomero* *hoy?*', 'Fugas, llaves que gotean, drenajes tapados o un WC que no funciona. Cuenta qué pasa, recibe ofertas de plomeros verificados cerca de ti y elige la que más te convenga. Cotizar es gratis y tu primer mes tienes 10% de descuento.', 'fuga de agua', 'plomeria'],
+    electricidad: ['¿Necesitas un *electricista* *hoy?*', 'Un cuarto sin luz, contactos, apagadores o un tablero que falla. Recibe ofertas de electricistas verificados cerca de ti, compara y elige. Cotizar es gratis y tu primer mes tienes 10% de descuento.', 'se fue la luz', 'electricidad'],
+    impermeabilizacion: ['Impermeabiliza tu techo *antes* *de* *que* *llueva.*', 'Graba un video de tu azotea y recibe cotizaciones de especialistas cerca de ti, cada una con su precio y su garantía. Cotizar es gratis y tu primer mes tienes 10% de descuento.', 'gotera en el techo', 'impermeabilizacion'],
+    drenaje: ['¿Drenaje tapado? *Resuélvelo* *ya.*', 'Desazolve de drenajes, cañerías y registros a domicilio. Manda fotos o un video, recibe ofertas de especialistas cercanos y elige. Cotizar es gratis y tu primer mes tienes 10% de descuento.', 'drenaje tapado', 'desazolve'],
+    gas: ['Instalación de gas *segura,* *a* *domicilio.*', 'Instalación y conexión de líneas y aparatos de gas con especialistas verificados de tu zona. Compara ofertas antes de contratar. Cotizar es gratis y tu primer mes tienes 10% de descuento.', 'instalacion de gas', ''],
+    pintura: ['Pinta tu casa *sin* *batallar.*', 'Interiores y fachadas. Recibe ofertas de pintores verificados cerca de ti con precio, día de visita y garantía. Cotizar es gratis y tu primer mes tienes 10% de descuento.', 'pintar mi casa', 'pintura'],
+    albanileria: ['Albañil a domicilio, *cerca* *de* *ti.*', 'Paredes cuarteadas, pisos, azulejos y reparaciones. Manda fotos, recibe ofertas y elige con calificaciones reales. Cotizar es gratis y tu primer mes tienes 10% de descuento.', 'pared cuarteada', 'albanileria'],
+    herreria: ['Herrero a domicilio, *cerca* *de* *ti.*', 'Rejas, portones, protecciones y soldadura. Compara ofertas de herreros verificados antes de contratar. Cotizar es gratis y tu primer mes tienes 10% de descuento.', 'rejas', ''],
+    carpinteria: ['Carpintero a domicilio, *cerca* *de* *ti.*', 'Muebles, puertas y madera. Recibe ofertas con precio, día de visita y garantía, y elige la que más te convenga. Cotizar es gratis y tu primer mes tienes 10% de descuento.', '', ''],
+    jardineria: ['Jardinero a domicilio, *cuando* *lo* *necesites.*', 'Poda, corte de pasto y mantenimiento. Agenda y recibe ofertas de jardineros cerca de ti. Cotizar es gratis y tu primer mes tienes 10% de descuento.', 'podar el jardin', 'jardineria'],
+    cisternas: ['Limpieza de cisternas *y* *tinacos.*', 'Lavado y desinfección a domicilio con especialistas verificados de tu zona. Compara ofertas antes de contratar. Cotizar es gratis y tu primer mes tienes 10% de descuento.', 'limpiar cisterna', ''],
+    mudanzas: ['¿Te mudas? *Consigue* *ayuda.*', 'Ayudantes para cargar, mover y acomodar, y armado o desarmado de muebles. El día y la hora vienen en cada oferta. Cotizar es gratis y tu primer mes tienes 10% de descuento.', 'mudanza', ''],
+    muebles: ['Armado de muebles *a* *domicilio.*', 'Closets, camas, mesas y más. Recibe ofertas de especialistas cerca de ti y elige. Cotizar es gratis y tu primer mes tienes 10% de descuento.', 'armar muebles', ''],
+    mandados: ['Mandados y trámites, *sin* *salir.*', 'Compras, pagos, trámites, entregas o hacer fila por ti. Compara ofertas de personas verificadas cerca de ti. Cotizar es gratis y tu primer mes tienes 10% de descuento.', 'mandados', ''],
+    mascotas: ['Paseador de mascotas *cerca* *de* *ti.*', 'Paseo, ejercicio y cuidado breve de tu mascota con personas verificadas de tu zona. Cotizar es gratis y tu primer mes tienes 10% de descuento.', 'pasear a mi perro', '']
   };
   var ALIAS = { plomero: 'plomeria', electricista: 'electricidad', impermeabilizar: 'impermeabilizacion', desazolve: 'drenaje', pintor: 'pintura', albanil: 'albanileria', herrero: 'herreria', carpintero: 'carpinteria', jardin: 'jardineria', jardinero: 'jardineria', tinacos: 'cisternas', mudanza: 'mudanzas', paseador: 'mascotas' };
   /* En el artifact solo llega el #ancla (no el ?query): también vale #plomeria, #electricista… */
@@ -3132,7 +3188,7 @@ html.ad .hero-msg > *,html.ad .gates,html.ad .scroll-cue{animation-delay:.15s!im
   var views = { clientes: $('#clientes'), especialistas: $('#especialistas') };
   var current = 'clientes';
   var RAIL = {
-    clientes: [['inicio', 'Inicio'], ['app-cliente', 'La app'], ['te-salva', 'Te salva'], ['servicios', 'Servicios'], ['como-funciona', 'Cómo funciona'], ['videos', 'Videos'], ['demo', 'Pruébalo'], ['diferencia', 'La diferencia'], ['beneficios', 'Seguridad'], ['seguridad', 'Pagos y garantía']],
+    clientes: [['inicio', 'Inicio'], ['bienvenida', '10% de bienvenida'], ['app-cliente', 'La app'], ['te-salva', 'Te salva'], ['servicios', 'Servicios'], ['como-funciona', 'Cómo funciona'], ['videos', 'Videos'], ['demo', 'Pruébalo'], ['diferencia', 'La diferencia'], ['beneficios', 'Seguridad'], ['seguridad', 'Pagos y garantía']],
     especialistas: [['inicio', 'Inicio'], ['unete', 'Únete'], ['herramientas', 'Herramientas'], ['tutoriales', 'Tutoriales'], ['ayuda', 'Dudas']],
     shared: [['nosotros', 'Nosotros'], ['descargar', 'Descargar'], ['novedades', 'Novedades'], ['preguntas', 'Preguntas']]
   };
@@ -3467,7 +3523,7 @@ html.ad .hero-msg > *,html.ad .gates,html.ad .scroll-cue{animation-delay:.15s!im
       'Así se pide en la app: eliges el oficio y si lo quieres Agendar (tiempo estándar) o Urgente (hoy o mañana, sujeto a disponibilidad), cuentas qué pasa con tus palabras o con opciones rápidas, contestas un par de preguntas y mandas fotos y video. Tú no eliges la fecha: el día y la hora vienen en cada oferta.',
       'Tu solicitud queda abierta 20 horas y las ofertas aparecen en tiempo real. Cada tarjeta trae precio, día y hora de llegada, duración, si incluye materiales, días de garantía y cuándo vence la oferta. Si ninguna te convence, no aceptes ninguna: cotizar es gratis.',
       'Toca una oferta para ver el detalle: desglose del precio, la nota del especialista, su garantía, sus reseñas y fotos de sus proyectos. En algunos oficios también llegan ofertas de diagnóstico: pagas solo la visita de revisión y después recibes un precio firme.',
-      'Eliges cómo pagar. Con tarjeta, Acency retiene el pago y tu especialista no recibe nada hasta que confirmas que quedó bien. En efectivo le pagas en mano antes de empezar, sin protección de pago digital.',
+      'Eliges cómo pagar. Con tarjeta, Acency retiene el pago y tu especialista no recibe nada hasta que confirmas que quedó bien. En efectivo le pagas en mano antes de empezar, sin protección de pago digital. Si eres cliente nuevo, con tarjeta tienes 10% de descuento en cada servicio de tu primer mes.',
       'Al confirmar se abre un chat con tu especialista y el servicio entra a tu agenda. Sigues cada estado en tiempo real: en camino, en tu puerta, trabajando. Todo se habla por el chat, sin compartir tu teléfono.',
       'Cuando llega, revisa que sea la persona de la foto y el nombre del perfil, y entrégale tu código de 6 caracteres. Tu especialista lo escribe en su app y el servicio empieza oficialmente. Prueba también qué pasa si llega alguien que no es.',
       'Al terminar, el estado pasa a Verificando: revisas que funcione, el acabado y las fotos. Al confirmar se libera el pago (si fue con tarjeta) y empieza a contar la garantía de la oferta.',
@@ -3682,7 +3738,11 @@ html.ad .hero-msg > *,html.ad .gates,html.ad .scroll-cue{animation-delay:.15s!im
       var o = picked();
       $$('#payOpts button').forEach(function (b) { b.setAttribute('aria-checked', String(b.getAttribute('data-pay') === st.pay)); });
       $('#payHow').innerHTML = PAY_HOW[st.pay].map(function (t) { return '<li>' + t + '</li>'; }).join('');
-      $('#payTotal').innerHTML = '$' + money(o.total) + '<small>MXN</small>';
+      /* Como en la app: el descuento de bienvenida aparece al pagar y solo con tarjeta (ejemplo: 29 días restantes) */
+      var desc = st.pay === 'tarjeta' ? Math.round(o.mano * 0.10) : 0, wl = $('#payWelcome');
+      wl.className = 'welcome-line' + (desc ? '' : ' off');
+      wl.innerHTML = desc ? '<span>Descuento de bienvenida (29 días restantes)</span><b>−$' + money(desc) + '</b>' : '<span>El descuento de bienvenida solo aplica pagando con tarjeta.</span>';
+      $('#payTotal').innerHTML = '$' + money(o.total - desc) + '<small>MXN</small>';
       $('#payFee').textContent = st.pay === 'efectivo' ? 'Ten listo el efectivo exacto cuando llegue tu especialista.'
         : o.mano >= 1500 ? 'En servicios de $1,500 MXN o más, Acency absorbe el cargo de procesamiento de la tarjeta.'
         : 'Con tarjeta se suma un cargo de procesamiento; Acency lo absorbe en servicios de $1,500 MXN o más.';
@@ -4147,7 +4207,9 @@ html.ad .hero-msg > *,html.ad .gates,html.ad .scroll-cue{animation-delay:.15s!im
   var LEGAL = {
     privacidad: {
       title: 'Aviso de privacidad',
+      url: 'https://acency-legal.web.app/aviso_de_privacidad_acency.html',
       items: [
+        'Responsable: ACENCY MX, S.A.S. Para tus derechos ARCO escribe a acency.servicios@acencyservicios.com.',
         'No necesitas dar tu teléfono ni tu correo a los especialistas: toda la comunicación pasa por el chat de la app.',
         'Tu código de seguridad solo aparece en tu pantalla.',
         'Las reseñas se publican hasta que cliente y especialista ya calificaron.'
@@ -4155,6 +4217,7 @@ html.ad .hero-msg > *,html.ad .gates,html.ad .scroll-cue{animation-delay:.15s!im
     },
     terminos: {
       title: 'Términos y condiciones',
+      url: 'https://acency-legal.web.app/terminos_y_condiciones.html',
       items: [
         'Cotizar en la app no te compromete a contratar.',
         'Cada especialista define la garantía de su oferta, hasta un máximo de 30 días.',
@@ -4167,6 +4230,7 @@ html.ad .hero-msg > *,html.ad .gates,html.ad .scroll-cue{animation-delay:.15s!im
     var d = LEGAL[key];
     if (!d || !modal) return;
     $('#legalTitle').textContent = d.title;
+    $('#legalFull').href = d.url;
     var ul = $('#legalList'); ul.innerHTML = '';
     d.items.forEach(function (t) { var li = document.createElement('li'); li.textContent = t; ul.appendChild(li); });
     if (typeof modal.showModal === 'function') { if (!modal.open) modal.showModal(); } else modal.setAttribute('open', '');
@@ -4313,9 +4377,17 @@ html.ad .hero-msg > *,html.ad .gates,html.ad .scroll-cue{animation-delay:.15s!im
     var on = past && !near && !menu.classList.contains('open');
     dockEl.classList.toggle('show', on);
     root.classList.toggle('dock-on', on && window.innerWidth <= 860);
-    dockSmall.textContent = current === 'especialistas' ? 'Únete y gana · Android' : 'Cotiza gratis · Android';
+    dockSmall.textContent = current === 'especialistas' ? 'Únete y gana · Android' : '10% en tu primer mes';
   }
   if (dockEl) { window.addEventListener('scroll', dockTick, { passive: true }); window.addEventListener('resize', dockTick); dockTick(); }
+
+  /* ---------- Copiar el correo de contacto (los enlaces mailto no siempre abren) ---------- */
+  $$('[data-copy]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var t = b.getAttribute('data-copy');
+      copyText(t, function () { toast('Correo copiado: ' + t); }, function () { toast('Escríbenos a ' + t); });
+    });
+  });
 
   /* ---------- Título de la pestaña cuando te vas ---------- */
   var baseTitle = document.title;
