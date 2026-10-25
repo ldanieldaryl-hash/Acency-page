@@ -3,9 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Acency</title>
+<title>Acency · Plomero, electricista y más a domicilio · Cotiza gratis</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Acency: todos los servicios del hogar a un click. Plomero, electricista, impermeabilización, jardinería, gas, mudanzas y más a domicilio, cerca de ti. Recibe cotizaciones de especialistas verificados. Descarga la app en Google Play.">
+<meta name="description" content="¿Algo falló en casa? Con Acency pides plomero, electricista, impermeabilización, gas, mudanzas y más a domicilio. Cotizar es gratis: recibe ofertas de especialistas verificados cerca de ti, compara y paga protegido. Descarga la app en Google Play.">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="theme-color" content="#0a0a0a">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_MX">
@@ -27,6 +28,8 @@
     var d = document.documentElement, seen = false;
     d.classList.add('js');
     try { seen = sessionStorage.getItem('acency-intro') === '1'; } catch (e) {}
+    /* Quien llega desde un anuncio o un enlace de servicio va directo al contenido */
+    if (/[?&](gclid|gbraid|wbraid|utm_[a-z]+|servicio)=/.test(location.search)) seen = true;
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     d.classList.add(seen || reduce ? 'ready' : 'intro-on');
   })();
@@ -186,7 +189,7 @@
 <header class="nav" id="nav">
   <div class="nav-bar">
     <a class="nav-logo" href="#inicio" aria-label="Acency, ir al inicio">
-      <img src="assets/logo-white.png" alt="Acency" width="65" height="30">
+      <img src="assets/logo-white-sm.png" alt="Acency" width="65" height="30">
     </a>
     <nav class="nav-links" id="navLinks" aria-label="Secciones">
       <span class="nav-pill" id="navPill" aria-hidden="true"></span>
@@ -269,9 +272,9 @@
 
     <div class="stage" id="stage" aria-hidden="true">
       <div class="layer" data-depth="10"><div class="ring"></div></div>
-      <div class="layer" data-depth="16"><figure class="shot shot-left"><img src="assets/shot-servicios.jpg" alt="" width="720" height="1558"></figure></div>
-      <div class="layer" data-depth="20"><figure class="shot shot-right"><img src="assets/shot-categorias.jpg" alt="" width="720" height="1558"></figure></div>
-      <div class="layer" data-depth="30"><div class="float"><figure class="shot shot-center"><img src="assets/shot-cotizaciones.jpg" alt="" width="720" height="1558"></figure></div></div>
+      <div class="layer" data-depth="16"><figure class="shot shot-left"><picture><source srcset="assets/shot-servicios.webp" type="image/webp"><img src="assets/shot-servicios.jpg" alt="" width="720" height="1558"></picture></figure></div>
+      <div class="layer" data-depth="20"><figure class="shot shot-right"><picture><source srcset="assets/shot-categorias.webp" type="image/webp"><img src="assets/shot-categorias.jpg" alt="" width="720" height="1558"></picture></figure></div>
+      <div class="layer" data-depth="30"><div class="float"><figure class="shot shot-center"><picture><source srcset="assets/shot-cotizaciones.webp" type="image/webp"><img fetchpriority="high" src="assets/shot-cotizaciones.jpg" alt="" width="720" height="1558"></picture></figure></div></div>
       <div class="layer" data-depth="46"><div class="chip chip-1"><span class="dot"></span><div><span id="chipOffers">3 ofertas recibidas</span><small id="chipOffersAgo">Plomería · hace 2 min</small></div></div></div>
       <div class="layer" data-depth="38"><div class="chip chip-2"><i><svg class="ico"><use href="#i-check"/></svg></i><div>Incluye garantía<small>Especialista verificado</small></div></div></div>
       <div class="layer" data-depth="52"><div class="chip chip-3"><i><svg class="ico"><use href="#i-clock"/></svg></i><div>Llega hoy<small>A domicilio, en tu zona</small></div></div></div>
@@ -351,7 +354,7 @@
       <h2 class="h2" id="servicios-title">Un especialista para <span class="accent">cada rincón</span> de tu casa.</h2>
       <p class="lead">Desde una fuga de agua a medianoche hasta la impermeabilización antes de lluvias. Encuentra al profesional indicado cerca de tu ubicación y contrátalo desde la app.</p>
       <div class="frame" data-speed="-0.04">
-        <img src="assets/shot-categorias.jpg" alt="Pantalla de Acency con las categorías de hogar: plomería, electricidad, carpintería, albañilería, herrería, pintura, impermeabilización y jardinería" width="720" height="1558" loading="lazy">
+        <picture><source srcset="assets/shot-categorias.webp" type="image/webp"><img src="assets/shot-categorias.jpg" alt="Pantalla de Acency con las categorías de hogar: plomería, electricidad, carpintería, albañilería, herrería, pintura, impermeabilización y jardinería" width="720" height="1558" loading="lazy"></picture>
       </div>
     </div>
 
@@ -454,7 +457,7 @@
     </div>
     <div class="how-visual rv" data-rv="scale">
       <div class="ring" data-speed="0.06"></div>
-      <figure class="shot" data-speed="-0.05"><img src="assets/shot-cotizaciones.jpg" alt="Pantalla de Acency mostrando tres ofertas recibidas para un servicio de plomería con precio, calificación y garantía" width="720" height="1558" loading="lazy"></figure>
+      <figure class="shot" data-speed="-0.05"><picture><source srcset="assets/shot-cotizaciones.webp" type="image/webp"><img src="assets/shot-cotizaciones.jpg" alt="Pantalla de Acency mostrando tres ofertas recibidas para un servicio de plomería con precio, calificación y garantía" width="720" height="1558" loading="lazy"></picture></figure>
       <div class="price-chip" data-speed="-0.12"><svg class="ico" style="color:var(--mint)"><use href="#i-tag"/></svg><div><small>Ejemplo de oferta</small><b id="priceCount">$300 MXN</b></div></div>
     </div>
   </div>
@@ -825,7 +828,7 @@
 
       <div class="pros-visual rv" data-rv="scale">
         <div class="photo" data-speed="-0.04">
-          <img src="assets/phones-especialistas.jpg" alt="App de Acency para especialistas: seguimiento del servicio en curso, tiempo y estado del trabajo" width="420" height="460" loading="lazy">
+          <picture><source srcset="assets/phones-especialistas.webp" type="image/webp"><img src="assets/phones-especialistas.jpg" alt="App de Acency para especialistas: seguimiento del servicio en curso, tiempo y estado del trabajo" width="420" height="460" loading="lazy"></picture>
         </div>
         <div class="ticket" data-speed="-0.1">
           <div class="ticket-top"><span>Tu código de referido</span><em>Ejemplo</em></div>
@@ -871,9 +874,9 @@
       </div>
     </div>
     <div class="gallery">
-      <figure data-speed="0.04" data-cursor="Ver"><img src="assets/shot-servicios.jpg" alt="Acency: todos los servicios a un click de ti" width="720" height="1558" loading="lazy"></figure>
-      <figure data-speed="-0.03" data-cursor="Ver"><img src="assets/shot-cotizaciones.jpg" alt="Acency: recibe diferentes cotizaciones y elige la mejor para ti" width="720" height="1558" loading="lazy"></figure>
-      <figure data-speed="0.06" data-cursor="Ver"><img src="assets/shot-categorias.jpg" alt="Acency: categorías de servicios para el hogar" width="720" height="1558" loading="lazy"></figure>
+      <figure data-speed="0.04" data-cursor="Ver"><picture><source srcset="assets/shot-servicios.webp" type="image/webp"><img src="assets/shot-servicios.jpg" alt="Acency: todos los servicios a un click de ti" width="720" height="1558" loading="lazy"></picture></figure>
+      <figure data-speed="-0.03" data-cursor="Ver"><picture><source srcset="assets/shot-cotizaciones.webp" type="image/webp"><img src="assets/shot-cotizaciones.jpg" alt="Acency: recibe diferentes cotizaciones y elige la mejor para ti" width="720" height="1558" loading="lazy"></picture></figure>
+      <figure data-speed="0.06" data-cursor="Ver"><picture><source srcset="assets/shot-categorias.webp" type="image/webp"><img src="assets/shot-categorias.jpg" alt="Acency: categorías de servicios para el hogar" width="720" height="1558" loading="lazy"></picture></figure>
     </div>
   </div>
 </section>

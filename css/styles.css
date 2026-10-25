@@ -1338,3 +1338,10 @@ html.js:not(.ready) .scroll-cue{opacity:0}
   .ticker-row{transform:none!important}
   .ring::after{display:none}
 }
+
+/* ==========================================================================
+   AGREGADOS · conversión, Google Ads, videos y demo fiel a la app (oct 2026)
+   ========================================================================== */
+
+/* ---------- Imágenes WebP con respaldo ---------- */
+picture{display:contents}
