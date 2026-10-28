@@ -500,9 +500,7 @@ button.badge:hover{transform:scale(1.04)}
 .om.best{background:#1d8574}
 .live-on .om.best{box-shadow:0 18px 40px -16px rgba(29,133,116,.8);transform:scale(1.04)}
 .live-wait .om{opacity:0;transform:translateY(22px) scale(.97)}
-.live-on .om:nth-of-type(1){transition-delay:.5s}
-.live-on .om:nth-of-type(2){transition-delay:1.1s}
-.live-on .om:nth-of-type(3){transition-delay:1.7s}
+.live-on .om{transition-delay:calc(.5s + var(--i, 0) * .6s)}
 .s-ex{position:absolute;z-index:1;top:22px;right:-6px;padding:6px 10px;border-radius:999px;background:var(--ink);color:var(--mint);font-family:var(--f-mono);font-size:.625rem;letter-spacing:.12em;text-transform:uppercase}
 @media (max-width:980px){
   .how{padding-block:84px}
@@ -1683,6 +1681,41 @@ html.ad .hero-msg > *,html.ad .gates,html.ad .scroll-cue{animation-delay:.15s!im
 .vid.has-poster .vid-story{display:none}
 @media (prefers-reduced-motion:reduce){ .ticker-row{transform:none!important} }
 
+/* =====================================================================
+   Fase 3 (oct 2026) · correcciones de diseño
+   ===================================================================== */
+/* ---------- [hidden] siempre oculta ----------
+   Un display:flex/grid propio le gana al atributo hidden del navegador: así la hoja
+   "Revisa tu solicitud", el final de la demo y las pestañas del detalle quedaban
+   encimadas aunque el script las ocultara. */
+[hidden]{display:none!important}
+
+/* ---------- Panorama: tres tarjetas completas ----------
+   Las tres imágenes son publicaciones de carrusel (900×1948) cuyas orillas no empatan.
+   Pegadas como una sola tira al 116 % se veía el corte desfasado, la tercera quedaba
+   fuera y el alto pasaba la pantalla. Ahora cada una es su tarjeta, completa, y las
+   tres caben a lo alto de la pantalla. En celular, carrusel con imán. */
+.pano{--pg:clamp(12px,1.6vw,24px);background:none;box-shadow:none;border-radius:0;overflow:visible}
+.pano-track{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--pg);width:min(100%, calc(max(480px, 100vh - 170px) * 1.3861 + 2 * var(--pg)));margin-inline:auto;transform:none!important;will-change:auto}
+.pano-track picture{display:block;border-radius:clamp(18px,2vw,26px);overflow:hidden;background:#efefee;box-shadow:0 0 0 1px var(--line), 0 40px 70px -42px rgba(10,10,10,.4);transition:opacity .8s var(--ease), transform .9s var(--ease)}
+.pano-track picture:nth-child(2){transition-delay:.12s}
+.pano-track picture:nth-child(3){transition-delay:.24s}
+.pano.pending picture{opacity:0;transform:translateY(36px)}
+.pano-track img{display:block;width:100%;height:auto}
+@media (min-width:601px){ .pano-hint{display:none} }
+@media (max-width:600px){
+  .pano{margin-inline:-20px;padding-bottom:28px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-inline:20px;scrollbar-width:none}
+  .pano-track{display:flex;width:max-content;gap:12px;padding-inline:20px}
+  .pano-track picture{flex:0 0 auto;width:min(260px,60vw);scroll-snap-align:start}
+  .pano-hint{margin-top:0}
+}
+
+/* ---------- Botón "volver arriba" en celular ----------
+   Con la barra de descarga visible quedaba flotando encima del texto y de los botones
+   (por ejemplo, los "+" de las preguntas). Se oculta mientras la barra está; regresa
+   al llegar a la descarga y al pie, donde la barra se esconde. */
+@media (max-width:860px){ html.dock-on .to-top{opacity:0;transform:translateY(12px);pointer-events:none} }
+
 </style>
 
 <!-- Iconos (un solo trazo, 1.7px) -->
@@ -1919,9 +1952,9 @@ html.ad .hero-msg > *,html.ad .gates,html.ad .scroll-cue{animation-delay:.15s!im
       </div>
       <div class="pano rv" data-rv="scale" id="pano">
         <div class="pano-track" id="panoTrack">
-          <picture><source srcset="assets/promo-cotizaciones.webp" type="image/webp"><img src="assets/promo-cotizaciones.jpg" alt="Acency: recibe diferentes cotizaciones y elige la mejor para ti. Ofertas de plomería con precio, calificación y garantía" width="900" height="1948" loading="lazy"></picture>
-          <picture><source srcset="assets/promo-categorias.webp" type="image/webp"><img src="assets/promo-categorias.jpg" alt="Acency: categorías de hogar como plomería, electricidad, carpintería, albañilería, herrería, pintura e impermeabilización" width="900" height="1948" loading="lazy"></picture>
-          <picture><source srcset="assets/promo-servicios.webp" type="image/webp"><img src="assets/promo-servicios.jpg" alt="Acency: todos los servicios a un click de ti" width="900" height="1948" loading="lazy"></picture>
+          <picture><source srcset="assets/promo-cotizaciones-600.webp 600w, assets/promo-cotizaciones.webp 900w" sizes="(max-width:860px) 60vw, 420px" type="image/webp"><img src="assets/promo-cotizaciones.jpg" alt="Acency: recibe diferentes cotizaciones y elige la mejor para ti. Ofertas de plomería con precio, calificación y garantía" width="900" height="1948" loading="lazy" decoding="async"></picture>
+          <picture><source srcset="assets/promo-categorias-600.webp 600w, assets/promo-categorias.webp 900w" sizes="(max-width:860px) 60vw, 420px" type="image/webp"><img src="assets/promo-categorias.jpg" alt="Acency: categorías de hogar como plomería, electricidad, carpintería, albañilería, herrería, pintura e impermeabilización" width="900" height="1948" loading="lazy" decoding="async"></picture>
+          <picture><source srcset="assets/promo-servicios-600.webp 600w, assets/promo-servicios.webp 900w" sizes="(max-width:860px) 60vw, 420px" type="image/webp"><img src="assets/promo-servicios.jpg" alt="Acency: todos los servicios a un click de ti" width="900" height="1948" loading="lazy" decoding="async"></picture>
         </div>
       </div>
       <p class="pano-hint">Desliza para ver más <svg class="ico"><use href="#i-arrow"/></svg></p>
@@ -2107,9 +2140,9 @@ html.ad .hero-msg > *,html.ad .gates,html.ad .scroll-cue{animation-delay:.15s!im
             <p class="s-title">¡Ya casi tienes la solución!</p>
             <div class="s-status"><i></i>Contactando especialistas en tiempo real. Las ofertas irán apareciendo aquí. Elige la que más te convenga.</div>
             <p class="s-count"><i></i>3 ofertas recibidas</p>
-            <div class="om best"><span class="om-av">DG</span><span><b>Daniel García</b><span class="om-stars">★★★★☆</span><small>Incluye garantía · Llega hoy</small></span><span class="om-pr">$300<small>MXN</small></span></div>
-            <div class="om"><span class="om-av">MT</span><span><b>Miguel Torres</b><span class="om-stars">★★★★☆</span><small>Incluye garantía · Llega mañana</small></span><span class="om-pr">$250<small>MXN</small></span></div>
-            <div class="om"><span class="om-av">CM</span><span><b>Carlos Mendoza</b><span class="om-stars">★★★★☆</span><small>Incluye garantía · Llega hoy</small></span><span class="om-pr">$500<small>MXN</small></span></div>
+            <div class="om best" style="--i:0"><span class="om-av">DG</span><span><b>Daniel García</b><span class="om-stars">★★★★☆</span><small>Incluye garantía · Llega hoy</small></span><span class="om-pr">$300<small>MXN</small></span></div>
+            <div class="om" style="--i:1"><span class="om-av">MT</span><span><b>Miguel Torres</b><span class="om-stars">★★★★☆</span><small>Incluye garantía · Llega mañana</small></span><span class="om-pr">$250<small>MXN</small></span></div>
+            <div class="om" style="--i:2"><span class="om-av">CM</span><span><b>Carlos Mendoza</b><span class="om-stars">★★★★☆</span><small>Incluye garantía · Llega hoy</small></span><span class="om-pr">$500<small>MXN</small></span></div>
           </div>
         </div>
       </div>
@@ -2402,7 +2435,7 @@ html.ad .hero-msg > *,html.ad .gates,html.ad .scroll-cue{animation-delay:.15s!im
           <div class="rev-sheet" id="revSheet" hidden>
             <div class="rev-card" role="dialog" aria-label="Revisa tu solicitud">
               <b class="rev-t">Revisa tu solicitud</b>
-              <small class="rev-s">Toca el lápiz en cualquier campo para editarlo.</small>
+              <small class="rev-s">Confirma que todo esté bien. Si quieres cambiar algo, toca Editar.</small>
               <dl class="rev">
                 <div><dt>Servicio</dt><dd id="revSvc">Plomería · Urgente</dd></div>
                 <div><dt>Descripción</dt><dd id="revDesc"></dd></div>
@@ -2482,10 +2515,10 @@ html.ad .hero-msg > *,html.ad .gates,html.ad .scroll-cue{animation-delay:.15s!im
         <div class="ben-phone" aria-hidden="true">
           <div class="shot-frame shot-stack">
             <div class="layers">
-              <picture><source srcset="assets/app-puerta.webp" type="image/webp"><img class="on" src="assets/app-puerta.jpg" alt="" width="540" height="1244"></picture>
-              <picture><source srcset="assets/app-camino.webp" type="image/webp"><img src="assets/app-camino.jpg" alt="" width="540" height="1244"></picture>
-              <picture><source srcset="assets/app-aviso.webp" type="image/webp"><img src="assets/app-aviso.jpg" alt="" width="540" height="1244"></picture>
-              <picture><source srcset="assets/app-materiales.webp" type="image/webp"><img src="assets/app-materiales.jpg" alt="" width="540" height="1244"></picture>
+              <picture><source srcset="assets/app-puerta.webp" type="image/webp"><img class="on" src="assets/app-puerta.jpg" alt="" width="540" height="1244" loading="lazy" decoding="async"></picture>
+              <picture><source srcset="assets/app-camino.webp" type="image/webp"><img src="assets/app-camino.jpg" alt="" width="540" height="1244" loading="lazy" decoding="async"></picture>
+              <picture><source srcset="assets/app-aviso.webp" type="image/webp"><img src="assets/app-aviso.jpg" alt="" width="540" height="1244" loading="lazy" decoding="async"></picture>
+              <picture><source srcset="assets/app-materiales.webp" type="image/webp"><img src="assets/app-materiales.jpg" alt="" width="540" height="1244" loading="lazy" decoding="async"></picture>
             </div>
           </div>
         </div>
@@ -3233,11 +3266,10 @@ html.ad .hero-msg > *,html.ad .gates,html.ad .scroll-cue{animation-delay:.15s!im
     }, { threshold: [0, 0.35] }).observe(live);
   } else { live.classList.remove('live-wait'); live.classList.add('live-on'); }
 
-  /* ================= Scroll: barra, riel, pasos, beneficios, panorama, parallax ================= */
+  /* ================= Scroll: barra, riel, pasos, beneficios, parallax ================= */
   var topbar = $('#topbar');
   var steps = $$('#steps .step'), stepsEl = $('#steps'), prog = $('#stepsProgress');
   var feats = $$('#feats .feat'), layers = $$('.shot-stack .layers img');
-  var pano = $('#pano'), track = $('#panoTrack');
   var speedEls = $$('[data-speed]');
   var miLinks = $$('.mi', menu);
   var ticking = false;
@@ -3275,12 +3307,6 @@ html.ad .hero-msg > *,html.ad .gates,html.ad .scroll-cue{animation-delay:.15s!im
         feats.forEach(function (f, i) { var fr = f.getBoundingClientRect(); var d = Math.abs(fr.top + fr.height / 2 - vh / 2); if (d < bestD) { bestD = d; best = i; } });
         feats.forEach(function (f, i) { f.classList.toggle('on', i === best); });
         layers.forEach(function (l, i) { l.classList.toggle('on', i === best); });
-      }
-      if (!reduce && window.innerWidth > 860) {
-        var pr = pano.getBoundingClientRect();
-        var pp = Math.min(1, Math.max(0, (vh - pr.top) / (vh + pr.height)));
-        var max = track.scrollWidth - pano.clientWidth;
-        track.style.transform = 'translate3d(' + (-pp * max).toFixed(1) + 'px,0,0)';
       }
     }
 
@@ -3887,6 +3913,7 @@ html.ad .hero-msg > *,html.ad .gates,html.ad .scroll-cue{animation-delay:.15s!im
     });
     $('#reviewBtn').addEventListener('click', openReview);
     $('#revBack').addEventListener('click', function () { sheet.hidden = true; });
+    sheet.addEventListener('click', function (e) { if (e.target === sheet) sheet.hidden = true; });
     $('#publishBtn').addEventListener('click', function () { st.needOffers = true; st.sentAt = Date.now(); go(1); });
     $('#offers').addEventListener('click', function (e) {
       var li = e.target.closest('.ocard'); if (!li) return;
