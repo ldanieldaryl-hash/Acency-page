@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /stripe/
+Disallow: /r/
+Disallow: /p/
 
 Sitemap: https://acencyservicios.com/sitemap.xml

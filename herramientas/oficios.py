@@ -7,8 +7,10 @@ De dónde sale cada dato (no se inventa nada):
 - `problemas`, `trabajos` y `precio`: las opciones REALES del formulario de solicitud
   de la app (lib/servicios/formularios_specs.dart). Son las palabras con las que la
   gente describe su problema y también lo que busca en Google.
-- Lo general (ofertas, garantía, pago retenido, código, diagnóstico): CLAUDE.md,
-  sección "Cómo funciona Acency".
+- Lo general (ofertas, corrección sin costo, pago retenido, código, diagnóstico):
+  lib/ de la app (master 04/11/2026): core/tarifas.dart, core/categorias.dart,
+  servicios/crear_solicitud/formulario.dart y el Centro de ayuda (l10n/app_es.arb).
+- NUNCA "garantía": en la app es "corrección sin costo" (opcional, hasta 30 días).
 
 Para cambiar un texto: edítalo aquí y corre  python3 herramientas/generar.py
 """
@@ -24,8 +26,8 @@ OFICIOS = [
         "title": "Plomero a domicilio cerca de ti · Cotiza gratis | Acency",
         "description": "¿Fuga de agua, WC que no sirve o boiler que falla? Pide un plomero a domicilio cerca de ti: compara ofertas de plomeros verificados y paga protegido.",
         "h1": ["Plomero a domicilio,", "cerca de ti."],
-        "lead": "Fugas de agua, llaves que gotean, un WC que no funciona, baja presión o un boiler que falla. Cuenta qué pasa con fotos o un video y recibe ofertas de plomeros verificados de tu zona. Cotizar es gratis.",
-        "intro": "Cuando buscas un plomero cerca de ti normalmente es porque algo no puede esperar. En Acency publicas tu solicitud a cualquier hora, eliges si es Urgente (hoy o mañana) o si prefieres Agendar, y los plomeros disponibles en tu zona te mandan su oferta con precio, calificación, garantía y la hora en que pueden llegar.",
+        "lead": "Fugas de agua, llaves que gotean, un WC que no funciona, baja presión o un boiler que falla. Cuenta qué pasa con fotos y video y recibe ofertas de plomeros verificados de tu zona. Cotizar es gratis.",
+        "intro": "Cuando buscas un plomero cerca de ti normalmente es porque algo no puede esperar. En Acency publicas tu solicitud a cualquier hora, eliges si es Urgente (hoy o mañana) o si prefieres Agendar, y los plomeros disponibles en tu zona te mandan su oferta con precio, calificación, días de corrección sin costo (si los incluye) y la hora en que pueden llegar.",
         "problemas_titulo": "¿Qué le pasa a tu plomería?",
         "problemas": [
             ["Fuga de agua", "A la vista, en la pared, en el piso, en el techo o bajo tierra. En la app indicas dónde está y si sale mucha agua o solo gotea."],
@@ -60,7 +62,7 @@ OFICIOS = [
         "description": "¿Se fue la luz, se bota la pastilla o necesitas contactos nuevos? Pide un electricista a domicilio y compara ofertas de electricistas verificados cerca de ti.",
         "h1": ["Electricista a domicilio,", "cuando lo necesitas."],
         "lead": "Sin luz en una parte de la casa, contactos o apagadores que no funcionan, la pastilla que se bota o una instalación nueva. Recibe ofertas de electricistas verificados de tu zona y elige la que más te convenga. Cotizar es gratis.",
-        "intro": "Un apagón en un cuarto, un contacto que echa chispas o la línea para tu minisplit: describe la falla con tus palabras, agrega fotos o un video y los electricistas cercanos te mandan su oferta con precio, calificación, garantía y cuándo pueden llegar.",
+        "intro": "Un apagón en un cuarto, un contacto que echa chispas o la línea para tu minisplit: describe la falla con tus palabras, agrega fotos y video y los electricistas cercanos te mandan su oferta con precio, calificación, días de corrección sin costo (si los incluye) y cuándo pueden llegar.",
         "problemas_titulo": "¿Qué falla en tu instalación eléctrica?",
         "problemas": [
             ["Sin luz en una parte de la casa", "Un cuarto o un circuito se quedó sin luz y no regresa."],
@@ -95,8 +97,8 @@ OFICIOS = [
         "title": "Desazolve de drenajes y cañerías a domicilio | Acency",
         "description": "¿Drenaje tapado, WC o coladera que no desagua? Pide desazolve a domicilio y compara ofertas de especialistas verificados cerca de ti. Cotizar es gratis.",
         "h1": ["¿Drenaje tapado?", "Desazolve a domicilio."],
-        "lead": "WC, coladeras, lavabos, regaderas, la cañería principal o los registros del patio. Manda fotos o un video, recibe ofertas de especialistas cercanos y elige. Cotizar es gratis.",
-        "intro": "Cuando el agua no baja no hay tiempo que perder. Publica tu solicitud, marca si es Urgente y recibe ofertas de especialistas en desazolve de tu zona con precio, garantía y hora de llegada. Tú eliges.",
+        "lead": "WC, coladeras, lavabos, regaderas, la cañería principal o los registros del patio. Manda fotos y video, recibe ofertas de especialistas cercanos y elige. Cotizar es gratis.",
+        "intro": "Cuando el agua no baja no hay tiempo que perder. Publica tu solicitud, marca si es Urgente y recibe ofertas de especialistas en desazolve de tu zona con precio, hora de llegada y, si la incluyen, corrección sin costo. Tú eliges.",
         "problemas_titulo": "¿Qué está tapado?",
         "problemas": [
             ["WC tapado", "El WC no desagua o se regresa el agua."],
@@ -127,9 +129,9 @@ OFICIOS = [
         "oficio_pl": "especialistas en impermeabilización",
         "icono": "s-imper",
         "title": "Impermeabilización de techos y azoteas | Acency",
-        "description": "¿Goteras o humedad en el techo? Cotiza gratis la impermeabilización de tu azotea con especialistas verificados cerca de ti, cada oferta con su garantía.",
+        "description": "¿Goteras o humedad en el techo? Cotiza gratis la impermeabilización de tu azotea con especialistas verificados cerca de ti. Compara precio y días de corrección.",
         "h1": ["Impermeabiliza tu techo", "antes de que llueva."],
-        "lead": "Goteras, manchas de humedad o mantenimiento preventivo de azoteas, muros y terrazas. Graba un video de tu azotea y recibe cotizaciones de especialistas cerca de ti, cada una con su precio y su garantía. Cotizar es gratis.",
+        "lead": "Goteras, manchas de humedad o mantenimiento preventivo de azoteas, muros y terrazas. Graba un video de tu azotea y recibe cotizaciones de especialistas cerca de ti, cada una con su precio y, si los incluye, sus días de corrección sin costo. Cotizar es gratis.",
         "intro": "Si se mete el agua por la losa cuando llueve, o quieres adelantarte a la temporada de lluvias, describe tu techo en la app. Los especialistas te cotizan por metro cuadrado según el material y el estado de tu azotea, y tú comparas antes de decidir.",
         "problemas_titulo": "¿Qué necesita tu techo?",
         "problemas": [
@@ -146,8 +148,8 @@ OFICIOS = [
         "factores": ["Los metros cuadrados y el estado de la superficie", "Si hay que quitar el impermeabilizante anterior o se puede aplicar encima", "La duración que buscas: 3, 5 o 10 años", "El acceso a la azotea: escalera fija, escalera de mano o sin acceso fácil"],
         "diagnostico": True,
         "faqs": [
-            ["¿Qué impermeabilizante me conviene: 3, 5 o 10 años?", "En la app eliges la duración que buscas o dejas que el especialista te recomiende. Cada oferta te dice qué incluye y cuántos días de garantía da."],
-            ["¿Puedo mandar un video de mi azotea?", "Sí. Puedes adjuntar fotos y hasta un video para que el especialista vea el estado de tu techo y te cotice con más precisión."],
+            ["¿Qué impermeabilizante me conviene: 3, 5 o 10 años?", "En la app eliges la duración que buscas o dejas que el especialista te recomiende. Cada oferta te dice qué incluye y si trae días de corrección sin costo."],
+            ["¿Puedo mandar un video de mi azotea?", "Sí, y es necesario: tu solicitud lleva al menos 1 foto y 1 video (hasta 10 fotos y 3 videos de 1 minuto) para que el especialista vea el estado de tu techo y te cotice con más precisión."],
         ],
         "relacionados": ["albanil", "pintor", "plomero"],
     },
@@ -162,7 +164,7 @@ OFICIOS = [
         "description": "Instalación y conexión de estufas, boilers, calentadores y líneas de gas LP o natural. Compara ofertas de técnicos verificados cerca de ti. Cotiza gratis.",
         "h1": ["Instalación de gas", "segura, a domicilio."],
         "lead": "Conexión de estufas, boilers y calentadores de paso, líneas o tomas nuevas y revisión de fugas, en gas LP o natural. Compara ofertas de técnicos verificados de tu zona antes de contratar. Cotizar es gratis.",
-        "intro": "Con el gas no se improvisa. En Acency describes qué necesitas instalar o revisar, si es gas LP o natural y cuántos metros de tubería calculas, y los técnicos cercanos te mandan su oferta con precio, garantía y día de visita.",
+        "intro": "Con el gas no se improvisa. En Acency describes qué necesitas instalar o revisar, si es gas LP o natural y cuántos metros de tubería calculas, y los técnicos cercanos te mandan su oferta con precio, día de visita y, si la incluyen, corrección sin costo.",
         "problemas_titulo": "¿Qué necesitas?",
         "problemas": [
             ["Instalar una estufa", "Conexión de una estufa nueva a la línea de gas."],
@@ -195,7 +197,7 @@ OFICIOS = [
         "description": "Paredes cuarteadas, pisos, azulejo, resanes, bardas y losas. Pide un albañil a domicilio y compara ofertas de albañiles verificados cerca de ti.",
         "h1": ["Albañil a domicilio,", "cerca de ti."],
         "lead": "Paredes cuarteadas, pisos, azulejos, resanes, bardas y reparaciones. Manda fotos, recibe ofertas de albañiles verificados de tu zona y elige con calificaciones reales. Cotizar es gratis.",
-        "intro": "Desde una grieta en la pared hasta colocar azulejo en el baño o nivelar un piso: describe el trabajo, el tamaño aproximado y si hay que quitar lo anterior, y recibe ofertas de albañiles cercanos con precio, garantía y día de visita.",
+        "intro": "Desde una grieta en la pared hasta colocar azulejo en el baño o nivelar un piso: describe el trabajo, el tamaño aproximado y si hay que quitar lo anterior, y recibe ofertas de albañiles cercanos con precio, día de visita y, si la incluyen, corrección sin costo.",
         "problemas_titulo": "¿Qué necesitas reparar o construir?",
         "problemas": [
             ["Grieta o cuarteadura", "Paredes, bardas o losas cuarteadas."],
@@ -212,7 +214,7 @@ OFICIOS = [
         "diagnostico": True,
         "faqs": [
             ["¿Hacen remodelaciones?", "Sí, trabajos de albañilería residencial: pisos, azulejo, resanes, bardas, muros y reparaciones. Describe lo que quieres hacer y recibe ofertas."],
-            ["¿Puedo mandar fotos del trabajo?", "Sí. Adjunta fotos y hasta un video para que el albañil entienda el trabajo y te cotice con más precisión."],
+            ["¿Tengo que mandar fotos del trabajo?", "Sí: tu solicitud lleva al menos 1 foto y 1 video (hasta 10 fotos y 3 videos de 1 minuto) para que el albañil entienda el trabajo y te cotice con más precisión."],
         ],
         "relacionados": ["pintor", "impermeabilizacion", "herrero", "plomero"],
     },
@@ -224,9 +226,9 @@ OFICIOS = [
         "oficio_pl": "pintores",
         "icono": "s-pintura",
         "title": "Pintor a domicilio: interiores y fachadas | Acency",
-        "description": "Pinta tu casa sin batallar: interiores, fachadas, bardas, techos, puertas y herrería. Compara ofertas de pintores verificados cerca de ti, con garantía.",
+        "description": "Pinta tu casa sin batallar: interiores, fachadas, bardas, techos, puertas y herrería. Compara ofertas de pintores verificados cerca de ti. Cotiza gratis.",
         "h1": ["Pinta tu casa", "sin batallar."],
-        "lead": "Interiores, fachadas, techos, bardas, puertas y herrería. Recibe ofertas de pintores verificados cerca de ti con precio, día de visita y garantía. Cotizar es gratis.",
+        "lead": "Interiores, fachadas, techos, bardas, puertas y herrería. Recibe ofertas de pintores verificados cerca de ti con precio y día de visita. Cotizar es gratis.",
         "intro": "Dinos qué quieres pintar, cuántos cuartos son y en qué estado está la superficie. Los pintores de tu zona te mandan su oferta y tú eliges la que mejor te acomode, con todo por escrito en la app.",
         "problemas_titulo": "¿Qué quieres pintar?",
         "problemas": [
@@ -259,7 +261,7 @@ OFICIOS = [
         "description": "Rejas y protecciones, portones, barandales, escaleras y puertas de metal. Pide un herrero a domicilio y compara ofertas de herreros verificados.",
         "h1": ["Herrero a domicilio,", "cerca de ti."],
         "lead": "Rejas y protecciones, portones, barandales, escaleras y puertas de metal, fabricación o reparación con soldadura. Compara ofertas de herreros verificados antes de contratar. Cotizar es gratis.",
-        "intro": "Ya sea un portón que no cierra o protecciones nuevas para tus ventanas, describe la pieza, el material y en qué piso está. Los herreros cercanos te mandan su oferta con precio, garantía y día de visita.",
+        "intro": "Ya sea un portón que no cierra o protecciones nuevas para tus ventanas, describe la pieza, el material y en qué piso está. Los herreros cercanos te mandan su oferta con precio, día de visita y, si la incluyen, corrección sin costo.",
         "problemas_titulo": "¿Qué le pasa a tu herrería?",
         "problemas": [
             ["Soldadura rota", "Piezas que se separaron o se rompió la soldadura."],
@@ -291,7 +293,7 @@ OFICIOS = [
         "title": "Carpintero a domicilio: closets, puertas y muebles | Acency",
         "description": "Closets a medida, puertas que no cierran, repisas, cocinas integrales y muebles de madera. Compara ofertas de carpinteros verificados cerca de ti.",
         "h1": ["Carpintero a domicilio,", "cerca de ti."],
-        "lead": "Closets, puertas, repisas, cocinas integrales y muebles de madera. Recibe ofertas con precio, día de visita y garantía, y elige la que más te convenga. Cotizar es gratis.",
+        "lead": "Closets, puertas, repisas, cocinas integrales y muebles de madera. Recibe ofertas con precio y día de visita, y elige la que más te convenga. Cotizar es gratis.",
         "intro": "Una puerta que se atora, un closet a la medida o repisas para la sala: describe el trabajo y el acabado que buscas, y los carpinteros de tu zona te mandan su oferta.",
         "problemas_titulo": "¿Qué necesitas de un carpintero?",
         "problemas": [
@@ -358,7 +360,7 @@ OFICIOS = [
         "description": "Lavado, sanitización y mantenimiento de cisternas y tinacos de 600 L a 5,000 L o más. Compara ofertas de especialistas verificados cerca de ti.",
         "h1": ["Limpieza de cisternas", "y tinacos."],
         "lead": "Lavado, sanitización y mantenimiento de cisternas subterráneas y tinacos, a domicilio y con especialistas verificados de tu zona. Compara ofertas antes de contratar. Cotizar es gratis.",
-        "intro": "Indica si es cisterna, tinaco o ambos, la capacidad, dónde está y cuándo fue la última limpieza. Los especialistas cercanos te mandan su oferta con precio, garantía y día de visita.",
+        "intro": "Indica si es cisterna, tinaco o ambos, la capacidad, dónde está y cuándo fue la última limpieza. Los especialistas cercanos te mandan su oferta con precio, día de visita y, si la incluyen, corrección sin costo.",
         "problemas_titulo": "¿Qué necesitas limpiar?",
         "problemas": [
             ["Cisterna subterránea", "Lavado y sanitización de tu cisterna."],

@@ -88,6 +88,7 @@ h1,h2,h3{text-wrap:balance;font-weight:700}
 ::selection{background:var(--mint);color:var(--ink)}
 :focus-visible{outline:2px solid var(--mint);outline-offset:3px;border-radius:8px}
 [hidden]{display:none!important}
+button{font:inherit;border:0;cursor:pointer;-webkit-appearance:none;appearance:none}
 .wrap{max-width:1180px;margin-inline:auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
 .ico{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
 .ico-fill{fill:currentColor;stroke:none}
@@ -327,7 +328,7 @@ def pie(prefijo, actual=None):
       <ul>
         <li><a href="{prefijo or './'}">Inicio</a></li>
         <li><a href="{prefijo}#como-funciona">Cómo funciona</a></li>
-        <li><a href="{prefijo}#promo">−12% en tu primer trabajo</a></li>
+        <li><a href="{prefijo}#promo">−12% en tu primer servicio</a></li>
         <li><a href="{prefijo}#especialistas">Trabaja como especialista</a></li>
         <li><a href="{prefijo}#preguntas">Preguntas frecuentes</a></li>
         <li><a href="https://www.instagram.com/acency_mx" target="_blank" rel="noopener">Instagram</a></li>
@@ -357,24 +358,37 @@ def nombre_corto(o):
 def dock(prefijo):
     return f'''<aside class="dock" id="dock" aria-label="Descargar Acency">
   <img src="{prefijo}assets/icon.png" alt="" width="40" height="40" loading="lazy">
-  <span><b>Acency</b><small>Cotiza gratis · −12% en tu 1.er trabajo</small></span>
+  <span><b>Acency</b><small>Cotiza gratis · −12% en tu 1.er servicio</small></span>
   <a class="btn" data-play href="{PLAY}" target="_blank" rel="noopener"><svg class="ico ico-fill"><use href="#i-play"/></svg>Descargar</a>
 </aside>
 '''
 
 
-PROMO_FAQ = ['¿Hay descuento en mi primer servicio?', 'Sí. Si eres cliente nuevo, tu primer trabajo tiene 12% de descuento. Aplica pagando con tarjeta y con tu identidad verificada (INE), y lo ves reflejado en la pantalla de pago antes de confirmar. El descuento lo pone Acency: tu especialista cobra lo mismo. Es una promoción de bienvenida por tiempo limitado.']
+PROMO_FAQ = ['¿Hay descuento en mi primer servicio?', 'Sí. En tu primer servicio pagado con tarjeta, Acency te descuenta el 12% de lo que pagas por la mano de obra, hasta $1,000 MXN. No vence: lo usas cuando lo necesites. Necesitas tu identidad verificada y no aplica en efectivo. Tu especialista cobra exactamente lo mismo: el descuento sale de Acency. Si ese servicio se cancela, el descuento vuelve a quedar disponible.']
+
+# Servicios donde la app NO permite ofrecer corrección sin costo
+# (lib/core/categorias.dart → kSubcategoriasSinCorreccion).
+SIN_CORRECCION = {'mudanzas', 'mandados', 'paseador-de-perros'}
+
+
+def con_correccion(o):
+    return o['slug'] not in SIN_CORRECCION
 
 
 def faqs_de(o):
     nombre = o['nombre']
     fs = [[o['precio_titulo'], o['precio']]] + o['faqs']
     if o['diagnostico']:
-        fs.append(['¿Puedo pedir solo una revisión?', 'Sí. En %s un especialista puede ofrecerte primero una visita de diagnóstico. Pagas solo esa visita; después recibes un dictamen con fotos y, si hace falta reparar, una cotización con precio firme. Tú decides si la contratas.' % nombre.lower()])
+        solo = ' (en carpintería, solo para reparaciones)' if o['slug'] == 'carpintero' else ''
+        fs.append(['¿Puedo pedir solo una revisión?', 'Sí. En %s%s un especialista puede ofrecerte primero una visita de diagnóstico. Pagas solo esa visita; después recibes un dictamen con fotos y, si hace falta reparar, una cotización con precio firme. Tú decides si la contratas. La visita de diagnóstico no incluye materiales ni corrección sin costo.' % (nombre.lower(), solo)])
+    fs.append(['¿Cotizar tiene costo?', 'No. Pides cotizaciones sin costo a todos los especialistas que quieras. Solo pagas cuando eliges y confirmas una oferta. Tu solicitud está activa 20 horas.'])
+    if con_correccion(o):
+        fs.append(['¿Qué pasa si el trabajo quedó mal?', 'Depende de la oferta. Si incluía corrección sin costo (opcional; el especialista elige los días, hasta 30), dentro de ese plazo la pides desde Mi actividad con un video y tu especialista regresa a corregirlo sin cobrarte; puedes pedirla hasta 2 veces por servicio. Si no la incluía, tienes 24 horas después de terminado para reportar que quedó mal con un video de 1 a 2 minutos: tu especialista decide si regresa a corregirlo sin costo y, si no regresa, se te devuelve el 30% de la mano de obra. En cualquier caso conservas tus derechos como consumidor.'])
+    else:
+        fs.append(['¿Qué pasa si algo sale mal?', 'Este servicio no incluye corrección sin costo (en la app no se ofrece en mudanzas, mandados, paseo de mascotas ni hacer fila). Si algo sale mal, repórtalo desde la app y Acency revisa el caso con la evidencia de ambas partes.'])
     fs += [
-        ['¿Cotizar tiene costo?', 'No. Pides cotizaciones sin costo a todos los especialistas que quieras. Solo pagas cuando eliges y confirmas una oferta. Tu solicitud está activa 20 horas.'],
-        ['¿Qué garantía tiene el trabajo?', 'Cada oferta trae su propia garantía: el especialista decide cuántos días respalda su trabajo, hasta un máximo de 30. Si algo no quedó bien, lo reclamas desde la app y regresa a corregirlo sin costo extra.'],
-        ['¿Cómo puedo pagar?', 'Con tarjeta de crédito o débito, o en efectivo. Con tarjeta, Acency retiene el pago hasta que confirmas que el trabajo quedó bien. En efectivo le pagas en mano a tu especialista antes de que empiece, sin protección de pago digital.'],
+        ['¿Tengo que estar presente cuando termina?', 'No es obligatorio. Al terminar, tu especialista toma fotos y video como evidencia y cierra el servicio desde su app: tú no tienes que confirmar nada. Si estás ahí, revisa con él y dile en ese momento si algo no quedó bien.'],
+        ['¿Cómo puedo pagar?', 'Con tarjeta de crédito o débito, o en efectivo. Con tarjeta, Acency retiene el pago y se lo deposita a tu especialista entre 48 y 72 horas después de completar el servicio; si reportas un problema, se pausa. En efectivo le pagas en mano a tu especialista antes de que empiece, sin protección de pago digital.'],
         PROMO_FAQ,
     ]
     return fs
@@ -414,9 +428,14 @@ def pagina(o):
     rel = '\n'.join('      <li><a href="../%s/"><i><svg class="ico"><use href="#%s"/></svg></i><span><b>%s</b><small>%s</small></span></a></li>' % (
         r, POR_SLUG[r]['icono'], e(nombre_corto(POR_SLUG[r])), e(POR_SLUG[r]['problemas_titulo'])) for r in o['relacionados'])
     todos = ''.join('<li><a href="../%s/"%s>%s</a></li>' % (x['slug'], ' aria-current="page"' if x['slug'] == slug else '', e(nombre_corto(x))) for x in OFICIOS)
+    cc = con_correccion(o)
+    chip2 = '<li><svg class="ico"><use href="#i-award"/></svg>Corrección sin costo opcional</li>' if cc else '<li><svg class="ico"><use href="#i-lock"/></svg>Código de seguridad al llegar</li>'
+    compara = 'materiales, días de corrección y hora de vencimiento' if cc else 'materiales y hora de vencimiento'
+    seguro5 = ('<li><svg class="ico"><use href="#i-award"/></svg><h3>Corrección sin costo</h3><p>Opcional, hasta 30 días: si el trabajo falla en ese plazo, tu especialista regresa sin cobrarte. Lo ves en la oferta antes de elegir.</p></li>' if cc else
+               '<li><svg class="ico"><use href="#i-alert"/></svg><h3>Si algo sale mal</h3><p>Lo reportas desde la app y Acency revisa el caso con la evidencia de ambas partes.</p></li>')
     diag = ''
     if o['diagnostico']:
-        diag = '      <p class="note"><svg class="ico"><use href="#i-shield"/></svg><span><b>¿No sabes qué tiene?</b> Un especialista puede ofrecerte primero una visita de diagnóstico: pagas solo esa visita y recibes un dictamen con fotos y, si hace falta, una cotización con precio firme.</span></p>\n'
+        diag = '      <p class="note"><svg class="ico"><use href="#i-shield"/></svg><span><b>¿No sabes qué tiene?</b> ' + ('En reparaciones, un' if o['slug'] == 'carpintero' else 'Un') + ' especialista puede ofrecerte primero una visita de diagnóstico: pagas solo esa visita y recibes un dictamen con fotos y, si hace falta, una cotización con precio firme.</span></p>\n'
 
     cuerpo = f'''<body data-oficio="{slug}">
 {simbolos(ICONOS)}
@@ -433,10 +452,10 @@ def pagina(o):
       <a class="btn" data-play href="{PLAY}" target="_blank" rel="noopener"><svg class="ico ico-fill"><use href="#i-play"/></svg> Descargar en Google Play</a>
       <p class="o-free"><b>Gratis</b>Cotizar no cuesta nada · App para Android</p>
     </div>
-    <a class="o-promo" href="#promo"><b>−12%</b><span>en tu primer trabajo · promoción de bienvenida por tiempo limitado</span></a>
+    <a class="o-promo" href="#promo"><b>−12%</b><span>en tu primer servicio pagado con tarjeta · no vence</span></a>
     <ul class="trust" aria-label="Por qué Acency">
       <li><svg class="ico"><use href="#i-shield"/></svg>{e(o['oficio_pl'].capitalize())} verificados</li>
-      <li><svg class="ico"><use href="#i-award"/></svg>Garantía de hasta 30 días</li>
+      {chip2}
       <li><svg class="ico"><use href="#i-card"/></svg>Pago protegido con tarjeta</li>
       <li><svg class="ico"><use href="#i-chat"/></svg>Chat sin dar tu teléfono</li>
     </ul>
@@ -467,7 +486,7 @@ def pagina(o):
     <div>
       <h2 class="h3">Así lo piden en la app</h2>
       <ul class="quotes">{frases}</ul>
-      <p class="quotes-note">Escríbelo con tus palabras y agrega fotos o hasta un video.</p>
+      <p class="quotes-note">Escríbelo con tus palabras y agrega fotos y video: al menos 1 de cada uno.</p>
     </div>
   </div>
 </section>
@@ -497,10 +516,10 @@ def pagina(o):
         <h2 class="h2" id="como-t">Recibe ofertas y <span class="accent">elige la mejor</span> para ti.</h2>
       </div>
       <ol class="steps">
-        <li><h3>Cuenta qué pasa</h3><p>Describe el problema, agrega fotos o hasta un video e indica tu zona.</p></li>
+        <li><h3>Cuenta qué pasa</h3><p>Describe el problema, agrega fotos y video (al menos 1 de cada uno) e indica tu zona.</p></li>
         <li><h3>Urgente o Agendar</h3><p>Urgente: ofertas para hoy o mañana. Agendar: tiempo estándar. El día, la hora de llegada y la duración vienen en cada oferta.</p></li>
-        <li><h3>Compara ofertas</h3><p>Precio, calificación o la etiqueta <b>Nuevo</b>, materiales, garantía y hora de vencimiento. Compara las veces que quieras.</p></li>
-        <li><h3>Sigue el servicio y califica</h3><p>En camino, En tu puerta, Trabajando y Verificando, en tiempo real. Al final se califican los dos.</p></li>
+        <li><h3>Compara ofertas</h3><p>Precio, calificación o la etiqueta <b>Nuevo</b>, {compara}. Compara las veces que quieras.</p></li>
+        <li><h3>Sigue el servicio y califica</h3><p>En camino, En tu puerta y Trabajando, en tiempo real. Al terminar, tu especialista sube fotos y video y cierra el servicio; luego se califican los dos.</p></li>
       </ol>
     </div>
     <figure class="how-img">
@@ -514,9 +533,9 @@ def pagina(o):
   <div class="wrap">
     <p class="promo-pct" aria-hidden="true">12<small>%</small></p>
     <div>
-      <h2 id="promo-t">Tu primer trabajo con 12% de descuento.</h2>
-      <p>Si eres cliente nuevo, tu primer servicio en Acency tiene 12% de descuento. El descuento lo pone Acency: tu especialista cobra lo mismo. Por tiempo limitado.</p>
-      <p class="fine">Aplica para clientes nuevos con identidad verificada (INE) y pago con tarjeta; no aplica en efectivo. Lo ves en la pantalla de pago antes de confirmar. Acency puede modificar o terminar la promoción; las condiciones vigentes se muestran en la app.</p>
+      <h2 id="promo-t">Tu primer servicio con 12% de descuento.</h2>
+      <p>En tu primer servicio pagado con tarjeta, Acency te descuenta el 12% de lo que pagas por la mano de obra, hasta $1,000 MXN. No vence. Tu especialista cobra lo mismo: el descuento sale de Acency.</p>
+      <p class="fine">Necesitas tu identidad verificada y tu cuenta activa; no aplica en efectivo. Si ese servicio se cancela, el descuento vuelve a quedar disponible. El ahorro exacto lo ves en la pantalla de pago antes de confirmar.</p>
     </div>
     <a class="btn btn-dark" data-play href="{PLAY}" target="_blank" rel="noopener"><svg class="ico ico-fill"><use href="#i-play"/></svg> Usar mi 12%</a>
   </div>
@@ -529,12 +548,12 @@ def pagina(o):
       <h2 class="h2" id="seguro">Seguridad en <span class="accent">cada visita.</span></h2>
     </div>
     <ul class="safe">
-      <li><svg class="ico"><use href="#i-shield"/></svg><h3>Especialistas verificados</h3><p>Identidad con INE, teléfono y habilidades en su oficio. El equipo de Acency aprueba cada perfil.</p></li>
+      <li><svg class="ico"><use href="#i-shield"/></svg><h3>Especialistas verificados</h3><p>INE y selfie, teléfono, oficio, experiencia y datos fiscales. El equipo de Acency aprueba cada perfil.</p></li>
       <li><svg class="ico"><use href="#i-lock"/></svg><h3>Código de seguridad</h3><p>Un código de 6 caracteres que solo tú ves. Se lo das a tu especialista al llegar.</p></li>
-      <li><svg class="ico"><use href="#i-card"/></svg><h3>Pago retenido</h3><p>Con tarjeta, Acency retiene el pago hasta que confirmas que el trabajo quedó bien.</p></li>
-      <li><svg class="ico"><use href="#i-award"/></svg><h3>Garantía de hasta 30 días</h3><p>Cada oferta trae su garantía. Si algo no quedó bien, regresa a corregirlo sin costo.</p></li>
+      <li><svg class="ico"><use href="#i-card"/></svg><h3>Pago retenido</h3><p>Con tarjeta, Acency retiene el pago y se lo deposita a tu especialista entre 48 y 72 horas después de completar. Si reportas un problema, se pausa.</p></li>
+      {seguro5}
       <li><svg class="ico"><use href="#i-chat"/></svg><h3>Chat privado</h3><p>Todo pasa por el chat de la app, sin compartir tu teléfono ni tu correo.</p></li>
-      <li><svg class="ico"><use href="#i-star"/></svg><h3>Reseñas de ambos lados</h3><p>Se publican cuando los dos calificaron, para que sean honestas.</p></li>
+      <li><svg class="ico"><use href="#i-star"/></svg><h3>Reseñas de ambos lados</h3><p>Se publican al mismo tiempo cuando los dos calificaron o vence el plazo, para que sean honestas.</p></li>
     </ul>
   </div>
 </section>
@@ -578,7 +597,7 @@ def pagina(o):
   <div class="wrap">
     <span class="label">Descarga gratis</span>
     <h2 class="h2" id="final-t">Resuélvelo desde <span class="accent">tu celular.</span></h2>
-    <p class="lead">Descarga Acency, cuenta qué pasa y recibe ofertas de {e(o['oficio_pl'])} cerca de ti. Cotizar es gratis y tu primer trabajo tiene 12% de descuento.</p>
+    <p class="lead">Descarga Acency, cuenta qué pasa y recibe ofertas de {e(o['oficio_pl'])} cerca de ti. Cotizar es gratis y tu primer servicio pagado con tarjeta tiene 12% de descuento en la mano de obra.</p>
     <a class="btn" data-play href="{PLAY}" target="_blank" rel="noopener"><svg class="ico ico-fill"><use href="#i-play"/></svg> Descargar en Google Play</a>
   </div>
 </section>
@@ -593,7 +612,7 @@ def pagina(o):
     return head(o['title'], o['description'], url, ld(datos), p) + cuerpo
 
 
-def pagina_simple(ruta_rel, title, h1, texto, botones, prefijo='/'):
+def pagina_simple(ruta_rel, title, h1, texto, botones, prefijo='/', extra_js=''):
     """404 y regreso de Stripe: sin indexar, con rutas absolutas (/) porque se sirven en cualquier ruta."""
     cuerpo = f'''<body data-oficio="{e(ruta_rel)}">
 {simbolos(['i-play', 'i-arrow'])}
@@ -610,12 +629,50 @@ def pagina_simple(ruta_rel, title, h1, texto, botones, prefijo='/'):
   </div>
 </section>
 </main>
-{pie(prefijo)}<script src="{prefijo}js/anuncios.js"></script>
+{pie(prefijo)}{extra_js}<script src="{prefijo}js/anuncios.js"></script>
 <script src="{prefijo}js/oficio.js"></script>
 </body>
 </html>
 '''
     return head(title, texto, D + '/', '', prefijo, robots='noindex,follow', canonical=False) + cuerpo
+
+
+# La app comparte enlaces https://<dominio>/r/<código> (invitación) y /p/<id>
+# (promoción) — lib/core/tarifas.dart kEnlaceReferidoBase / kEnlacePromoBase y
+# lib/main.dart _manejarDeepLink. Con la app instalada y el dominio verificado
+# (/.well-known/assetlinks.json) Android abre la app directo; si no, el hosting
+# sirve esta 404 y aquí se muestra qué hacer en vez de "no existe".
+JS_ENLACES_APP = r"""<script>
+(function () {
+  var m = location.pathname.match(/^\/(r|p)\/([^\/?#]+)/);
+  if (!m) return;
+  function codigo(v) {
+    try { v = decodeURIComponent(v || ''); } catch (e) { return ''; }
+    v = v.toUpperCase().replace(/\s+/g, '');
+    return /^ACY-[23456789ABCDEFGHJKMNPQRSTVWXYZ]{4,8}$/.test(v) ? v : '';
+  }
+  var esInvitacion = m[1] === 'r';
+  var cod = esInvitacion ? codigo(m[2]) : codigo(new URLSearchParams(location.search).get('ref'));
+  if (esInvitacion && !cod) return;
+  var h1 = document.querySelector('.o-hero h1'), lead = document.querySelector('.o-hero .lead'), cta = document.querySelector('.o-hero .o-cta');
+  if (!h1 || !lead || !cta) return;
+  document.body.setAttribute('data-oficio', esInvitacion ? 'invitacion' : 'promo');
+  document.title = esInvitacion ? 'Te invitaron a Acency' : 'Promoción de Acency';
+  h1.innerHTML = esInvitacion ? 'Te invitaron a <span class="accent">Acency.</span>' : 'Esta promoción se abre <span class="accent">en la app.</span>';
+  lead.textContent = esInvitacion
+    ? 'Descarga la app y, al crear tu cuenta, escribe este código en “¿Tienes código de invitación?”.'
+    : 'Si ya tienes Acency en tu Android, abre este enlace desde tu celular y se abre la promoción. Si no, descárgala gratis.' + (cod ? ' Al crear tu cuenta, usa el código de invitación de quien te la compartió.' : '');
+  var play = '<a class="btn" data-play href="https://play.google.com/store/apps/details?id=com.servicios.acency" target="_blank" rel="noopener"><svg class="ico ico-fill"><use href="#i-play"/></svg> Descargar en Google Play</a>';
+  cta.innerHTML = (cod ? '<button class="btn btn-line" type="button" id="copiarCodigo">Código: ' + cod + ' · Copiar</button>' : '') + play;
+  var b = document.getElementById('copiarCodigo');
+  if (b) b.addEventListener('click', function () {
+    var ok = function () { b.textContent = 'Código ' + cod + ' copiado'; };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(cod).then(ok, function () { b.textContent = 'Tu código: ' + cod; });
+    else b.textContent = 'Tu código: ' + cod;
+  });
+})();
+</script>
+"""
 
 
 def faq_visible(texto):
@@ -671,11 +728,12 @@ def main():
         sm.append('  <url><loc>%s</loc><lastmod>%s</lastmod></url>' % (u, FECHA))
     sm.append('</urlset>')
     escribir('sitemap.xml', '\n'.join(sm) + '\n')
-    escribir('robots.txt', 'User-agent: *\nAllow: /\nDisallow: /stripe/\n\nSitemap: %s/sitemap.xml\n' % D)
+    escribir('robots.txt', 'User-agent: *\nAllow: /\nDisallow: /stripe/\nDisallow: /r/\nDisallow: /p/\n\nSitemap: %s/sitemap.xml\n' % D)
     # 4) 404 y regreso de Stripe (especialistas)
     escribir('404.html', pagina_simple('404', 'Página no encontrada · Acency', 'Esta página <span class="accent">no existe.</span>',
                                        'Puede que el enlace esté mal escrito o que la página ya no exista. Desde el inicio encuentras todos los servicios.',
-                                       '<a class="btn" href="/">Ir al inicio <svg class="ico"><use href="#i-arrow"/></svg></a><a class="btn btn-line" href="/#servicios">Ver servicios</a>'))
+                                       '<a class="btn" href="/">Ir al inicio <svg class="ico"><use href="#i-arrow"/></svg></a><a class="btn btn-line" href="/#servicios">Ver servicios</a>',
+                                       extra_js=JS_ENLACES_APP))
     for r in ('return', 'refresh'):
         escribir('stripe/%s/index.html' % r, pagina_simple('stripe-' + r, 'Regresa a la app · Acency', 'Listo, <span class="accent">regresa a la app.</span>',
                                                           'Ya puedes volver a Acency para terminar de configurar tus pagos. Si la app no se abrió sola, ábrela desde tu celular.',

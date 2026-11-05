@@ -41,6 +41,8 @@ Después sube la carpeta completa a cualquiera de estos (todos tienen plan grati
 - **Firebase Hosting:** el mismo proyecto de la app ya usa Hosting para los documentos legales; se puede crear otro sitio para la página.
 
 > Si apuntas `acencyservicios.com` a esta página, las rutas `/stripe/return` y `/stripe/refresh` ya existen aquí, así el alta de pagos de los especialistas no cae en un error 404.
+>
+> La app también comparte enlaces `acencyservicios.com/r/ACY-…` (invitaciones) y `/p/…` (promociones). La `404.html` los reconoce y muestra el código para copiar y el botón de Google Play. **Antes de cambiar el hosting**, copia el archivo `/.well-known/assetlinks.json` que tenga hoy el dominio (o descárgalo de Play Console → Integridad de la app → Vinculación de apps) a la carpeta `.well-known/` de este repo: sin él, Android no abre la app directo desde esos enlaces.
 
 ## Google Ads (antes de poner dinero)
 

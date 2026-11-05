@@ -39,6 +39,7 @@ h1,h2,h3{text-wrap:balance;font-weight:700}
 ::selection{background:var(--mint);color:var(--ink)}
 :focus-visible{outline:2px solid var(--mint);outline-offset:3px;border-radius:8px}
 [hidden]{display:none!important}
+button{font:inherit;border:0;cursor:pointer;-webkit-appearance:none;appearance:none}
 .wrap{max-width:1180px;margin-inline:auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
 .ico{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
 .ico-fill{fill:currentColor;stroke:none}
@@ -249,7 +250,7 @@ h1,h2,h3{text-wrap:balance;font-weight:700}
       <ul>
         <li><a href="/">Inicio</a></li>
         <li><a href="/#como-funciona">Cómo funciona</a></li>
-        <li><a href="/#promo">−12% en tu primer trabajo</a></li>
+        <li><a href="/#promo">−12% en tu primer servicio</a></li>
         <li><a href="/#especialistas">Trabaja como especialista</a></li>
         <li><a href="/#preguntas">Preguntas frecuentes</a></li>
         <li><a href="https://www.instagram.com/acency_mx" target="_blank" rel="noopener">Instagram</a></li>
@@ -263,6 +264,36 @@ h1,h2,h3{text-wrap:balance;font-weight:700}
     </div>
   </div>
 </footer>
+<script>
+(function () {
+  var m = location.pathname.match(/^\/(r|p)\/([^\/?#]+)/);
+  if (!m) return;
+  function codigo(v) {
+    try { v = decodeURIComponent(v || ''); } catch (e) { return ''; }
+    v = v.toUpperCase().replace(/\s+/g, '');
+    return /^ACY-[23456789ABCDEFGHJKMNPQRSTVWXYZ]{4,8}$/.test(v) ? v : '';
+  }
+  var esInvitacion = m[1] === 'r';
+  var cod = esInvitacion ? codigo(m[2]) : codigo(new URLSearchParams(location.search).get('ref'));
+  if (esInvitacion && !cod) return;
+  var h1 = document.querySelector('.o-hero h1'), lead = document.querySelector('.o-hero .lead'), cta = document.querySelector('.o-hero .o-cta');
+  if (!h1 || !lead || !cta) return;
+  document.body.setAttribute('data-oficio', esInvitacion ? 'invitacion' : 'promo');
+  document.title = esInvitacion ? 'Te invitaron a Acency' : 'Promoción de Acency';
+  h1.innerHTML = esInvitacion ? 'Te invitaron a <span class="accent">Acency.</span>' : 'Esta promoción se abre <span class="accent">en la app.</span>';
+  lead.textContent = esInvitacion
+    ? 'Descarga la app y, al crear tu cuenta, escribe este código en “¿Tienes código de invitación?”.'
+    : 'Si ya tienes Acency en tu Android, abre este enlace desde tu celular y se abre la promoción. Si no, descárgala gratis.' + (cod ? ' Al crear tu cuenta, usa el código de invitación de quien te la compartió.' : '');
+  var play = '<a class="btn" data-play href="https://play.google.com/store/apps/details?id=com.servicios.acency" target="_blank" rel="noopener"><svg class="ico ico-fill"><use href="#i-play"/></svg> Descargar en Google Play</a>';
+  cta.innerHTML = (cod ? '<button class="btn btn-line" type="button" id="copiarCodigo">Código: ' + cod + ' · Copiar</button>' : '') + play;
+  var b = document.getElementById('copiarCodigo');
+  if (b) b.addEventListener('click', function () {
+    var ok = function () { b.textContent = 'Código ' + cod + ' copiado'; };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(cod).then(ok, function () { b.textContent = 'Tu código: ' + cod; });
+    else b.textContent = 'Tu código: ' + cod;
+  });
+})();
+</script>
 <script src="/js/anuncios.js"></script>
 <script src="/js/oficio.js"></script>
 </body>
